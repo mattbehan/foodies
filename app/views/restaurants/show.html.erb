@@ -1,0 +1,18 @@
+<h1><%= @restaurant.name %></h1>
+
+<div class="restaurant-info">
+  <h4>Restaurant Info</h4>
+  <ul style="list-style: none">
+    <li>Cuisine: <%= @restaurant.cuisine %></li>
+    <li>Address:
+      <ul style="list-style: none">
+        <li><%= @restaurant.street_address %></li>
+        <li><%= @restaurant.city %>, <%= @restaurant.state %> <%= @restaurant.zip %></li>
+      </ul>
+    </li>
+    <li>Phone Number: <%= @restaurant.phone_number %></li>
+    <li>Neighborhood: <%= @restaurant.neighborhood %></li>
+    <li>Price Scale: <%= @restaurant.price_scale %></li>
+
+  </ul>
+</div>
