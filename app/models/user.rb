@@ -10,7 +10,21 @@ class User < ActiveRecord::Base
  	has_one :profile
  	has_one :role
 
-  has_
+  has_many :followings, foreign_key: "follower_id"
+  has_many :followed_users, through: :followings
+  has_many :followers, through: :followings
+  has_many :bookmarks, foreign_key: "bookmarker_id"
+  has_many :bookmarked_restaurants, through: :bookmarks
+  has_many :votes
+  has_many :articles, foreign_key: "author_id"
+  has_many :comments
+  has_many :commented_upon_reviews, through: :comments, source: :review
+  has_many :reviews, foreign_key: "reviewer_id"
+  has_many :reviewed_restaurants, through: :reviews, source: :restaurant
+  has_many :quick_takes, foreign_key: "rater_id"
+  has_many :rated_restaurants, through: :quick_takes, source: :restaurant
+  has_many :visits, foreign_key: "visitor_id"
+  has_many :visited_restaurants, through: :visits
 
  	def admin?
  		role.name == "admin"
