@@ -54,23 +54,24 @@ ActiveRecord::Schema.define(version: 20151009184052) do
   end
 
   create_table "followings", force: :cascade do |t|
-    t.integer  "user_id",     null: false
-    t.integer  "follower_id", null: false
+    t.integer  "follower_id",      null: false
+    t.integer  "followed_user_id", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "followings", ["followed_user_id"], name: "index_followings_on_followed_user_id", using: :btree
+  add_index "followings", ["follower_id"], name: "index_followings_on_follower_id", using: :btree
+
+  create_table "profiles", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "username",    null: false
+    t.string   "full_name"
+    t.string   "affiliation"
+    t.text     "bio"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
-
-  add_index "followings", ["follower_id"], name: "index_followings_on_follower_id", using: :btree
-  add_index "followings", ["user_id"], name: "index_followings_on_user_id", using: :btree
-
-  create_table "profiles", force: :cascade do |t|
-    t.integer  "user_id",    null: false
-    t.string   "bio"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
   create_table "quick_takes", force: :cascade do |t|
     t.integer  "rater_id",      null: false
@@ -128,7 +129,8 @@ ActiveRecord::Schema.define(version: 20151009184052) do
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",       default: "user", null: false
-    t.integer  "user_id",                     null: false
+    t.integer  "user_id"
+    t.string   "email",                       null: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end
