@@ -1,5 +1,7 @@
 == README
 
+{<img src="https://coveralls.io/repos/chi-cicadas-2015/foodies/badge.svg?branch=master&service=github" alt="Coverage Status" />}[https://coveralls.io/github/chi-cicadas-2015/foodies?branch=master]
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
