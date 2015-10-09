@@ -46,13 +46,13 @@ class User < ActiveRecord::Base
 	 self.invite!(attributes, invited_by) do |invitable|
 	 	puts "guests invitable: ______________________________________________________________________________________________________________________________________________________________________"
 	 	puts invitable
-	   invitable.invitation_instructions = :guest_invitation_instructions
+	   invitable.invitation_instructions = :user_invitation_instructions
 	 end
 	end
 
 	def self.invite_reviewer!(attributes={role: "admin"}, invited_by=nil)
 	 self.invite!(attributes, invited_by) do |invitable|
-	   invitable.invitation_instructions = :friend_invitation_instructions
+	   invitable.invitation_instructions = :reviewer_invitation_instructions
 	 end
 	end
 
