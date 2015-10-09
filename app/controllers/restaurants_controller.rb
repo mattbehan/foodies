@@ -1,5 +1,6 @@
 class RestaurantsController < ApplicationController
 
+  # Not exactly sure if this is the correct way of doing this. Acceptable?
   before_action :find_restaurant
   before_action :find_restaurants_reviews, only: [:show]
 
