@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => {:registrations => "registrations"}
 
   root 'users#hey'
+  get "admins/invite" => 'users#invite'
+  post "admins/invite" => 'users#invite'
 
   resources :users, only: [:index, :show]
 

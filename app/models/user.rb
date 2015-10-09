@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+
+  attr_writer :invitation_instructions
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :lockable, :confirmable, :invitable
 
@@ -30,6 +33,28 @@ class User < ActiveRecord::Base
  	def self.all_reviewers
  		User.all.select {|user| user.role.name == "reviewer"}
  	end
+
+	def deliver_invitation
+	 if @invitation_instructions.present?
+	   ::Devise.mailer.send(@invitation_instructions, self).deliver
+	 else
+	   super
+	 end
+	end
+
+	def self.invite_guest!(attributes={}, invited_by=nil)
+	 self.invite!(attributes, invited_by) do |invitable|
+	 	puts "invitable: ______________________________________________________________________________________________________________________________________________________________________"
+	 	puts invitable
+	   invitable.invitation_instructions = :guest_invitation_instructions
+	 end
+	end
+
+	def self.invite_friend!(attributes={}, invited_by=nil)
+	 self.invite!(attributes, invited_by) do |invitable|
+	   invitable.invitation_instructions = :friend_invitation_instructions
+	 end
+	end
 
 end
 
