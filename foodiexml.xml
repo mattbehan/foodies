@@ -37,7 +37,7 @@
 		<type label="SET" length="1" sql="SET" quote=""/>
 		<type label="Bit" length="0" sql="bit" quote=""/>
 	</group>
-</datatypes><table x="237" y="73" name="restaurants">
+</datatypes><table x="133" y="54" name="restaurants">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -47,7 +47,7 @@
 <row name="cuisine" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
-<row name="address" null="1" autoincrement="0">
+<row name="street_address" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
 <row name="phone number" null="1" autoincrement="0">
@@ -83,6 +83,18 @@
 <row name="menu_url" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
+<row name="city" null="1" autoincrement="0">
+<datatype>MEDIUMTEXT</datatype>
+<default>NULL</default></row>
+<row name="state" null="1" autoincrement="0">
+<datatype>MEDIUMTEXT</datatype>
+<default>NULL</default></row>
+<row name="zip" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="dress_code" null="1" autoincrement="0">
+<datatype>MEDIUMTEXT</datatype>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
@@ -100,12 +112,6 @@
 <row name="password_hash" null="1" autoincrement="0">
 <datatype>MEDIUMTEXT</datatype>
 <default>NULL</default></row>
-<row name="avatar_url" null="1" autoincrement="0">
-<datatype>MEDIUMTEXT</datatype>
-<default>NULL</default></row>
-<row name="bio" null="1" autoincrement="0">
-<datatype>MEDIUMTEXT</datatype>
-<default>NULL</default></row>
 <row name="reviewer" null="1" autoincrement="0">
 <datatype>bit</datatype>
 <default>NULL</default></row>
@@ -113,7 +119,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1265" y="170" name="reviews">
+<table x="1217" y="180" name="reviews">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -280,6 +286,79 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="restaurants" row="id" />
 </row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1016" y="714" name="role">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="user_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="users" row="id" />
+</row>
+<row name="name" null="1" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="670" y="691" name="profiles">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="user_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="users" row="id" />
+</row>
+<row name="bio" null="1" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>NULL</default></row>
+<row name="full_name" null="1" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>NULL</default></row>
+<row name="affiliation" null="1" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="567" y="182" name="articles">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="user_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="users" row="id" />
+</row>
+<row name="title" null="1" autoincrement="0">
+<datatype>MEDIUMTEXT</datatype>
+<default>NULL</default></row>
+<row name="content" null="1" autoincrement="0">
+<datatype>MEDIUMTEXT</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1356" y="190" name="quick_takes">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="user_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="users" row="id" />
+</row>
+<row name="restaurant_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="restaurants" row="id" />
+</row>
+<row name="rating" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
