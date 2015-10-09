@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  root "restaurants#index"
+  resources :restaurants do
+    resources :reviews
+  end
   devise_for :users, :controllers => {:registrations => "registrations"}
-
-  root 'users#hey'
   get "admins/invite" => 'users#invite'
   post "admins/invite" => 'users#invite'
 

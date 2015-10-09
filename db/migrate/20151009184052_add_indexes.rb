@@ -23,7 +23,7 @@ class AddIndexes < ActiveRecord::Migration
     add_index(:visits, :visitor_id)
     add_index(:bookmarks, :bookmarker_id)
     add_index(:bookmarks, :bookmarked_restaurant_id)
-    add_index(:followings, :user_id)
+    add_index(:followings, :followed_user_id)
     add_index(:followings, :follower_id)
   end
 end
