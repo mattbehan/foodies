@@ -11,17 +11,5 @@ class ApplicationController < ActionController::Base
   	root_path
   end
 
-  def after_sign_up_path_for(resource)
-    "/users"
-  end
-
-  def after_inactive_sign_up_path_for(resource)
-    scope = Devise::Mapping.find_scope!(resource)
-    router_name = Devise.mappings[scope].router_name
-    context = router_name ? send(router_name) : self
-    # context.respond_to?(:root_path) ? context.root_path : "/"
-    context.respond_to?(:index) ? context.index : "/users"
-  end
-
 
 end
