@@ -50,39 +50,6 @@
 <row name="street_address" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
-<row name="phone number" null="1" autoincrement="0">
-<datatype>VARCHAR</datatype>
-<default>NULL</default></row>
-<row name="neighborhood" null="1" autoincrement="0">
-<datatype>VARCHAR</datatype>
-<default>NULL</default></row>
-<row name="price_scale" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="website" null="1" autoincrement="0">
-<datatype>VARCHAR</datatype>
-<default>NULL</default></row>
-<row name="atmosphere" null="1" autoincrement="0">
-<datatype>VARCHAR</datatype>
-<default>NULL</default></row>
-<row name="delivery" null="1" autoincrement="0">
-<datatype>bit</datatype>
-<default>NULL</default></row>
-<row name="reservations" null="1" autoincrement="0">
-<datatype>bit</datatype>
-<default>NULL</default></row>
-<row name="vegan_friendliness" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="nearest_l" null="1" autoincrement="0">
-<datatype>VARCHAR</datatype>
-<default>NULL</default></row>
-<row name="patios" null="1" autoincrement="0">
-<datatype>bit</datatype>
-<default>NULL</default></row>
-<row name="menu_url" null="1" autoincrement="0">
-<datatype>VARCHAR</datatype>
-<default>NULL</default></row>
 <row name="city" null="1" autoincrement="0">
 <datatype>MEDIUMTEXT</datatype>
 <default>NULL</default></row>
@@ -90,10 +57,43 @@
 <datatype>MEDIUMTEXT</datatype>
 <default>NULL</default></row>
 <row name="zip" null="1" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>NULL</default></row>
+<row name="neighborhood" null="1" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>NULL</default></row>
+<row name="nearest_l" null="1" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>NULL</default></row>
+<row name="phone number" null="1" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>NULL</default></row>
+<row name="website" null="1" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>NULL</default></row>
+<row name="menu_url" null="1" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>NULL</default></row>
+<row name="price_scale" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="vegan_friendliness" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="atmosphere" null="1" autoincrement="0">
+<datatype>VARCHAR</datatype>
 <default>NULL</default></row>
 <row name="dress_code" null="1" autoincrement="0">
 <datatype>MEDIUMTEXT</datatype>
+<default>NULL</default></row>
+<row name="delivery" null="1" autoincrement="0">
+<datatype>bit</datatype>
+<default>NULL</default></row>
+<row name="reservations" null="1" autoincrement="0">
+<datatype>bit</datatype>
+<default>NULL</default></row>
+<row name="patios" null="1" autoincrement="0">
+<datatype>bit</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -103,17 +103,8 @@
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="username" null="1" autoincrement="0">
+<row name="email_plus_other_devise" null="1" autoincrement="0">
 <datatype>MEDIUMTEXT</datatype>
-<default>NULL</default></row>
-<row name="email" null="1" autoincrement="0">
-<datatype>MEDIUMTEXT</datatype>
-<default>NULL</default></row>
-<row name="password_hash" null="1" autoincrement="0">
-<datatype>MEDIUMTEXT</datatype>
-<default>NULL</default></row>
-<row name="reviewer" null="1" autoincrement="0">
-<datatype>bit</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -174,7 +165,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1019" y="36" name="specialties">
+<table x="991" y="33" name="specialties">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -201,7 +192,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="729" y="554" name="taggings">
+<table x="784" y="512" name="taggings">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -229,10 +220,9 @@
 <default>NULL</default></row>
 <row name="votable_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="specialties" row="id" />
-<relation table="restaurants" row="id" />
+<default>NULL</default><relation table="comments" row="id" />
+<relation table="specialties" row="id" />
 <relation table="reviews" row="id" />
-<relation table="comments" row="id" />
 </row>
 <row name="user_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
@@ -305,7 +295,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="670" y="691" name="profiles">
+<table x="723" y="672" name="profiles">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -313,13 +303,16 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="users" row="id" />
 </row>
-<row name="bio" null="1" autoincrement="0">
+<row name="username" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
 <row name="full_name" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
 <row name="affiliation" null="1" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>NULL</default></row>
+<row name="bio" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
@@ -330,7 +323,7 @@
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="user_id" null="1" autoincrement="0">
+<row name="author_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="users" row="id" />
 </row>
@@ -348,7 +341,7 @@
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="user_id" null="1" autoincrement="0">
+<row name="rater_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="users" row="id" />
 </row>
