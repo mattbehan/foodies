@@ -1,0 +1,27 @@
+working with devise
+
+# devise comes wit the methods:
+# current_user - returns the current user
+# user_signed_in - same as authenticated?
+#sign_in(@user) and sign_out(@user) - devise created methods that will either sign users in our out
+# user_session - returns metadata... by and large DO NOT USE
+
+seed using 
+user = user.create()
+user.confirm! <-- uses the devise method confirm
+
+Creating a virtual login attribute in the user model allows us to validate based on either username or password
+
+for more info -->
+https://github.com/plataformatec/devise/wiki/How-To:-Allow-users-to-sign-in-using-their-username-or-email-address
+
+we allow unconfirmed access by toggling it in the initializer. it defaults to two months. This allows unconfirmed users to still login
+
+
+overwrite after_inactive_sign_up_path_for in the devise controller to edit the default path
+alternative would be to just set devise_for :users, controllers: { registrations: "registrations" } in routes.rb, then overwriting the method in my own registrationscontroller that inherited from devisecontroller, however that never responded to any changes
+update- fix was to say registrationsController <Devise::RegistrationsController and not DeviseController
+it still responds to after_sign_up_path_for and not after_inactive_sign_up_path_for, probably because they are allowed to use the site for 7 days as I set it in config
+
+when we want to push to production all we will have to do is set the environment variables for sendgrid username and password using-
+heroku config:set SENDGRID_USERNAME
