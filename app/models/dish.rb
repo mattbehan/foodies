@@ -4,8 +4,4 @@ class Dish < ActiveRecord::Base
 
   validates :name, presence: true
 
-  def vote_count
-    self.votes.inject(0) { |total| total += vote.value }
-  end
-
 end
