@@ -1,0 +1,16 @@
+Benchmarks run with 1,268,253 restaurants
+
+1) restaurants table with non-indexed cuisine field
+Restaurant.where(cuisine: name)
+
+Restaurant Load (248.3ms)  SELECT "restaurants".* FROM "restaurants" WHERE "restaurants"."cuisine" = $1  [["cuisine", "French"]]
+
+2) restaurants table with indexed cuisine field
+Restaurant.where(cuisine: name)
+
+Restaurant Load (125.4ms)  SELECT "restaurants".* FROM "restaurants" WHERE "restaurants"."cuisine" = $1  [["cuisine", "French"]]
+
+3) restaurants table and cuisines table with a join table
+french = Cuisine.find(10)
+french.restaurants
+Restaurant Load (937.2ms)  SELECT "restaurants".* FROM "restaurants" INNER JOIN "styles" ON "restaurants"."id" = "styles"."restaurant_id" WHERE "styles"."cuisine_id" = $1  [["cuisine_id", 9]]
