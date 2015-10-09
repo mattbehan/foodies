@@ -10,6 +10,22 @@ class User < ActiveRecord::Base
  	has_one :profile
  	has_one :role
 
+  has_many :followings, foreign_key: "follower_id"
+  has_many :followed_users, through: :followings
+  has_many :followers, through: :followings
+  has_many :bookmarks, foreign_key: "bookmarker_id"
+  has_many :bookmarked_restaurants, through: :bookmarks
+  has_many :votes
+  has_many :articles, foreign_key: "author_id"
+  has_many :comments
+  has_many :commented_upon_reviews, through: :comments, source: :review
+  has_many :reviews, foreign_key: "reviewer_id"
+  has_many :reviewed_restaurants, through: :reviews, source: :restaurant
+  has_many :quick_takes, foreign_key: "rater_id"
+  has_many :rated_restaurants, through: :quick_takes, source: :restaurant
+  has_many :visits, foreign_key: "visitor_id"
+  has_many :visited_restaurants, through: :visits
+
  	def admin?
  		role.name == "admin"
  	end
@@ -42,15 +58,15 @@ class User < ActiveRecord::Base
 	 end
 	end
 
-	def self.invite_guest!(attributes={}, invited_by=nil)
+	def self.invite_user!(attributes={role: "user"}, invited_by=nil)
 	 self.invite!(attributes, invited_by) do |invitable|
-	 	puts "invitable: ______________________________________________________________________________________________________________________________________________________________________"
+	 	puts "guests invitable: ______________________________________________________________________________________________________________________________________________________________________"
 	 	puts invitable
 	   invitable.invitation_instructions = :guest_invitation_instructions
 	 end
 	end
 
-	def self.invite_friend!(attributes={}, invited_by=nil)
+	def self.invite_reviewer!(attributes={role: "admin"}, invited_by=nil)
 	 self.invite!(attributes, invited_by) do |invitable|
 	   invitable.invitation_instructions = :friend_invitation_instructions
 	 end
@@ -59,7 +75,7 @@ class User < ActiveRecord::Base
 end
 
 # display for users
-#users can't have affiliation,  
+#users can't have affiliation,
 
 
 # reviewers have everything
@@ -68,4 +84,4 @@ end
 # profile: full_name (required for reviewer), affiliation (reviewer only), bio (optional for both)
 
 # someone will have to confirm reviewer
-# 
+#
