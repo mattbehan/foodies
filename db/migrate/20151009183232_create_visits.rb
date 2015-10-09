@@ -1,10 +1,10 @@
 class CreateVisits < ActiveRecord::Migration
   def change
     create_table :visits do |t|
-      t.integer :visited_restaurant_id
-      t.integer :visitor_id
+      t.integer :visited_restaurant_id, null: false
+      t.integer :visitor_id, null: false
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end
