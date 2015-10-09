@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  devise_for :users, :controllers => {:registrations => "registrations"}
+
+  root 'users#hey'
+  get "admins/invite" => 'users#invite'
+  post "admins/invite" => 'users#invite'
+
+  resources :users, only: [:index, :show]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
