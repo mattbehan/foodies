@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
  	has_one :profile
  	has_one :role
 
+  has_
+
  	def admin?
  		role.name == "admin"
  	end
@@ -59,7 +61,7 @@ class User < ActiveRecord::Base
 end
 
 # display for users
-#users can't have affiliation,  
+#users can't have affiliation,
 
 
 # reviewers have everything
@@ -68,4 +70,4 @@ end
 # profile: full_name (required for reviewer), affiliation (reviewer only), bio (optional for both)
 
 # someone will have to confirm reviewer
-# 
+#
