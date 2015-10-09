@@ -6,6 +6,6 @@ class Comment < ActiveRecord::Base
   validates :content, :user_id, :review_id, presence: true
 
   def vote_count
-    self.votes.inject(0) { |total| total += vote.value }
+    self.votes.inject(0) { |total, vote| total += vote.value }
   end
 end
