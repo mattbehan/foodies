@@ -1,1 +1,14 @@
 <h1>Foodies</h1>
+
+<%= paginate @restaurants, :window => 10 %>
+
+<ul>
+  <% @restaurants.each do |restaurant|%>
+    <li style="list-style: none">
+      <h4><%= restaurant.name %></h4>
+      <p><%= restaurant.cuisine %></p>
+    </li>
+  <% end %>
+</ul>
+
+<%= paginate @restaurants %>
