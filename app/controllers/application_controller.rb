@@ -5,7 +5,28 @@ class ApplicationController < ActionController::Base
 
 	before_filter :configure_permitted_parameters, if: :devise_controller?
 
-	helper_method :must_be_admin, :admin?
+	helper_method :must_be_admin, :admin?, :must_be_logged_in, :find_user, :find_profile
+
+	def owner
+
+	end
+
+	# redirect route should be changed
+	def must_be_owner resource
+		redirect_to new_user_session_path unless owner?(resource)
+	end
+
+	def owner? resource
+		resource.user_id == current_user.id
+	end
+
+	def find_user
+		@user = current_user
+	end
+
+	def find_profile
+		@profile = current_user.profile
+	end
 
 	def must_be_logged_in
 		redirect_to new_user_session_path unless user_signed_in?
