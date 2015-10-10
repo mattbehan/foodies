@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-  resources :welcome
+  resources :welcome, only: :index
   root 'welcome#index'
 
   # search
   get "search" => 'restaurants#search'
-
+  resources :articles, except: :index
   resources :restaurants, except: :index do
     resources :reviews
   end
