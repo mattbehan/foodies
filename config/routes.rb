@@ -1,14 +1,22 @@
 Rails.application.routes.draw do
-  resources :welcome
+  resources :welcome, only: :index
   root 'welcome#index'
-  resources :restaurants do
+
+  # search
+  get "search" => 'restaurants#search'
+  resources :articles, except: :index
+  resources :restaurants, except: :index do
     resources :reviews
   end
+  get "users/hey" => "users#hey"
   devise_for :users, :controllers => {:registrations => "registrations"}
-  get "admins/invite" => 'users#invite'
-  post "admins/invite" => 'users#invite'
-
+  get "/users/invite" => 'users#invite'
+  post "/admins/invite" => 'users#reviewer_invite'
+  post "/users/invite" => "users#user_invite"
   resources :users, only: [:index, :show]
+
+
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

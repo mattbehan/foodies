@@ -1,0 +1,10 @@
+<%= render "reviews/restaurant_info" %>
+<h1><%= @review.title %></h1>
+
+<div class="review-info">
+  <h4>Review Info</h4>
+  <ul style="list-style: none">
+    <li>Content: <%= @review.content %></li>
+    <li>Rating: <%= @review.rating %></li>
+  </ul>
+</div>

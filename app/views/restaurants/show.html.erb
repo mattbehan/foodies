@@ -1,5 +1,4 @@
 <h1><%= @restaurant.name %></h1>
-
 <div class="restaurant-info">
   <h4>Restaurant Info</h4>
   <ul style="list-style: none">
@@ -15,4 +14,6 @@
     <li>Price Scale: <%= @restaurant.price_scale %></li>
 
   </ul>
+
+  <%= render "reviews/index" %>
 </div>

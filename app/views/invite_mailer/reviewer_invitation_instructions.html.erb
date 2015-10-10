@@ -1,0 +1,7 @@
+<p><%= t("devise.mailer.invitation_instructions.hello", email: @resource.email) %></p>
+
+<p>Someone has invited you to be a reviewer on Foodie.com!! You can accept their invitation through the link below.</p>
+
+<p><%= link_to t("devise.mailer.invitation_instructions.accept"), accept_invitation_url(@resource, :invitation_token => @token) %></p>
+
+<p><%= t("devise.mailer.invitation_instructions.ignore").html_safe %></p>

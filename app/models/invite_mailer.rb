@@ -1,11 +1,11 @@
 class InviteMailer < Devise::Mailer
 
-  def guest_invitation_instructions(record, opts={})
-    devise_mail(record, :guest_invitation_instructions, opts)
+  def user_invitation_instructions(record, opts={})
+    devise_mail(record, :user_invitation_instructions, opts)
   end
 
-  def friend_invitation_instructions(record, opts={})
-    devise_mail(record, :friend_invitation_instructions, opts)
+  def reviewer_invitation_instructions(record, opts={})
+    devise_mail(record, :reviewer_invitation_instructions, opts)
   end
 
 end
