@@ -1,7 +1,12 @@
 <% if user_signed_in? %>
 
 <!-- show users profile information -->
-	<%= render "profiles/_show", layout: false, locals: {profile: @profile}%>
+	<% if @profile %>
+		<%= render "profiles/show", layout: false, locals: {profile: @profile}%>
+	<% else %>
+		<%= link_to("Create your profile", new_profile_path) %>
+	<% end %>
+
 
   <li>
   <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        

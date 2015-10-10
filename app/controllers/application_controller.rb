@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
 	before_filter :configure_permitted_parameters, if: :devise_controller?
 
-	helper_method :must_be_admin, :admin?, :must_be_logged_in, :find_user, :find_profile
+	helper_method :must_be_admin, :admin?, :must_be_logged_in, :find_user, :find_profile, :must_be_owner, :owner?
 
 	def owner
 

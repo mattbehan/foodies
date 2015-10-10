@@ -7,4 +7,9 @@
 		<p><%= profile.full_name %></p>
 		<p><%= profile.affiliation %></p>
 	<% end %>
+
+	<%if owner?(profile) %>
+		<%= button_to edit_user_profile_path, method: "get" %>
+	<% end %>
+
 <div>
