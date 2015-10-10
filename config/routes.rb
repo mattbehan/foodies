@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  resources :welcome
-  root 'welcome#index'
+  resources :welcome, only: [:index]
 
   # search
   get "search" => 'restaurants#search'

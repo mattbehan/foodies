@@ -1,4 +1,8 @@
 <% if user_signed_in? %>
+
+<!-- show users profile information -->
+	<%= render "profiles/_show", layout: false, locals: {profile: @profile}%>
+
   <li>
   <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
   </li>
@@ -12,8 +16,10 @@
   <li>
   <%= link_to('Edit registration', edit_user_registration_path) %>
   </li>
+  <!-- link to destroy registration -->
 <% else %>
   <li>
-  <%= link_to('Register', new_user_registration_path)  %>
+	  <%= link_to('Register', new_user_registration_path)  %>
   </li>
+
 <% end %>

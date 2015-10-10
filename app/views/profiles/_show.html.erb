@@ -1,0 +1,10 @@
+<div>
+
+	<p><%= profile.username %> </p>
+	<p><%= profile.bio %></p>
+
+	<% if profile.user.reviewer? %>
+		<p><%= profile.full_name %></p>
+		<p><%= profile.affiliation %></p>
+	<% end %>
+<div>
