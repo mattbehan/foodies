@@ -1,5 +1,6 @@
 class InvitationsController < Devise::InvitationsController
   def create
+    @type = params
     @from    = params[:from]
     @subject = params[:invite_subject]
     @content = params[:invite_content]
@@ -18,4 +19,6 @@ class InvitationsController < Devise::InvitationsController
       render :new
     end
   end
+
 end
+

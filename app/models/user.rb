@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :lockable, :confirmable, :invitable
 
  	has_one :profile
- 	has_one :role
+
 
   has_many :followings, foreign_key: "follower_id"
   has_many :followed_users, through: :followings
@@ -35,28 +35,30 @@ class User < ActiveRecord::Base
   end
 
  	def admin?
- 		role.name == "admin"
+ 		role == "admin"
  	end
 
  	def user?
- 		role.name == "user"
+ 		role == "user"
  	end
 
  	def reviewer?
- 		role.name == "reviewer"
+ 		role == "reviewer"
  	end
 
  	def self.all_users
- 		User.all.select {|user| user.role.name == "user"}
+ 		User.all.select {|user| user.role == "user"}
  	end
 
  	def self.all_admins
- 		User.all.select {|user| user.role.name == "admin"}
+ 		User.all.select {|user| user.role == "admin"}
  	end
 
  	def self.all_reviewers
- 		User.all.select {|user| user.role.name == "reviewer"}
+ 		User.all.select {|user| user.role == "reviewer"}
  	end
+
+
 
 	def deliver_invitation
 	 if @invitation_instructions.present?
@@ -66,19 +68,43 @@ class User < ActiveRecord::Base
 	 end
 	end
 
+    # devise confirm! method overriden
+  # def confirm!
+  #   welcome_message
+  #   super
+  # end
+
+  # devise_invitable accept_invitation! method overriden
+  def accept_invitation!
+    self.confirm!
+    super
+  end
+
+
+
+
+  # class method that calls the other, main class method. This and the following method overlay the default invite! by allowing two different methods to be called
 	def self.invite_user!(attributes={role: "user"}, invited_by=nil)
 	 self.invite!(attributes, invited_by) do |invitable|
 	 	puts "guests invitable: ______________________________________________________________________________________________________________________________________________________________________"
 	 	puts invitable
-	   invitable.invitation_instructions = :guest_invitation_instructions
+	   invitable.invitation_instructions = :user_invitation_instructions
 	 end
 	end
 
+  #replaces just the invite method
 	def self.invite_reviewer!(attributes={role: "admin"}, invited_by=nil)
 	 self.invite!(attributes, invited_by) do |invitable|
-	   invitable.invitation_instructions = :friend_invitation_instructions
+	   invitable.invitation_instructions = :reviewer_invitation_instructions
 	 end
 	end
+
+
+# private
+
+#   def welcome_message
+#     UserMailer.welcome_message(self).deliver
+#   end
 
 end
 
