@@ -29,4 +29,9 @@ class Restaurant < ActiveRecord::Base
       where(:all)
     end
   end
+
+  def top_three_dishes
+    dishes = self.specialties.sort_by { |dish| dish.vote_count }[-3..-1]
+  end
+
 end
