@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :welcome
   root 'welcome#index'
+
+  # search
+  get "search" => 'restaurants#search'
+
   resources :restaurants do
     resources :reviews
   end
