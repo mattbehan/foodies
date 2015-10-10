@@ -1,14 +1,5 @@
 <h1>Restaurant Results</h1>
 
-<%= paginate @restaurants, :window => 10 %>
-
-<% @restaurants.each do |restaurant|%>
-  <div class="restaurant">
-  <h1 class="restaurant-name"><%= link_to restaurant.name, restaurant %></h1>
-  <p class="restaurant-cusine"><%= restaurant.cuisine %></p>
+<div id="restaurants">
+  <%= render "restaurants" %>
 </div>
-<% end %>
-
-<%= "No results" if @restaurants.empty? %>
-
-<%= paginate @restaurants %>
