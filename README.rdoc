@@ -16,37 +16,28 @@ Coming later...
 - Ruby 2.0.0p598
 - Rails 4.2.4
 - PostgreSQL 9.4.3
-- other stuff (Bootstrap, Angular (?), etc.)
+- other stuff (Bootstrap, jQueryUI, Angular (?), etc.)
 
 ===External APIs and Libraries
 - Google Maps
+- Devise
+- plus other to be added later...
 
-== README
+===To Get Started
+1. Clone locally using <tt>git clone</tt>
+2. Install dependencies with <tt>bundle install</tt>
+3. Initialize database by <tt>rake db:reset</tt>
+4. Run the Rails server through <tt>rails server</tt>
+5. Visit the site locally at http://localhost:3000
+6. Run tests with <tt>rspec</tt> in root directory
 
+===Database Schema
+https://raw.githubusercontent.com/chi-cicadas-2015/foodies/master/foodies-schema.png
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+===The Foodies Team
+<b>Picture coming later</b>
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Harrison:: https://github.com/hklucher
+Mat:: https://github.com/mliew21396
+Matt:: https://github.com/mattbehan
+Bill:: https://github.com/wmleidy, http://billleidy.com
