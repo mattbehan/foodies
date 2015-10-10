@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :lockable, :confirmable, :invitable
 
  	has_one :profile
- 	has_one :role
+
 
   has_many :followings, foreign_key: "follower_id"
   has_many :followed_users, through: :followings
@@ -35,27 +35,27 @@ class User < ActiveRecord::Base
   end
 
  	def admin?
- 		role.name == "admin"
+ 		role == "admin"
  	end
 
  	def user?
- 		role.name == "user"
+ 		role == "user"
  	end
 
  	def reviewer?
- 		role.name == "reviewer"
+ 		role == "reviewer"
  	end
 
  	def self.all_users
- 		User.all.select {|user| user.role.name == "user"}
+ 		User.all.select {|user| user.role == "user"}
  	end
 
  	def self.all_admins
- 		User.all.select {|user| user.role.name == "admin"}
+ 		User.all.select {|user| user.role == "admin"}
  	end
 
  	def self.all_reviewers
- 		User.all.select {|user| user.role.name == "reviewer"}
+ 		User.all.select {|user| user.role == "reviewer"}
  	end
 
 	def deliver_invitation
@@ -66,6 +66,7 @@ class User < ActiveRecord::Base
 	 end
 	end
 
+  # class method that calls the other, main class method
 	def self.invite_user!(attributes={role: "user"}, invited_by=nil)
 	 self.invite!(attributes, invited_by) do |invitable|
 	 	puts "guests invitable: ______________________________________________________________________________________________________________________________________________________________________"
@@ -74,6 +75,7 @@ class User < ActiveRecord::Base
 	 end
 	end
 
+	# class method that calls the other, main class method
 	def self.invite_reviewer!(attributes={role: "admin"}, invited_by=nil)
 	 self.invite!(attributes, invited_by) do |invitable|
 	   invitable.invitation_instructions = :reviewer_invitation_instructions
