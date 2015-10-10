@@ -1,7 +1,7 @@
 class RestaurantsController < ApplicationController
-  before_action :set_restaurant
+  before_action :set_restaurant, only: [:show]
 
-  def index
+  def search
     # Search path
     if params[:search]
       @restaurants = Restaurant.search(params[:search]).order("name").page(params[:page]).per(5)
