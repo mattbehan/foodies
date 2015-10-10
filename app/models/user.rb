@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
 
   attr_writer :invitation_instructions
 
+  ROLES = %w(user reviewer admin)
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :lockable, :confirmable, :invitable
 
@@ -24,6 +26,10 @@ class User < ActiveRecord::Base
   has_many :rated_restaurants, through: :quick_takes, source: :restaurant
   has_many :visits, foreign_key: "visitor_id"
   has_many :visited_restaurants, through: :visits
+
+  validates :role, presence: true, 
+    inclusion: {in: ROLES, message: "Invalid role" }
+
 
   def followers
     following_relationships = Following.where(followed_user_id: self.id)
@@ -86,8 +92,6 @@ class User < ActiveRecord::Base
   # class method that calls the other, main class method. This and the following method overlay the default invite! by allowing two different methods to be called
 	def self.invite_user!(attributes={role: "user"}, invited_by=nil)
 	 self.invite!(attributes, invited_by) do |invitable|
-	 	puts "guests invitable: ______________________________________________________________________________________________________________________________________________________________________"
-	 	puts invitable
 	   invitable.invitation_instructions = :user_invitation_instructions
 	 end
 	end

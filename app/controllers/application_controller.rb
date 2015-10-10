@@ -5,11 +5,8 @@ class ApplicationController < ActionController::Base
 
 	before_filter :configure_permitted_parameters, if: :devise_controller?
 
+
 	helper_method :must_be_admin, :admin?, :must_be_logged_in, :find_user, :find_profile, :must_be_owner, :owner?
-
-	def owner
-
-	end
 
 	# redirect route should be changed
 	def must_be_owner resource
@@ -20,12 +17,13 @@ class ApplicationController < ActionController::Base
 		resource.user_id == current_user.id
 	end
 
-	def find_user
-		@user = current_user
-	end
 
 	def find_profile
-		@profile = current_user.profile
+		@profile = Profile.find_by(id: params[:id])
+	end
+
+	def find_user
+		@user = User.find_by(id: params[:id])
 	end
 
 	def must_be_logged_in
