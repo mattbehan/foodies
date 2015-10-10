@@ -32,7 +32,7 @@ Coming later...
 6. Run tests with <tt>rspec</tt> in root directory
 
 ===Database Schema
-http://raw.githubusercontent.com/chi-cicadas-2015/foodies/master/foodies-schema-final.png
+https://raw.githubusercontent.com/chi-cicadas-2015/foodies/master/foodies-schema-final.png
 
 ===The Foodies Team
 <b>Picture coming later</b>
