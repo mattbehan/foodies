@@ -5,7 +5,7 @@ class Review < ActiveRecord::Base
   belongs_to :reviewer, class_name: "User"
 
   validates :title, :content, :rating, :restaurant_id, :reviewer_id, presence: true
-  validates_inclusion_of :rating, :in => 1..5
+  # validates_inclusion_of :rating, :in => 1..5
 
   def vote_count
     self.votes.inject(0) { |total| total += vote.value }

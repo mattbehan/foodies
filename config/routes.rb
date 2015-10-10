@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # search
   get "search" => 'restaurants#search'
 
-  resources :restaurants do
+  resources :restaurants, except: :index do
     resources :reviews
   end
   get "users/hey" => "users#hey"
@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post "/admins/invite" => 'users#reviewer_invite'
   post "/users/invite" => "users#user_invite"
   resources :users, only: [:index, :show]
+
 
 
 

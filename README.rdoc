@@ -1,30 +1,43 @@
-== README
-
 {<img src="https://coveralls.io/repos/chi-cicadas-2015/foodies/badge.svg?branch=master&service=github" alt="Coverage Status" />}[https://coveralls.io/github/chi-cicadas-2015/foodies?branch=master]
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+<b>Foodies Logo Placeholder</b>
 
-Things you may want to cover:
+<b>Foodies</b> is, quite simply, a site for lovers of food. It contains curated restaurant reviews and articles about everything food-related written by experts such as local chefs, cookbook authors, and food critics. Power users of the site--those who are truly passionate and knowledgable about their local food scene--are invited to submit reviews after making a set number of valuable contributions to the site (as voted upon by other users). Ordinary users of the site can find reliable restaurant and even specific dish recommendations based on neighborhood, proximity, cuisine, or a myriad of other factors.
 
-* Ruby version
+Unlike other restaurant-search sites, <b>Foodies</b> delivers a rating that hasn’t been affected by restaurant goers who complain about inattentive waiters, portion size, or lack of child changing facilities--the restaurant score on <b>Foodies</b> is based entirely on food quality and algorithmically determined from a weighed combination of data from experts, power users, and ordinary users alike. So, if you’re looking to find your next favorite restaurant or just want to know what foodie-approved options are down the street from you, visit the <b>Foodie</b> website at:
 
-* System dependencies
+http://foodies.herokuapp.com/
 
-* Configuration
+===Screenshots
 
-* Database creation
+Coming later...
 
-* Database initialization
+===Build
+- Ruby 2.0.0p598
+- Rails 4.2.4
+- PostgreSQL 9.4.3
+- other stuff (Bootstrap, jQueryUI, Angular (?), etc.)
 
-* How to run the test suite
+===External APIs and Libraries
+- Google Maps
+- Devise
+- plus other to be added later...
 
-* Services (job queues, cache servers, search engines, etc.)
+===To Get Started
+1. Clone locally using <tt>git clone</tt>
+2. Install dependencies with <tt>bundle install</tt>
+3. Initialize database by <tt>rake db:reset</tt>
+4. Run the Rails server through <tt>rails server</tt>
+5. Visit the site locally at http://localhost:3000
+6. Run tests with <tt>rspec</tt> in root directory
 
-* Deployment instructions
+===Database Schema
+https://raw.githubusercontent.com/chi-cicadas-2015/foodies/master/foodies-schema.png
 
-* ...
+===The Foodies Team
+<b>Picture coming later</b>
 
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Harrison:: https://github.com/hklucher
+Mat:: https://github.com/mliew21396
+Matt:: https://github.com/mattbehan
+Bill:: https://github.com/wmleidy, http://billleidy.com

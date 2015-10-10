@@ -1,0 +1,59 @@
+<h1>Add a Restaurant</h1>
+
+<%= form_for @restaurant do |f| %>
+  <%= f.label :name %> *
+  <%= f.text_field :name %> <br>
+
+  <%= f.label :cuisine %>
+  <%= f.text_field :cuisine %> <br>
+
+  <%= f.label :street_address %> *
+  <%= f.text_field :street_address %> <br>
+
+  <%= f.label :city %> *
+  <%= f.text_field :city %> <br>
+
+  <%= f.label :state %> *
+  <%= f.text_field :state %> <br>
+
+  <%= f.label :zip %> *
+  <%= f.text_field :zip %> <br>
+
+  <%= f.label :phone_number %>
+  <%= f.text_field :phone_number %> <br>
+
+  <%= f.label :neighborhood %>
+  <%= f.text_field :neighborhood %> <br>
+
+  <%= f.label :nearest_l %>
+  <%= f.text_field :nearest_l %> <br>
+
+  <%= f.label :website %>
+  <%= f.text_field :website %> <br>
+
+  <%= f.label :menu_url %>
+  <%= f.text_field :menu_url %> <br>
+
+  <%= f.label :price_scale %> *
+  <%= f.select :price_scale, (1..5).to_a  %> <br>
+
+  <%= f.label :atmosphere %>
+  <%= f.text_field :atmosphere %> <br>
+
+  <%= f.label :delivery %>
+  <%= f.check_box :delivery %> <br>
+
+  <%= f.label :reservations %>
+  <%= f.check_box :reservations %> <br>
+
+  <%= f.label :vegan_friendliness %>
+  <%= f.select :vegan_friendliness, (1..5).to_a %> <br>
+
+  <%= f.label :patios %>
+  <%= f.check_box :patios %> <br>
+
+  <%= f.label :dress_code %>
+  <%= f.text_field :dress_code %> <br>
+
+  <%= f.submit %>
+<% end %>
