@@ -127,14 +127,6 @@ ActiveRecord::Schema.define(version: 20151009184052) do
   add_index "reviews", ["restaurant_id"], name: "index_reviews_on_restaurant_id", using: :btree
   add_index "reviews", ["reviewer_id"], name: "index_reviews_on_reviewer_id", using: :btree
 
-  create_table "roles", force: :cascade do |t|
-    t.string   "name",       default: "user", null: false
-    t.integer  "user_id"
-    t.string   "email",                       null: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-  end
-
   create_table "specialties", force: :cascade do |t|
     t.integer  "restaurant_id", null: false
     t.integer  "dish_id",       null: false
@@ -162,12 +154,13 @@ ActiveRecord::Schema.define(version: 20151009184052) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
+    t.string   "email",                  default: "",     null: false
     t.string   "encrypted_password",     default: ""
+    t.string   "role",                   default: "user"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,      null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
@@ -175,10 +168,10 @@ ActiveRecord::Schema.define(version: 20151009184052) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.integer  "failed_attempts",        default: 0,  null: false
+    t.integer  "failed_attempts",        default: 0,      null: false
     t.datetime "locked_at"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.string   "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"

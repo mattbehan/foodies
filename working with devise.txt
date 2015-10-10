@@ -26,4 +26,15 @@ it still responds to after_sign_up_path_for and not after_inactive_sign_up_path_
 when we want to push to production all we will have to do is set the environment variables for sendgrid username and password using-
 heroku config:set SENDGRID_USERNAME
 
+________________
+DEVISE INVITABLE
+
 route for sending an invitation is users/invitation/new-- set a before_filter on that
+
+had to copy invitations controller which lets me override the default devise mailer so I can use my custom methods in my InviteMailer model.
+
+Created custom views in views/invite_mailer/reviewer_invitation_instructions and views/invite_mailer/user_invitation_instructions so I can customize the messages
+
+copied in notification mailer in order to create absolutely custom messages... e.g. the user would be able to say "hey! whats up remember when I met you five days ago! This is actually a personalized message!" ... doesn't look like this was actually necessary
+
+I think this all would have been a lot easier if I had just passed in the params for the user to be a certain type of admin in attributes... then all I would have to do is say invite!({attributes})
