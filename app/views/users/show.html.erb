@@ -1,19 +1,35 @@
 <% if user_signed_in? %>
+
+	<% if current_user.profile %>
+		
+	<% end %>
+
+
+
   <li>
   <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
   </li>
+  <li>
+	  <%= link_to('Edit account information', edit_user_registration_path) %>
+  </li>
+
+  <% if current_user.profile %>
+	  <li>
+		  <%= link_to('Edit profile information', edit_user_profile_path(current_user)) %>
+	  </li>
+  <% else %>
+  	<li>
+		  <%= link_to('Create profile', new_user_profile_path(current_user)) %>
+	  </li>
+  <% end %>
+
+
 <% else %>
   <li>
   <%= link_to('Login', new_user_session_path)  %>  
   </li>
-<% end %>
-
-<% if user_signed_in? %>
-  <li>
-  <%= link_to('Edit registration', edit_user_registration_path) %>
-  </li>
-<% else %>
   <li>
   <%= link_to('Register', new_user_registration_path)  %>
   </li>
 <% end %>
+
