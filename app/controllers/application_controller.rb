@@ -7,13 +7,17 @@ class ApplicationController < ActionController::Base
 
 	helper_method :must_be_admin, :admin?
 
+	def must_be_logged_in
+		redirect_to new_user_session_path unless user_signed_in?
+	end
+
 
 	def must_be_admin
-		redirect_to unless current_user.admin?
+		redirect_to root_path unless admin?
 	end
 
 	def admin?
-		current_user.admin?
+		user_signed_in? && current_user.admin?
 	end
 
 

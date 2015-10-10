@@ -2,7 +2,8 @@ class UsersController < ApplicationController
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
 
-  # before_filter :reviewer_invite, :must_be_admin
+  before_filter :must_be_logged_in, only: [:invite]
+  before_filter :must_be_admin, only: [:reviewer_invite]
 
   
 

@@ -58,6 +58,8 @@ class User < ActiveRecord::Base
  		User.all.select {|user| user.role == "reviewer"}
  	end
 
+
+
 	def deliver_invitation
 	 if @invitation_instructions.present?
 	   ::Devise.mailer.send(@invitation_instructions, self).deliver
@@ -66,7 +68,22 @@ class User < ActiveRecord::Base
 	 end
 	end
 
-  # class method that calls the other, main class method
+    # devise confirm! method overriden
+  # def confirm!
+  #   welcome_message
+  #   super
+  # end
+
+  # devise_invitable accept_invitation! method overriden
+  def accept_invitation!
+    self.confirm!
+    super
+  end
+
+
+
+
+  # class method that calls the other, main class method. This and the following method overlay the default invite! by allowing two different methods to be called
 	def self.invite_user!(attributes={role: "user"}, invited_by=nil)
 	 self.invite!(attributes, invited_by) do |invitable|
 	 	puts "guests invitable: ______________________________________________________________________________________________________________________________________________________________________"
@@ -75,12 +92,19 @@ class User < ActiveRecord::Base
 	 end
 	end
 
-	# class method that calls the other, main class method
+  #replaces just the invite method
 	def self.invite_reviewer!(attributes={role: "admin"}, invited_by=nil)
 	 self.invite!(attributes, invited_by) do |invitable|
 	   invitable.invitation_instructions = :reviewer_invitation_instructions
 	 end
 	end
+
+
+# private
+
+#   def welcome_message
+#     UserMailer.welcome_message(self).deliver
+#   end
 
 end
 
