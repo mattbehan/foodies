@@ -30,6 +30,36 @@ end
 
 counter = 1
 600.times do
-  Vote.create!(value: 1,votable_type: "Specialty", votable_id: rand(1..100),user_id: counter)
+  Vote.create!(value: 1,votable_type: "Specialty", votable_id: rand(1..100),user_id: rand(1..100))
   counter += 1
+end
+
+users = User.all
+restaurants = Restaurant.all
+
+# User follows, visited restaurants, bookmarked restaurants, and quick takes
+users.each_with_index do |user, index|
+  potential_followed = (1..100).to_a - [index+1]
+  chosen_followed_ids = potential_followed.sample(rand(5..15))
+  chosen_followed_ids.each do |chosen_followed_id|
+    Following.create!(follower_id: user.id, followed_user_id: chosen_followed_id)
+  end
+end
+
+users.each do |user|
+  shuffled_restaurants = restaurants.shuffle
+
+  visited_restaurants = shuffled_restaurants[0..2]
+  visited_restaurants.each do |visited_restaurant|
+    user.visited_restaurants << visited_restaurant
+  end
+
+  user.visited_restaurants.each do |eatery|
+    QuickTake.create!(rater_id: user.id, restaurant_id: eatery.id, rating: rand(1..5))
+  end
+
+  bookmarked_restaurants = shuffled_restaurants[3..5]
+  bookmarked_restaurants.each do |bookmarked_restaurant|
+    user.bookmarked_restaurants << bookmarked_restaurant
+  end
 end

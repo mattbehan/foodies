@@ -25,6 +25,8 @@ class User < ActiveRecord::Base
   has_many :visits, foreign_key: "visitor_id"
   has_many :visited_restaurants, through: :visits
 
+  validates :password, presence: true
+
   def followers
     following_relationships = Following.where(followed_user_id: self.id)
     all_followers = []
