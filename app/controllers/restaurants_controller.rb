@@ -1,5 +1,5 @@
 class RestaurantsController < ApplicationController
-  before_action :set_restaurant, only: [:show]
+  before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
 
   def search
     # Search path
@@ -11,14 +11,51 @@ class RestaurantsController < ApplicationController
     end
   end
 
+  def new
+    @restaurant = Restaurant.new
+  end
+
+  def create
+    @restaurant = Restaurant.new(restaurant_params)
+    if @restaurant.save
+      redirect_to @restaurant
+    else
+      redirect_to new_restaurant_path
+    end
+  end
+
   def show
     @reviews = @restaurant.reviews
+  end
+
+  def edit
+  end
+
+  def update
+    if @restaurant.update_attributes(restaurant_params)
+      redirect_to @restaurant
+    else
+      redirect_to edit_restaurant_path
+    end
+  end
+
+  def destroy
+    @restaurant.destroy
+    redirect_to root_path
   end
 
   private
 
   def set_restaurant
     @restaurant = Restaurant.find(params[:id])
+  end
+
+  def restaurant_params
+    params.require(:restaurant).permit(:name, :cuisine, :street_address, :city,
+                                        :state, :zip, :phone_number, :neighborhood,
+                                        :nearest_l, :website, :menu_url, :price_scale,
+                                        :atmosphere, :delivery, :reservations,
+                                        :vegan_friendliness, :patios, :dress_code)
   end
 
 end

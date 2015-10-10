@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # search
   get "search" => 'restaurants#search'
 
-  resources :restaurants do
+  resources :restaurants, except: :index do
     resources :reviews
   end
   devise_for :users, :controllers => {:registrations => "registrations"}
@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   post "admins/invite" => 'users#invite'
 
   resources :users, only: [:index, :show]
+
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.
