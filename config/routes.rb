@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     get "users/sign_up", to: "registrations#register"
   end
 
+  resources :followings, only: [:create, :destroy]
+
   # search
   get "search" => 'restaurants#search'
   resources :articles, except: :index

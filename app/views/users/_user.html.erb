@@ -1,6 +1,4 @@
 <div>
-	<h4><% if user.profile %> <%= user.profile.username || user.email %>'s 
-		<% else %>
-		<%= user.email %>
+	<h4><%= user.username || user.email %>'s 
 		<% end %><h4>
 </div>

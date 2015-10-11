@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 	before_filter :configure_permitted_parameters, if: :devise_controller?
 
 
-	helper_method :must_be_admin, :admin?, :must_be_logged_in, :find_user, :find_profile, :must_be_owner, :owner?
+	helper_method :must_be_admin, :admin?, :must_be_logged_in, :find_user, :find_profile, :must_be_owner, :owner?, :find_owner
 
 	# redirect route should be changed to something with an error message or redirect back
 	def must_be_owner resource
