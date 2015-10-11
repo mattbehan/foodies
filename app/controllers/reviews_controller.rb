@@ -57,12 +57,9 @@ class ReviewsController < ApplicationController
   end
 
   def downvote
-    p "in downvote"
     if request.xhr?
-      p "in xhr"
       prepare_downvote
     else
-      p "no in xhr"
       prepare_downvote
       redirect_to :back
     end
