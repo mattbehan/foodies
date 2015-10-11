@@ -17,7 +17,6 @@ end
 100.times do
   user = User.create!(email: FFaker::Internet.email, username: FFaker::Internet.user_name, password: "password")
   profile = Profile.create(bio: FFaker::BaconIpsum.words(50), affiliation: FFaker::Company.bs, full_name: FFaker::Name.name, user_id: user.id )
-
 end
 
 # Dishes

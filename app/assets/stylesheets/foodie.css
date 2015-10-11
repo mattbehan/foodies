@@ -1,18 +1,24 @@
-h1 {
-  color: red;
-}
-
 .navbar-default {
   color: white;
   background-color: #810541;
 }
 
 .navbar-brand {
-  color: white;
+  padding-top: 10px;
+  padding-bottom: 40px;
 }
 
 .navbar-default .navbar-nav > li > a {
   color: white;
+}
+
+#search-form {
+  padding-top: 5px;
+  color: black;
+}
+
+.search-bar {
+  width: 180px;
 }
 
 @media screen and (min-width: 992px) {

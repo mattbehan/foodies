@@ -1,7 +1,9 @@
-<p><%= comment.content %><p>
-<p>Vote total: <%= comment.vote_count %>
-<% if current_user %>
-  <%= link_to image_tag("upvote.png"), upvote_comment_path(comment), method: :post %>
-  <%= link_to image_tag("downvote.png"), downvote_comment_path(comment), method: :post %>
+<% if comment.vote_count >= -2 %>
+  <p><%= comment.content %></p>
+  <p><span class="vote-total-<%= comment.id %>">Vote total: <%= comment.vote_count %></span>
+  <% if current_user %>
+    <%= link_to image_tag("upvote.png"), upvote_comment_path(comment), class: "upvote-button", method: :post, remote: true %>
+    <%= link_to image_tag("downvote.png"), downvote_comment_path(comment), class: "downvote-button", method: :post, remote: true %>
+  <% end %>
+  </p>
 <% end %>
-</p>
