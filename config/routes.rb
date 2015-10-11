@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   post "/admins/invite" => 'users#reviewer_invite'
   post "/users/invite" => "users#user_invite"
   resources :users, only: [:index, :show] do 
-    resources :profiles, only: [:new, :create, :show, :edit, :update]
+    resources :profiles, only: [:new, :create, :edit, :update]
   end
 
 

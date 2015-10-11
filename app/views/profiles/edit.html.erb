@@ -3,10 +3,10 @@
 
 <div>
 
-	<%= form_for :profile do |f| %>
-	  Full name : <%= f.text_field :full_name %><br />
-	  Short bio : <%= f.text_area :bio %><br />
-	  Affiliation : <%= f.text_area :affiliation %><br />
+	<%= form_for( ([current_user, @profile]), method: :put) do |f| %>
+	  <p>Full name : <%= f.text_field :full_name %></p>
+	  <p>Short bio : <%= f.text_area :bio %></p>
+	  <p>Affiliation : <%= f.text_area :affiliation %></p>
 	  <%= f.submit %>
 	<% end %>
 

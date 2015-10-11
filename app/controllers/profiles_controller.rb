@@ -19,14 +19,23 @@ class ProfilesController < ApplicationController
 		end
 	end
 
-	def show
-	end
-
 	def edit
-		redirect 
+		must_be_owner(@profile)		
 	end
 
+
+	# bug where bio not auto updating.... have to manually set it
 	def update
+		must_be_owner(@profile)
+		@profile.update(profile_update_params)
+		@profile.bio = params[:profile][:bio]
+		@profile.save
+		if @profile.valid?
+			flash[:alert] = "Profile updated"
+			redirect_to user_path(current_user)
+		else
+			render :new
+		end
 	end
 
 	protected

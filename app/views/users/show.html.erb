@@ -1,47 +1,67 @@
-<h2> <% if @profile %> <%= @user.profile.username || @user.email %>'s 
-	<% else %>
-	<%= @user.email %>'s 
-	<% end %>
-	profile page</h2>
+<div>
+	<div>
+		<h2> <% if @profile %> <%= @user.profile.username || @user.email %>'s 
+		<% else %>
+		<%= @user.email %>'s 
+		<% end %>
+		profile page</h2>
+	</div>
 <!-- if there is a profile, show it -->
-<% if @profile %>
-	<%= render "profiles/show", layout: false, locals: {profile: @profile } %>
+	<% if @profile %>
+		<%= render partial: "profiles/show", layout: false, locals: {profile: @profile } %>
 
-	<!-- if the current user owns that profile, display links for edit and destroy -->
-  <% if owner?(@profile) %>
-		<%= button_to("Edit profile", action: edit_user_profile_path, method: "get") %>
+		<!-- if the current user owns that profile, display links for edit and destroy -->
+	  <% if owner?(@profile) %>
+	  	<div>
+	  	<li>
+				<%= link_to("Edit profile information", edit_user_profile_path(@user.id, @profile.id) )%>
+			</li>
+		  <li>
+			  <%= link_to('Edit account information', edit_user_registration_path) %>
+		  </li>
+		</div>
+		<% end %>
+
+	<!-- if current user does not have a profile, provide link to create one -->
+	<% elsif current_user.id == params[:id].to_i %>
+	<div>
+		<li>
+		  <%= link_to('Create profile', new_user_profile_path(current_user)) %>
+	  </li>
+	</div>
+
 	<% end %>
-
-<% elsif current_user.id == params[:id].to_i %>
-	<li>
-	  <%= link_to('Create profile', new_user_profile_path(current_user)) %>
-  </li>
-<% else %>
-
-<% end %>
 
 
 <!-- stuff for topbar -->
 <% if user_signed_in? %>
 
+  <!-- link to destroy registration within edit -->
+
   <li>
   <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
   </li>
 
-  <!-- link to destroy registration within edit -->
 
-  <li>
-	  <%= link_to('Edit account information', edit_user_registration_path) %>
-  </li>
 
 <!-- if user not signed in -->
-<% else %>
-  <li>
-  <%= link_to('Login', new_user_session_path)  %>  
-  </li>
+	<% else %>
+	  <li>
+	  <%= link_to('Login', new_user_session_path)  %>  
+	  </li>
 
-  <li>
-	  <%= link_to('Register', new_user_registration_path)  %>
-  </li>
-<% end %>
+	  <li>
+		  <%= link_to('Register', new_user_registration_path)  %>
+	  </li>
+	<% end %>
+</div>
 
+
+<br> <br> <br>
+<h4> not working, being processed as post requests </h4>
+	  	<li>
+				<%= button_to("Edit profile information", formaction: edit_user_profile_path(@user.id, @profile.id), :class => "button", method: :get) %>
+			</li>
+		  <li>
+			  <%= button_to('Edit account information', formaction:edit_user_registration_path, :class => "button", method: :get) %>
+		  </li>

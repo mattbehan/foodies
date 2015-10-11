@@ -8,9 +8,12 @@ class ApplicationController < ActionController::Base
 
 	helper_method :must_be_admin, :admin?, :must_be_logged_in, :find_user, :find_profile, :must_be_owner, :owner?
 
-	# redirect route should be changed
+	# redirect route should be changed to something with an error message or redirect back
 	def must_be_owner resource
-		redirect_to new_user_session_path unless owner?(resource)
+		unless owner?(resource)
+			flash[:alert] = "You are not authorized to take that action"
+			redirect_to :back
+		end
 	end
 
 	def owner? resource

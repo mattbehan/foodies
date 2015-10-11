@@ -1,11 +1,8 @@
 <div>
 
-	<p><%= profile.username %> </p>
-	<p><%= profile.bio %></p>
-
-	<% if profile.user.reviewer? %>
-		<p><%= profile.full_name %></p>
-		<p><%= profile.affiliation %></p>
-	<% end %>
+	<p>Username : <%= profile.username %> </p>
+	<% if profile.bio %> <p>Bio : <%= profile.bio %></p> <% end %>
+	<% if profile.full_name %> <p>Full name : <%= profile.full_name %></p> <% end %>
+	<% if profile.affiliation %> <p>Affiliations : <%= profile.affiliation %></p> <% end %>
 
 <div>
