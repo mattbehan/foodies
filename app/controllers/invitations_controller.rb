@@ -1,4 +1,7 @@
 class InvitationsController < Devise::InvitationsController
+
+
+  # can be used to send customized invitations to specific people
   def create
     @type = params
     @from    = params[:from]
