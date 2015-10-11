@@ -8,20 +8,21 @@ class ApplicationController < ActionController::Base
 
 	helper_method :must_be_admin, :admin?, :must_be_logged_in, :find_user, :find_profile, :must_be_owner, :owner?, :find_owner
 
-	# redirect route should be changed to something with an error message or redirect back
 	def find_owner(resource, resource_id)
-		# if resource.
+		return @owner = resource_id.to_i if resource == "User"
+		@resources_class = Object.const_get(resource)
+		@owner = @resources_class.find_by(id: resource_id).user_id
 	end
 
-	def must_be_owner resource
-		unless owner?(resource)
+	def must_be_owner resource_users_id
+		unless owner?(resource_users_id)
 			flash[:alert] = "You are not authorized to take that action"
 			redirect_to :back
 		end
 	end
 
-	def owner? resource
-		user_signed_in? && resource.user_id == current_user.id
+	def owner? resource_users_id
+		user_signed_in? && resource_users_id == current_user.id
 	end
 
 
