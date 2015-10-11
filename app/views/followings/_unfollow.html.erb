@@ -1,7 +1,8 @@
-<!-- pass in resource as a local -->
+<!-- pass in following as a local -->
 <div>
-	<form method="post" action="/followings">
-		<input type = "hidden" value="delete" name = "_method"/>
-		<input type="submit" value = "follow" />
-	</form>
+	<%= form_tag "/followings", method: :delete do %>
+	  <%= hidden_field_tag "resource", "#{resource.class.to_s}" %><br />
+	  <%= hidden_field_tag "resource_id", "#{resource.id}" %><br />
+	  <%= submit_tag "Unfollow"%>
+	<% end %>
 </div>

@@ -13,7 +13,7 @@
 		<!-- if the current user owns that profile, display links for edit and destroy -->
     <% puts "profile: #{@profile}" %>
     <% puts "\n\n @user: #{@user}" %>
-	  <% if owner?(@profile) %>
+	  <% if owner?(@profile.id) %>
 	  	<div>
 	  	<li>
 				<%= link_to("Edit profile information", edit_user_profile_path(@user.id, @profile.id) )%>
@@ -27,7 +27,7 @@
 		<% else %>
 
 			<!-- if user doesn't follow, show button for unfollow -->
-			<% if user_signed_in? && !current_user.follows?(@profile.user_id) %>
+			<% if user_signed_in?  && !owner?(@profile.id) && !current_user.follows?(@profile.user_id) %>
 				<%= render partial: "followings/follow", layout: false, locals: { resource: @profile } %>
 
 			<!-- if user already follows, show button for unfollow -->

@@ -1,8 +1,11 @@
 <!-- pass in resource as a local -->
 <div>
-		<form method="post" action="/users/<%= current_user.id %>/follow">
-		<input type = "hidden" value="<%= resource.class.to_s %>" name = "resource"/>
-		<input type = "hidden" value="<%= resource.id %>" name = "resource_id"/>
-		<input type="submit" value = "follow" />
-	</form>
+
+	<%= form_tag "/followings" do %>
+	  <%= hidden_field_tag "resource", "#{resource.class.to_s}" %><br />
+	  <%= hidden_field_tag "resource_id", "#{resource.id}" %><br />
+	  <%= submit_tag "Follow"%>
+	<% end %>
+
+
 </div>

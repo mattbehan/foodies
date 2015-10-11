@@ -7,7 +7,8 @@ Rails.application.routes.draw do
     get "users/sign_up", to: "registrations#register"
   end
 
-  resources :followings, only: [:create, :destroy]
+  post "/followings" => "followings#create"
+  delete "/followings" => "followings#destroy"
 
   # search
   get "search" => 'restaurants#search'
