@@ -2,7 +2,8 @@
 <% if comment.good_comment? %>
   <p><%= comment.content %> <%= link_to "#{comment.user.username}", user_path(comment.user) %></p>
 <% else %>
-  <p class="text-danger" id = "comment-<%= comment.id %>">This comment has been hidden due to negative votes. Click here to show.</p>
+  <p class="bad-comment"><%= comment.content %> <%= link_to "#{comment.user.username}", user_path(comment.user) %></p>
+  <p class="text-danger bad-comment-warning">This comment has been hidden due to negative votes. Click <%= link_to "here", remote: true %> to show.</p>
 <% end %>
 
 <p><span class="vote-total-<%= comment.id %>">Vote total: <%= comment.vote_count %></span>

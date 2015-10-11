@@ -20,4 +20,9 @@ $(function() {
     $.get(this.href, null, null, "script")
     return false
   })
+
+  $(".bad-comment-warning a").on("click", function(){
+    $(this).parent().toggle();
+    $(this).parent().prev().show();
+  })
 });
