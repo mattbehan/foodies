@@ -1,0 +1,6 @@
+<!-- pass in resource as a local -->
+<div>
+	<%= form_for(@following, url: registration_path(@user)) do |f| %>
+		<input type = "hidden" value="<%= resource.class.to_s %>" name = "resource"/>
+	<%= f.submit "Follow" %>
+</div>
