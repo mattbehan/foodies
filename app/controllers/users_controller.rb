@@ -6,10 +6,6 @@ class UsersController < ApplicationController
   before_filter :must_be_admin, only: [:reviewer_invite]
   before_filter :find_user, only: [:show]
 
-  def index
-    @users = User.all
-  end
-
   def invite
     @user = User.new
   end
