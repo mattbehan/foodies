@@ -2,10 +2,10 @@
 <h4>Written by: <%= review.reviewer.username %></h4>
 <h4>Rating: <%= review.rating %></h4>
 <p><%= review.content %></p>
-<p>Vote total: <%= review.vote_count %>
+<p><span class="vote-review-total-<%= review.id %>">Vote total: <%= review.vote_count %></span>
   <% if current_user %>
-    <%= link_to image_tag("upvote.png"), upvote_review_path(review), method: :post %>
-    <%= link_to image_tag("downvote.png"), downvote_review_path(review), method: :post %>
+    <%= link_to image_tag("upvote.png"), upvote_review_path(review), class: "upvote-button", method: :post, remote: true %>
+    <%= link_to image_tag("downvote.png"), downvote_review_path(review), class: "downvote-button", method: :post, remote: true %>
   <% end %>
 </p>
 <hr>

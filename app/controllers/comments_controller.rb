@@ -41,14 +41,12 @@ class CommentsController < ApplicationController
 
   def prepare_upvote
     prepare_vote
-    @vote = Vote.find_or_initialize_by(user_id: current_user.id, votable_type: "Comment", votable_id: @comment.id)
     new_value = @vote.value + 1
     @vote.update_attributes(value: new_value)
   end
 
   def prepare_downvote
     prepare_vote
-    @vote = Vote.find_or_initialize_by(user_id: current_user.id, votable_type: "Comment", votable_id: @comment.id)
     new_value = @vote.value - 1
     @vote.update_attributes(value: new_value)
   end

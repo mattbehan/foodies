@@ -57,9 +57,12 @@ class ReviewsController < ApplicationController
   end
 
   def downvote
+    p "in downvote"
     if request.xhr?
-      prepare_upvote
+      p "in xhr"
+      prepare_downvote
     else
+      p "no in xhr"
       prepare_downvote
       redirect_to :back
     end
@@ -68,13 +71,13 @@ class ReviewsController < ApplicationController
   private
 
   def prepare_upvote
-    @vote = Vote.find_or_initialize_by(user_id: current_user.id, votable_type: "Review", votable_id: @review.id)
-    new_value = @vote.value - 1
+    prepare_vote
+    new_value = @vote.value + 1
     @vote.update_attributes(value: new_value)
   end
 
   def prepare_downvote
-    @vote = Vote.find_or_initialize_by(user_id: current_user.id, votable_type: "Comment", votable_id: @comment.id)
+    prepare_vote
     new_value = @vote.value - 1
     @vote.update_attributes(value: new_value)
   end
@@ -89,5 +92,10 @@ class ReviewsController < ApplicationController
 
   def review_params
     params.require(:review).permit(:title, :content, :rating, :restaurant_id).merge(reviewer_id: current_user.id)
+  end
+
+  def prepare_vote
+    @review = Review.find(params[:id])
+    @vote = Vote.find_or_initialize_by(user_id: current_user.id, votable_type: "Review", votable_id: @review.id)
   end
 end
