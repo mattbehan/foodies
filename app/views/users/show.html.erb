@@ -1,6 +1,6 @@
 <div>
 	<div>
-		<h2> <% if @profile %> <%= @user.profile.username || @user.email %>'s 
+		<h2> <% if @profile %> <%= @user.username || @user.email %>'s 
 		<% else %>
 		<%= @user.email %>'s 
 		<% end %>
@@ -20,6 +20,19 @@
 			  <%= link_to('Edit account information', edit_user_registration_path) %>
 		  </li>
 		</div>
+
+		<!-- if not owner, but the profile exists, display follow/unfollow button -->
+		<% else %>
+
+			<!-- if user doesn't follow, show button for unfollow -->
+			<% if !current_user.follows?(@profile.user_id) %>
+				<% render partial: "followings/follow", layout: false, locals: { resource: @profile } %>
+
+			<!-- if user already follows, show button for unfollow -->
+			<% elsif current_user.follows?(@profile.user_id) %>
+
+			<% end %>
+
 		<% end %>
 
 	<!-- if current user does not have a profile, provide link to create one -->

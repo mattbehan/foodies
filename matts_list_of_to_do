@@ -2,7 +2,6 @@ Username on signup
 kill routes and stuff for index users
 add reviews, followers, etc to user profile show page
 
-Finish all users in 10 minutes
 
 Confirm user after invitation has been accepted. By 2 o'clock
 
@@ -10,6 +9,9 @@ Set route for after accept_invitation. By 2:30
 
 Need approve as admin button, need upgrade to reviewer button
 Add before filters in routes . By 3-- not MVP
+
+
+
 
 
 
