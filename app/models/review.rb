@@ -1,4 +1,6 @@
 class Review < ActiveRecord::Base
+  include ContentHelper
+
   has_many :votes, :as => :votable
   has_many :comments
   belongs_to :restaurant
