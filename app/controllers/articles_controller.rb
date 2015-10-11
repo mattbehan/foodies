@@ -1,5 +1,9 @@
 class ArticlesController < ApplicationController
+
+  include ApplicationHelper
+
   before_action :set_article, only: [:show, :edit, :update, :destroy]
+  before_action :authorized_reviewer?, only: [:new, :create]
 
   def new
     @article = Article.new

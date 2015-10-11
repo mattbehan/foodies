@@ -1,4 +1,21 @@
 module ApplicationHelper
+
+  def authorized_reviewer?
+    redirect_to new_user_session_path unless current_user && current_user.reviewer?
+  end
+
+  def authorized_admin?
+    redirect_to new_user_session_path unless current_user && current_user.admin?
+  end
+
+  def admin_or_reviewer?
+    redirect_to new_user_session_path unless current_user && (current_user.admin? || current_user.reviewer?)
+  end
+
+  def review_creator?
+    redirect_to @restaurant unless current_user && @review.reviewer_id == current_user.id
+  end
+
 end
 
 # devise comes wit the methods:

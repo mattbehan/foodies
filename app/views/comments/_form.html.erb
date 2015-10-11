@@ -1,8 +1,10 @@
-<p>Your Comment</p>
+<% if current_user %>
+  <p>Your Comment</p>
 
-<%= form_tag("/restaurants/#{restaurant.id}/reviews/#{review.id}/comments", class: "comment-form", method: "post", remote: true) do %>
+  <%= form_tag("/restaurants/#{restaurant.id}/reviews/#{review.id}/comments", class: "comment-form", method: "post", remote: true) do %>
 
-  <textarea class="comment-text-area-<%= review.id %>" name="comment[content]" rows=5 cols=50></textarea>
+    <textarea class="comment-text-area-<%= review.id %>" name="comment[content]" rows=5 cols=50></textarea>
 
-  <%= submit_tag %>
+    <%= submit_tag %>
+  <% end %>
 <% end %>
