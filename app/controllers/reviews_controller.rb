@@ -2,18 +2,17 @@ class ReviewsController < ApplicationController
   before_action :set_review, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
   before_action :set_restaurant, except: [:destroy, :upvote, :downvote]
 
+  respond_to :html, :js, :json
+
   def new
     @review = Review.new
   end
 
 
   def create
-    # This is a hardcoded solution.  At the time we don't have users, so we can't
-    # create a new review unless we hardcode a user id. 
-    params[:review][:reviewer_id] = 1
     @review = Review.new(review_params)
     @review.restaurant = @restaurant
-    if @review.save
+    if @review.save!
       redirect_to restaurant_review_path(@restaurant, @review)
     else
       redirect_to new_restaurant_review_path
@@ -41,21 +40,38 @@ class ReviewsController < ApplicationController
   end
 
   def upvote
-    # refactor to Ajaxify and lean on #set_review 
-    @vote = Vote.find_or_initialize_by(user_id: current_user.id, votable_type: "Review", votable_id: @review.id)
-    new_value = @vote.value + 1
-    @vote.update_attributes(value: new_value)
-    redirect_to restaurant_review_path(@review.restaurant, @review)
+    if request.xhr?
+      prepare_upvote
+
+    else
+      prepare_upvote
+
+      redirect_to :back
+    end
   end
 
   def downvote
-    @vote = Vote.find_or_initialize_by(user_id: current_user.id, votable_type: "Review", votable_id: @review.id)
-    new_value = @vote.value - 1
-    @vote.update_attributes(value: new_value)
-    redirect_to restaurant_review_path(@review.restaurant, @review)
+    if request.xhr?
+      prepare_upvote
+    else
+      prepare_downvote
+      redirect_to :back
+    end
   end
 
   private
+
+  def prepare_upvote
+    @vote = Vote.find_or_initialize_by(user_id: current_user.id, votable_type: "Review", votable_id: @review.id)
+    new_value = @vote.value - 1
+    @vote.update_attributes(value: new_value)
+  end
+
+  def prepare_downvote
+    @vote = Vote.find_or_initialize_by(user_id: current_user.id, votable_type: "Comment", votable_id: @comment.id)
+    new_value = @vote.value - 1
+    @vote.update_attributes(value: new_value)
+  end
 
   def set_review
     @review = Review.find(params[:id])
@@ -66,6 +82,6 @@ class ReviewsController < ApplicationController
   end
 
   def review_params
-    params.require(:review).permit(:title, :content, :rating, :restaurant_id, :reviewer_id)
+    params.require(:review).permit(:title, :content, :rating, :restaurant_id).merge(reviewer_id: current_user.id)
   end
 end
