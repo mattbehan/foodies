@@ -15,8 +15,12 @@ Rails.application.routes.draw do
   post "/users/invite" => "users#user_invite"
   resources :users, only: [:index, :show]
 
-
-
+  post 'reviews/:id/upvote'       => 'reviews#upvote', as: :upvote_review
+  post 'reviews/:id/downvote'     => 'reviews#downvote', as: :downvote_review
+  post 'comments/:id/upvote'      => 'comments#upvote', as: :upvote_comment
+  post 'comments/:id/downvote'    => 'comments#downvote', as: :downvote_comment
+  post 'specialties/:id/upvote'   => 'specialties#upvote', as: :upvote_specialty
+  post 'specialties/:id/downvote' => 'specialties#downvote', as: :downvote_specialty
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

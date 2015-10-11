@@ -40,6 +40,25 @@ class ReviewsController < ApplicationController
     redirect_to root_path
   end
 
+  def upvote
+    # refactor to Ajaxify and lean on #set_review 
+    @review = Review.find(params[:id])
+    @vote = Vote.find_or_initialize_by(user_id: current_user.id, votable_type: "Review", votable_id: @review.id)
+    new_value = @vote.value + 1
+    @vote.assign_attributes(value: new_value)
+    @vote.save
+    redirect_to restaurant_review_path(@review.restaurant, @review)
+  end
+
+  def downvote
+    @review = Review.find(params[:id])
+    @vote = Vote.find_or_initialize_by(user_id: current_user.id, votable_type: "Review", votable_id: @review.id)
+    new_value = @vote.value - 1
+    @vote.assign_attributes(value: new_value)
+    @vote.save
+    redirect_to restaurant_review_path(@review.restaurant, @review)
+  end
+
   private
 
   def set_review
