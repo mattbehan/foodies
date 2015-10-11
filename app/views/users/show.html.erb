@@ -5,6 +5,7 @@
 		<%= @user.username %>'s
 		<% end %>
 		profile page</h2>
+		<img src="<%= @user.show_gravatar %>" alt="<%= @user.username %>">
 	</div>
 <!-- if there is a profile, show it -->
 	<% if @profile %>
@@ -13,7 +14,7 @@
 		<!-- if the current user owns that profile, display links for edit and destroy -->
     <% puts "profile: #{@profile}" %>
     <% puts "\n\n @user: #{@user}" %>
-	  <% if owner?(@profile) %>
+	  <% if owner?(@profile.id) %>
 	  	<div>
 	  	<li>
 				<%= link_to("Edit profile information", edit_user_profile_path(@user.id, @profile.id) )%>
@@ -27,12 +28,12 @@
 		<% else %>
 
 			<!-- if user doesn't follow, show button for unfollow -->
-			<% if !current_user.follows?(@profile.user_id) %>
-				<% render partial: "followings/follow", layout: false, locals: { resource: @profile } %>
+			<% if user_signed_in?  && !owner?(@profile.id) && !current_user.follows?(@profile.user_id) %>
+				<%= render partial: "followings/follow", layout: false, locals: { resource: @profile } %>
 
 			<!-- if user already follows, show button for unfollow -->
-			<% elsif current_user.follows?(@profile.user_id) %>
-
+			<% elsif user_signed_in? %>
+        <%= render partial: "followings/unfollow", layout: false, locals: { resource: @profile } %>
 			<% end %>
 
 		<% end %>
