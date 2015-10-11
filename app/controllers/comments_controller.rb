@@ -22,6 +22,20 @@ class CommentsController < ApplicationController
     end
   end
 
+  def upvote
+    prepare_vote  # Calls private method to set up vote for creation or update
+    new_value = @vote.value + 1
+    @vote.update_attributes(value: new_value)
+    redirect_to restaurant_review_path(@comment.review.restaurant, @comment.review)
+  end
+
+  def downvote
+    prepare_vote
+    new_value = @vote.value - 1
+    @vote.update_attributes(value: new_value)
+    redirect_to restaurant_review_path(@comment.review.restaurant, @comment.review)
+  end
+
   # def show
   # end
   #
@@ -57,5 +71,10 @@ class CommentsController < ApplicationController
   #
   def comment_params
     params.require(:comment).permit(:content, :review_id).merge(user_id: current_user.id)
+  end
+
+  def prepare_vote
+    @comment = Comment.find(params[:id])
+    @vote = Vote.find_or_initialize_by(user_id: current_user.id, votable_type: "Comment", votable_id: @comment.id)
   end
 end
