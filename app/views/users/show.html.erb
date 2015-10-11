@@ -11,6 +11,8 @@
 		<%= render partial: "profiles/show", layout: false, locals: {profile: @profile } %>
 
 		<!-- if the current user owns that profile, display links for edit and destroy -->
+    <% puts "profile: #{@profile}" %>
+    <% puts "\n\n @user: #{@user}" %>
 	  <% if owner?(@profile) %>
 	  	<div>
 	  	<li>

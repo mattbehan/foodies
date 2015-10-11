@@ -31,13 +31,12 @@ class User < ActiveRecord::Base
     inclusion: {in: ROLES, message: "Invalid role" }
   validates :username, presence: true, uniqueness: true
 
+  def follows? other_user_id
+    followings.find_by(followed_user_id: other_user_id ) != nil
+  end
+
   def followers
-    following_relationships = Following.where(followed_user_id: self.id)
-    all_followers = []
-    following_relationships.each do |following_relationship|
-      all_followers << following_relationship.follower
-    end
-    all_followers
+    following_relationships = Following.where(followed_user_id: self.id).map{ |following_relationship| following_relationship.follower }
   end
 
  	def admin?
