@@ -17,7 +17,7 @@ end
 end
 
 100.times do
-  User.create!(email: FFaker::Internet.email, password: FFaker::Internet.password)
+  User.create(email: FFaker::Internet.email, username: FFaker::Internet.user_name, password: "password")
 end
 
 # Dishes

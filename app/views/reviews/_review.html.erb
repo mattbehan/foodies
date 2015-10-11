@@ -1,7 +1,16 @@
 <h2><%= review.title %></h2>
-<h4>Written by: <%= review.reviewer.email %></h4>
+<h4>Written by: <%= review.reviewer.username %></h4>
 <h4>Rating: <%= review.rating %></h4>
 <p><%= review.content %></p>
+<p>Vote total: <%= review.vote_count %>
+<% if current_user %>
+  <%= link_to image_tag("upvote.png"), upvote_review_path(review), method: :post %>
+  <%= link_to image_tag("downvote.png"), downvote_review_path(review), method: :post %>
+</p>
 <hr>
-<%= render partial: "comments/comment", collection: review.comments %>
+
+<div class="comments-container">
+  <%= render partial: "comments/comment", collection: review.comments %>
+</div>
 <%= render partial: "comments/form", locals: {restaurant: @restaurant, review: review} %>
+<% end %>
