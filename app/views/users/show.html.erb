@@ -58,6 +58,7 @@
 
 
 <br> <br> <br>
+<% if @profile %>
 <h4> not working, being processed as post requests </h4>
 	  	<li>
 				<%= button_to("Edit profile information", formaction: edit_user_profile_path(@user.id, @profile.id), :class => "button", method: :get) %>
@@ -65,3 +66,4 @@
 		  <li>
 			  <%= button_to('Edit account information', formaction:edit_user_registration_path, :class => "button", method: :get) %>
 		  </li>
+<% end %>

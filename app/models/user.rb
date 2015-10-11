@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
 
   validates :role, presence: true, 
     inclusion: {in: ROLES, message: "Invalid role" }
+  validates :username, presence: true, uniqueness: true
 
   def followers
     following_relationships = Following.where(followed_user_id: self.id)

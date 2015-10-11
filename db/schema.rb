@@ -65,7 +65,6 @@ ActiveRecord::Schema.define(version: 20151009184052) do
 
   create_table "profiles", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "username",    null: false
     t.string   "full_name"
     t.string   "affiliation"
     t.text     "bio"
@@ -157,6 +156,7 @@ ActiveRecord::Schema.define(version: 20151009184052) do
     t.string   "email",                  default: "",     null: false
     t.string   "encrypted_password",     default: ""
     t.string   "role",                   default: "user"
+    t.string   "username",                                null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -185,6 +185,7 @@ ActiveRecord::Schema.define(version: 20151009184052) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
   create_table "visits", force: :cascade do |t|
     t.integer  "visited_restaurant_id", null: false
