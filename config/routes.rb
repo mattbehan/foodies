@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-  resources :welcome
+  resources :welcome, only: :index
   root 'welcome#index'
 
   # search
   get "search" => 'restaurants#search'
-
+  resources :articles, except: :index
   resources :restaurants, except: :index do
     resources :reviews
   end
@@ -17,8 +17,13 @@ Rails.application.routes.draw do
     resources :profiles, only: [:new, :create, :show, :edit, :update]
   end
 
-
-
+  post 'reviews/:id/upvote'       => 'reviews#upvote', as: :upvote_review
+  post 'reviews/:id/downvote'     => 'reviews#downvote', as: :downvote_review
+  post 'comments/:id/upvote'      => 'comments#upvote', as: :upvote_comment
+  post 'comments/:id/downvote'    => 'comments#downvote', as: :downvote_comment
+  post 'specialties/:id/upvote'   => 'specialties#upvote', as: :upvote_specialty
+  post 'specialties/:id/downvote' => 'specialties#downvote', as: :downvote_specialty
+  post 'restaurants/:restaurant_id/reviews/:id/comments' => 'comments#create'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

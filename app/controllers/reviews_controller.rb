@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
-  before_action :set_review, only: [:show, :edit, :update, :destroy]
-  before_action :set_restaurant, except: :destroy
+  before_action :set_review, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
+  before_action :set_restaurant, except: [:destroy, :upvote, :downvote]
 
   def new
     @review = Review.new
@@ -38,6 +38,21 @@ class ReviewsController < ApplicationController
   def destroy
     @review.destroy
     redirect_to root_path
+  end
+
+  def upvote
+    # refactor to Ajaxify and lean on #set_review 
+    @vote = Vote.find_or_initialize_by(user_id: current_user.id, votable_type: "Review", votable_id: @review.id)
+    new_value = @vote.value + 1
+    @vote.update_attributes(value: new_value)
+    redirect_to restaurant_review_path(@review.restaurant, @review)
+  end
+
+  def downvote
+    @vote = Vote.find_or_initialize_by(user_id: current_user.id, votable_type: "Review", votable_id: @review.id)
+    new_value = @vote.value - 1
+    @vote.update_attributes(value: new_value)
+    redirect_to restaurant_review_path(@review.restaurant, @review)
   end
 
   private
