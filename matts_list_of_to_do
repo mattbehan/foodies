@@ -1,0 +1,30 @@
+Username on signup
+kill routes and stuff for index users
+add reviews, followers, etc to user profile show page
+
+Finish all users in 10 minutes
+
+Confirm user after invitation has been accepted. By 2 o'clock
+
+Set route for after accept_invitation. By 2:30
+
+Need approve as admin button, need upgrade to reviewer button
+Add before filters in routes . By 3-- not MVP
+
+
+
+change config.invitation_limit to 10
+
+users profile and index views: need to change for additional info-- reputation score, total points or whatever, and user profile picture
+
+figure out omniauthable once set up
+
+need to get email to show errors upon login
+
+need to know how to reroute to other places after sign-up. If we have a login-topbar it is probably fine, just need to flash a message with confirmation instructions
+
+/:votable_id/:votable_type/votes/:value
+
+vote_score(resource)
+	resource.votes.sum(:value)
+end

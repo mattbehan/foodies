@@ -1,10 +1,19 @@
 class RegistrationsController < Devise::RegistrationsController
 
+  def register
+    @user = User.new
+    render :"users/registrations/new"
+  end
+
+  def create
+    super
+  end
+
   # The path used after sign up. You need to overwrite this method
   # in your own RegistrationsController.
   def after_sign_up_path_for(resource)
     after_sign_in_path_for(resource)
-    "/users"
+    root_path
   end
 
   # The path used after sign up for inactive accounts. You need to overwrite
@@ -17,8 +26,7 @@ class RegistrationsController < Devise::RegistrationsController
     # context.respond_to?(:index) ? context.index : "/users"
   end
 
-  # The default url to be used after updating a resource. You need to overwrite
-  # this method in your own RegistrationsController.
+  # The default url to be used after updating a resource
   def after_update_path_for(resource)
     signed_in_root_path(resource)
   end
