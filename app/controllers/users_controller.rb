@@ -2,17 +2,11 @@ class UsersController < ApplicationController
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
 
-  before_filter :must_be_logged_in, only: [:invite]
+  before_filter :must_be_logged_in, only: [:reviewer_invite, :user_invite, :invite]
   before_filter :must_be_admin, only: [:reviewer_invite]
+  before_filter :find_user, only: [:show]
 
   
-
-  def hey
-    render :hey
-  end
-
-  def index
-  end
 
   def invite
     @user = User.new
@@ -29,6 +23,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @profile = Profile.find_by(id: params[:id])
   end
 
 end

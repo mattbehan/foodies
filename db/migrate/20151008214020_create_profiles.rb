@@ -2,7 +2,6 @@ class CreateProfiles < ActiveRecord::Migration
   def change
     create_table :profiles do |t|
     	t.belongs_to :user
-      t.string :username, null: false
       t.string :full_name
       t.string :affiliation
     	t.text :bio

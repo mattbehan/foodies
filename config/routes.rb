@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
+
   resources :welcome, only: :index
   root 'welcome#index'
+
+  devise_scope :user do
+    get "users/sign_up", to: "registrations#register"
+  end
 
   # search
   get "search" => 'restaurants#search'
@@ -13,7 +18,9 @@ Rails.application.routes.draw do
   get "/users/invite" => 'users#invite'
   post "/admins/invite" => 'users#reviewer_invite'
   post "/users/invite" => "users#user_invite"
-  resources :users, only: [:index, :show]
+  resources :users, only: [:show] do 
+    resources :profiles, only: [:new, :create, :edit, :update]
+  end
 
   post 'reviews/:id/upvote'       => 'reviews#upvote', as: :upvote_review
   post 'reviews/:id/downvote'     => 'reviews#downvote', as: :downvote_review
