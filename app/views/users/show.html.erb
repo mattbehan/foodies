@@ -5,6 +5,7 @@
 		<%= @user.username %>'s
 		<% end %>
 		profile page</h2>
+		<img src="<%= @user.show_gravatar %>" alt="<%= @user.username %>">
 	</div>
 <!-- if there is a profile, show it -->
 	<% if @profile %>
