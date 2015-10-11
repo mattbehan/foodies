@@ -10,7 +10,6 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    params[:article][:author_id] = 1
     @article = Article.new(article_params)
     if @article.save
       redirect_to @article
@@ -45,6 +44,6 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:title, :content, :author_id)
+    params.require(:article).permit(:title, :content).merge(author_id: current_user.id)
   end
 end
