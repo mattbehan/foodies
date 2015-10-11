@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   post "/users/invite" => "users#user_invite"
   resources :users, only: [:index, :show]
 
-
+  post 'restaurants/:restaurant_id/reviews/:id/comments' => 'comments#create'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
