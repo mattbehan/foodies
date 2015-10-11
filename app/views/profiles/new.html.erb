@@ -1,0 +1,13 @@
+<div>
+
+	<%= render partial: "errors", layout: false, locals: {resource: @profile }%>
+
+	<%= form_for ([current_user, @profile]) do |f| %>
+	  Display name: <%= f.text_field :username %><br />
+	  Full name : <%= f.text_field :full_name %><br />
+	  Short bio : <%= f.text_area :bio %><br />
+	  Affiliation : <%= f.text_area :affiliation %><br />
+	  <%= f.submit %>
+	<% end %>
+
+</div>
