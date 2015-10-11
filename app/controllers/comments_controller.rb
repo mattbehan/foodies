@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  before_action :current_user
   respond_to :html, :js, :json
 
   def create

@@ -1,6 +1,12 @@
 class ReviewsController < ApplicationController
+
+  include ApplicationHelper
+
   before_action :set_review, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
   before_action :set_restaurant, except: [:destroy, :upvote, :downvote]
+  before_action :authorized_reviewer?, only: [:new, :create]
+  before_action :review_creator?, only: [:edit, :update, :destroy]
+  before_action :authorized_admin?, only: [:destroy]
 
   respond_to :html, :js, :json
 
