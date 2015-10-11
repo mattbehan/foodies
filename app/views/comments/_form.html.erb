@@ -1,0 +1,8 @@
+<p>Your Comment</p>
+
+<%= form_tag("/restaurants/#{restaurant.id}/reviews/#{review.id}/comments", method: "post") do %>
+
+  <textarea name="comment[content]" rows=5 cols=50></textarea>
+
+  <%= submit_tag %>
+<% end %>
