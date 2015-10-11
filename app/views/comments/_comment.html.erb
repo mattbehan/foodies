@@ -1,9 +1,14 @@
-<% if comment.vote_count >= -2 %>
-  <p><%= comment.content %></p>
-  <p><span class="vote-total-<%= comment.id %>">Vote total: <%= comment.vote_count %></span>
-  <% if current_user %>
-    <%= link_to image_tag("upvote.png"), upvote_comment_path(comment), class: "upvote-button", method: :post, remote: true %>
-    <%= link_to image_tag("downvote.png"), downvote_comment_path(comment), class: "downvote-button", method: :post, remote: true %>
-  <% end %>
-  </p>
+<div class="comment" id="comment-<%= comment.id %>">
+<% if comment.good_comment? %>
+  <p><%= comment.content %> <%= link_to "#{comment.user.username}", user_path(comment.user) %></p>
+<% else %>
+  <p class="text-danger" id = "comment-<%= comment.id %>">This comment has been hidden due to negative votes. Click here to show.</p>
 <% end %>
+
+<p><span class="vote-total-<%= comment.id %>">Vote total: <%= comment.vote_count %></span>
+<% if current_user %>
+  <%= link_to image_tag("upvote.png"), upvote_comment_path(comment), class: "upvote-button", method: :post, remote: true %>
+  <%= link_to image_tag("downvote.png"), downvote_comment_path(comment), class: "downvote-button", method: :post, remote: true %>
+<% end %>
+</p>
+</div>
