@@ -8,3 +8,5 @@
     <li>Rating: <%= @review.rating %></li>
   </ul>
 </div>
+<%= render partial: "comments/comment", collection: @review.comments %>
+<%= render partial: "comments/form", locals: {restaurant: @review.restaurant, review: @review} %>

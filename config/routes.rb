@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   post 'comments/:id/downvote'    => 'comments#downvote', as: :downvote_comment
   post 'specialties/:id/upvote'   => 'specialties#upvote', as: :upvote_specialty
   post 'specialties/:id/downvote' => 'specialties#downvote', as: :downvote_specialty
+  post 'restaurants/:restaurant_id/reviews/:id/comments' => 'comments#create'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,6 +1,8 @@
 require 'ffaker'
 require 'spec_helper'
 require 'rspec/rails'
+require 'capybara/rails'
+require 'shoulda-matchers' 
 
 describe "Restaurant" do
   let(:restaurant) { Restaurant.first }
