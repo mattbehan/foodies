@@ -13,4 +13,4 @@ Restaurant Load (125.4ms)  SELECT "restaurants".* FROM "restaurants" WHERE "rest
 3) restaurants table and cuisines table with a join table
 french = Cuisine.find(10)
 french.restaurants
-Restaurant Load (937.2ms)  SELECT "restaurants".* FROM "restaurants" INNER JOIN "styles" ON "restaurants"."id" = "styles"."restaurant_id" WHERE "styles"."cuisine_id" = $1  [["cuisine_id", 9]]
+Restaurant Load (937.2ms)  SELECT "restaurants".* FROM "restaurants" INNER JOIN "styles" ON "restaurants"."id" = "styles"."restaurant_id" WHERE "styles"."cuisine_id" = $1  [["cuisine_id", 10]]
