@@ -1,7 +1,7 @@
-<!-- pass_in resource as a local -->
+<!-- pass in resource as a local -->
 <div>
-	<p> hdfjdf </p>
-	<%= form_for(@following, url: followings_path ) do |f| %>
-		<input type = "hidden" value="<%= resource.class.to_s %>" name = "resource"/>
-	<%= f.submit "Follow" %>
+	<form method="post" action="/followings">
+		<input type = "hidden" value="delete" name = "_method"/>
+		<input type="submit" value = "follow" />
+	</form>
 </div>

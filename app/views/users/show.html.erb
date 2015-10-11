@@ -27,12 +27,12 @@
 		<% else %>
 
 			<!-- if user doesn't follow, show button for unfollow -->
-			<% if !current_user.follows?(@profile.user_id) %>
-				<% render partial: "followings/follow", layout: false, locals: { resource: @profile } %>
+			<% if user_signed_in? && !current_user.follows?(@profile.user_id) %>
+				<%= render partial: "followings/follow", layout: false, locals: { resource: @profile } %>
 
 			<!-- if user already follows, show button for unfollow -->
-			<% elsif current_user.follows?(@profile.user_id) %>
-
+			<% elsif user_signed_in? %>
+        <%= render partial: "followings/unfollow", layout: false, locals: { resource: @profile } %>
 			<% end %>
 
 		<% end %>
