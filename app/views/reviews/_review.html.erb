@@ -1,0 +1,7 @@
+<h2><%= review.title %></h2>
+<h4>Written by: <%= review.reviewer.email %></h4>
+<h4>Rating: <%= review.rating %></h4>
+<p><%= review.content %></p>
+<hr>
+<%= render partial: "comments/comment", collection: review.comments %>
+<%= render partial: "comments/form", locals: {restaurant: @restaurant, review: review} %>
