@@ -14,6 +14,11 @@ end
                   rating: rand(1..5), restaurant_id: rand(1..15), reviewer_id: rand(1..100))
 end
 
+20.times do
+  Article.create!(title: FFaker::Company.bs, content: FFaker::HipsterIpsum.paragraphs,
+                  author_id: rand(1..100))
+end
+
 100.times do
   user = User.create!(email: FFaker::Internet.email, username: FFaker::Internet.user_name, password: "password")
   profile = Profile.create(bio: FFaker::BaconIpsum.words(50), affiliation: FFaker::Company.bs, full_name: FFaker::Name.name, user_id: user.id )

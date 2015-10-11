@@ -1,8 +1,8 @@
 <div>
 	<div>
-		<h2> <% if @profile %> <%= @user.username || @user.email %>'s 
+		<h2> <% if @profile %> <%= @user.username || @user.email %>'s
 		<% else %>
-		<%= @user.email %>'s 
+		<%= @user.username %>'s
 		<% end %>
 		profile page</h2>
 	</div>
@@ -54,7 +54,7 @@
   <!-- link to destroy registration within edit -->
 
   <li>
-  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
+  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
   </li>
 
 
@@ -62,7 +62,7 @@
 <!-- if user not signed in -->
 	<% else %>
 	  <li>
-	  <%= link_to('Login', new_user_session_path)  %>  
+	  <%= link_to('Login', new_user_session_path)  %>
 	  </li>
 
 	  <li>
