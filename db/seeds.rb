@@ -14,9 +14,22 @@ neighborhoods = ["Albany Park","Andersonville","Archer Heights","Ashburn","Aubru
                       dress_code: "Hipster")
 end
 
+# Create users
+while User.all.length <= 100
+  user = User.create(email: FFaker::Internet.email, username: FFaker::Internet.user_name, password: "password")
+  profile = Profile.create(bio: FFaker::BaconIpsum.words(50), affiliation: FFaker::Company.bs, full_name: FFaker::Name.name, user_id: user.id )
+end
+
+# Create reviewers, reviews, and articles
+User.all.sample(15).each do |user|
+  user.update(role: "reviewer")
+end
+
+reviewers = User.where(role: "reviewer")
+
 50.times do
   review = Review.create!(title: FFaker::Company.bs, content: FFaker::HipsterIpsum.paragraphs,
-                  rating: rand(1..5), restaurant_id: rand(1..15), reviewer_id: rand(1..100))
+                  rating: rand(1..5), restaurant_id: rand(1..15), reviewer_id: reviewers.sample.id)
   rand(1..8).times do
     Comment.create!(content: FFaker::HipsterIpsum.sentence, review_id: review.id, user_id: rand(1..100))
   end
@@ -24,13 +37,9 @@ end
 
 20.times do
   Article.create!(title: FFaker::Company.bs, content: FFaker::HipsterIpsum.paragraphs,
-                  author_id: rand(1..100))
+                  author_id: reviewers.sample.id)
 end
 
-while User.all.length <= 100
-  user = User.create(email: FFaker::Internet.email, username: FFaker::Internet.user_name, password: "password")
-  profile = Profile.create(bio: FFaker::BaconIpsum.words(50), affiliation: FFaker::Company.bs, full_name: FFaker::Name.name, user_id: user.id )
-end
 
 # Dishes
 10.times do
