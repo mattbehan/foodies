@@ -1,3 +1,9 @@
-<h1>Add a Review</h1>
-
-<%= render "form" %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-lg-10 col-lg-offset-1 review-form">
+      <h1>Add Your Review Here</h1>
+        <%= render "form" %>
+        <%= link_to "Return to Restaurant Without Saving", restaurant_path(@restaurant) %>
+    </div>
+  </div>
+</div>

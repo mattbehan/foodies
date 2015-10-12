@@ -181,12 +181,12 @@ h1, h2, h3, h4, h5, h6 {
   margin-left: 20px;
 }
 
-.article-form label {
+.article-form label, .review-form label, .review-form select {
   display: block;
   margin: 10px 0;
 }
 
-.article-form textarea {
+.article-form textarea, .review-form textarea {
   width: 80%;
   min-height: 300px;
   margin-bottom: 10px;
