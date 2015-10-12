@@ -17,6 +17,7 @@
         <li>Price Scale: <%= @restaurant.price_scale %></li>
 
       </ul>
+      <p><%= @restaurant.name %> has an aggergated score of <strong><%= @restaurant.aggregate_score %></strong></p>
       <div class="specialties-container">
         <h4> Specialties </h4>
         <div class="specialties-list"> <%= render partial: @specialties %>
