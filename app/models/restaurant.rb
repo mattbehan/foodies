@@ -21,13 +21,13 @@ class Restaurant < ActiveRecord::Base
 
     if query
       query_length = query.split.length
-      # query_input = [(['lower(name) LIKE ?'] * query_length).join(' AND ')] + query.split.map { |name| "%#{name.downcase}%" }
-      query_input2 =
+      # query_old_input = [(['lower(name) LIKE ?'] * query_length).join(' AND ')] + query.split.map { |name| "%#{name.downcase}%" }
+      query_input =
       [([(['lower(name) LIKE ?'] * query_length).join(' AND ')] +
         [(['lower(cuisine) LIKE ?'] * query_length).join(' AND ')] +
         [(['lower(neighborhood) LIKE ?'] * query_length).join(' AND ')]).join(' OR ')] +
         query.split.map { |name| "%#{name.downcase}%" }*3
-      where(query_input2)
+      where(query_input)
     else
       where(:all)
     end
