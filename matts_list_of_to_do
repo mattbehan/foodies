@@ -31,3 +31,5 @@ need to know how to reroute to other places after sign-up. If we have a login-to
 vote_score(resource)
 	resource.votes.sum(:value)
 end
+
+reformat top_three_dishes in restaurant
