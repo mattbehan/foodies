@@ -2,24 +2,44 @@
 
 body {
   font-family: 'Lato', sans-serif;
+  margin-bottom: 40px;
 }
 
 main {
-  margin: 0 10px;
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+a {
+  color: #054282;
 }
 
 h1, h2, h3, h4, h5, h6 {
   color: #810541
 }
 
-h1.plain, h2.plain, h3.plain, h4.plain, h5.plain, h6.plain {
+.plain {
   color: black;
+}
+
+.gray {
+  color: #999;
+}
+
+.header-link a {
+  color: #999;
 }
 
 .navbar-default {
   color: white;
   background-color: #810541;
 }
+
 
 .navbar-brand {
   padding-top: 10px;
@@ -37,10 +57,6 @@ h1.plain, h2.plain, h3.plain, h4.plain, h5.plain, h6.plain {
 
 .search-bar {
   width: 180px;
-}
-
-#featured-restaurant-body {
-
 }
 
 .faux-panel {
@@ -61,6 +77,51 @@ h1.plain, h2.plain, h3.plain, h4.plain, h5.plain, h6.plain {
   border-radius: 0 0 2px 2px;
 }
 
+.enter-site {
+  border: 1px solid #aaa;
+  text-align: center;
+  width: 300px;
+  padding: 0 50px;
+  margin: 10px auto;
+}
+
+.enter-site label {
+  text-align: left;
+  display: block;
+}
+
+.enter-site label[for="user_remember_me"] {
+  display: inline;
+  text-align: left;
+}
+
+.enter-site input {
+  width: 200px;
+}
+
+.enter-site .field {
+  margin-bottom: 15px;
+}
+
+.enter-site input[type="checkbox"] {
+  display: inline;
+  width: 20px;
+}
+
+.enter-site input[type="submit"] {
+  width: 100px;
+}
+
+.enter-site .links {
+  margin: 20px 0;
+  text-align: left;
+}
+
+.enter-site .links a {
+  display: block;
+  margin: 8px 0;
+}
+
 .comment {
   margin-bottom: 10px;
   padding-bottom: 5px;
@@ -77,11 +138,46 @@ h1.plain, h2.plain, h3.plain, h4.plain, h5.plain, h6.plain {
 
 .comments-uber-container {
   display: none;
-  margin-left: 4%;
+  margin-left: 5%;
+}
+
+.comment-text-input {
+  margin-left: 5%;
+  width: 90%;
+  height: 100px;
+  margin-bottom: 10px;
 }
 
 .new-comment-form {
   display: none;
+}
+
+
+.review-byline a {
+  color: #810541;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding-top: 10px;
+  height: 40px;
+  background-color: #aaa;
+  color: #810541;
+}
+
+footer a {
+  color: white;
+}
+
+footer a:hover {
+  text-decoration: underline;
+  color: white;
+}
+
+footer p {
+  margin-bottom: 0;
 }
 
 /* Desktop Second */

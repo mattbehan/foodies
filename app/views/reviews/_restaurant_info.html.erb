@@ -1,2 +1,14 @@
-<h1><%= @restaurant.name %></h1>
-<%= link_to "Back to Restaurant", restaurant_path(@restaurant) %>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12">
+			<h1><%= @restaurant.name %></h1>
+			<ul class="">
+				<li>Cuisine: <%= @restaurant.cuisine %></li>
+				<li>Neighborhood: <%= @restaurant.neighborhood %></li>
+				<li>Vegan Friendliness: <%= @restaurant.vegan_friendliness %> out of 5</li>
+			</ul>
+			<%= link_to "Back to Restaurant Page", restaurant_path(@restaurant) %>
+		</div>
+	</div>
+	<hr />
+</div>
