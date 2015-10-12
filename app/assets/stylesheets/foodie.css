@@ -39,6 +39,10 @@ h1.plain, h2.plain, h3.plain, h4.plain, h5.plain, h6.plain {
   width: 180px;
 }
 
+#featured-restaurant-body {
+
+}
+
 .faux-panel {
   margin-bottom: 20px;
 }
@@ -83,4 +87,7 @@ h1.plain, h2.plain, h3.plain, h4.plain, h5.plain, h6.plain {
 /* Desktop Second */
 @media screen and (min-width: 768px) {
 
+  #featured-restaurant-body {
+    min-height: 440px;
+  }
 }
