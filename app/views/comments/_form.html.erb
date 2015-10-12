@@ -4,13 +4,13 @@
 
       <%= link_to "Add comment", root_path, remote: true, :class => "btn btn-default new-comment-form-toggle" %>
       <div class="new-comment-form">
-      <p>Your Comment</p>
+      <p>Your Comment:</p>
 
       <%= form_tag("/restaurants/#{restaurant.id}/reviews/#{review.id}/comments", method: "post", remote: true) do %>
 
-        <textarea class="comment-text-area-<%= review.id %>" name="comment[content]" rows=5 cols=50></textarea>
+        <textarea class="comment-text-input comment-text-area-<%= review.id %>" name="comment[content]"></textarea>
 
-        <p><%= submit_tag %></p>
+        <p><%= submit_tag "Post comment!" %></p>
       <% end %>
       </div>
 
