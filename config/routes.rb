@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   end
   devise_scope :user do
     get "users/sign_in", to: "sessions#new"
+    post "users/sign_in", to: "sessions#create"
   end
 
   post "/followings" => "followings#create"
