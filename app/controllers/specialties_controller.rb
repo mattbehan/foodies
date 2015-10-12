@@ -2,26 +2,21 @@ class SpecialtiesController < ApplicationController
 
   respond_to :html, :js, :json
 
+
   def create
     @restaurant = Restaurant.find(params[:restaurant_id])
     @dish = Dish.find_or_create_by(name: params[:name])
-    @specialty = Specialty.find_or_initialize_by( dish_id: @dish.id, restaurant_id: @restaurant.id )
+    @specialty = Specialty.find_or_create_by( dish_id: @dish.id, restaurant_id: @restaurant.id )
 
-      if @specialty.new_record? && @specialty.save
-        flash[:alert] = "Added #{ @dish.name }"
-        redirect_to :back
-      elsif @specialty.save
-        flash[:alert] = "#{@dish.name} already exists"
+    if request.xhr?
+      @specialty.save
+    else
+      if @specialty.save
         redirect_to :back
       else
-        flash[:alert] = "Invalid entry. provide a dish name"
         redirect_to :back
       end
-  end
-
-  def index
-    @restaurant = Restaurant.find(params[:restaurant_id])
-    @specialties = @restaurant.specialties
+    end
   end
 
   def upvote

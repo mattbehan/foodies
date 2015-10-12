@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   resources :articles, except: :index
   resources :restaurants, except: [:index, :destroy] do
     resources :reviews
-    resources :specialties, only: [:create, :index]
+    resources :specialties, only: [:create]
   end
   get "users/hey" => "users#hey"
   devise_for :users, :controllers => {:registrations => "registrations"}
