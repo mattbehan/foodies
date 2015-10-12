@@ -2,6 +2,7 @@
   <div class="row">
     <div class="col-xs-12">
     <h1><%= @restaurant.name %></h1>
+
     <div class="restaurant-info">
       <h4>Restaurant Info</h4>
       <ul style="list-style: none">
@@ -17,6 +18,12 @@
         <li>Price Scale: <%= @restaurant.price_scale %></li>
 
       </ul>
+      <h3>Been to <%= @restaurant.name %>?</h3>
+      <h4><%= link_to "Rate it.", new_restaurant_quick_take_path(@restaurant), class: "quick-take-link", method: "get", remote: true %></h4>
+
+      <div class="quick-take-form" style="display:none;">
+      </div>
+
       <p><%= @restaurant.name %> has an aggergated score of <strong><%= @restaurant.aggregate_score %></strong></p>
       <div class="specialties-container">
         <h4> Specialties </h4>

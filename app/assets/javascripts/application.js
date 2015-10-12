@@ -46,4 +46,5 @@ $(function() {
     $(this).hide();
     $(this).next().toggle();
   })
+
 });

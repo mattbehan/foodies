@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     get "users/sign_in", to: "sessions#new"
   end
 
+
   post "/followings" => "followings#create"
   delete "/followings" => "followings#destroy"
 
@@ -17,6 +18,7 @@ Rails.application.routes.draw do
   get "search" => 'restaurants#search'
   resources :articles, except: :index
   resources :restaurants, except: [:index, :destroy] do
+    resources :quick_takes, only: [:new, :create]
     resources :reviews
     resources :specialties, only: [:create]
   end

@@ -19,6 +19,8 @@ gem 'gravatar-ultimate'
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
 
+gem 'bower-rails'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
