@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   devise_scope :user do
     get "users/sign_up", to: "registrations#register"
   end
+  devise_scope :user do
+    get "users/sign_in", to: "sessions#new"
+  end
 
   post "/followings" => "followings#create"
   delete "/followings" => "followings#destroy"

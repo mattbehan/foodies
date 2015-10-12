@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   before_filter :must_be_admin, only: [:reviewer_invite]
   before_filter :find_user, only: [:show]
 
-  
+
 
   def invite
     @user = User.new
@@ -14,12 +14,12 @@ class UsersController < ApplicationController
 
   def user_invite
     User.invite_user!(email: params[:user][:email])
-    redirect_to "/users/hey"
+    redirect_to root_path
   end
 
   def reviewer_invite
     User.invite_reviewer!(email: params[:user][:email], role: "reviewer")
-    redirect_to "/users/hey"
+    redirect_to root_path
   end
 
   def show
