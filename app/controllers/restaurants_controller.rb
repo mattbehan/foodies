@@ -31,6 +31,7 @@ class RestaurantsController < ApplicationController
   def show
     @reviews = @restaurant.reviews
     @specialties = @restaurant.top_three_dishes
+    @all_specialties = @restaurant.specialties
   end
 
   def edit

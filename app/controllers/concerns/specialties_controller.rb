@@ -3,13 +3,21 @@ class SpecialtiesController < ApplicationController
   respond_to :html, :js, :json
 
 
-	def create
+  def create
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @dish = Dish.find_or_create_by(name: params[:name])
+    @specialty = Specialty.find_or_create_by( dish_id: @dish.id, restaurant_id: @restaurant.id )
 
-	end
-
-	def index
-
-	end
+    if request.xhr?
+      @specialty.save
+    else
+      if @specialty.save
+        redirect_to :back
+      else
+        redirect_to :back
+      end
+    end
+  end
 
   def upvote
     if request.xhr?
@@ -43,8 +51,8 @@ class SpecialtiesController < ApplicationController
     @vote.update_attributes(value: new_value)
   end
 
-  def specialty_params
-    params.require(:specialty).permit(:content, :review_id).merge(user_id: current_user.id)
+  def dish_params
+    params.require(:dish).permit(:name)
   end
 
   def prepare_vote
