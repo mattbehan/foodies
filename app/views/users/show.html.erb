@@ -15,10 +15,17 @@
 
 				<!-- Profile Editing Buttons -->
 			  <% if owner?(@profile.id) %>
-						<p><%= link_to "Edit profile", edit_user_profile_path(@user, @user.profile), :class => "btn btn-primary edit-profile" %>
-					  <%= link_to "Edit account info", edit_user_registration_path, :class => "btn btn-primary edit-profile" %></p>
+					<p><%= link_to "Edit profile", edit_user_profile_path(@user, @user.profile), :class => "btn btn-primary edit-profile" %>
+					 <%= link_to "Edit account info", edit_user_registration_path, :class => "btn btn-primary edit-profile" %>
+					<% if @user.reviewer? || @user.admin? %>
+							<%= link_to "Create New Article", new_article_path, :class => "btn btn-success edit-profile" %>
+					<% end %>
+					</p>
 				<% end %>
+
+				<!-- Article creation button for reviewers -->
 			<% end %>
+
 
 			<% if @profile %>
 				<%= render partial: "profiles/show", layout: false, locals: {profile: @profile } %>
@@ -53,6 +60,19 @@
 							<li><%= link_to "#{article.title}", article_path(article) %></li>
 						<% end %>
 					</ul>
+				<% end %>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<% if @user.followers.length > 0 %>
+					<h3>Followed By:</h3>
+						<% @user.followers.each do |follower| %>
+							<div class="col-xs-2 col-sm-1">
+							<a href="<%= user_path(follower) %>"><img src="<%= follower.show_gravatar %>" alt="<%= follower.username %>" class="img-responsive gravatar-row" title="<%= follower.username %>"></a>
+							</div>
+						<% end %>
 				<% end %>
 			</div>
 		</div>

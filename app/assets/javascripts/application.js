@@ -46,4 +46,16 @@ $(function() {
     $(this).hide();
     $(this).next().toggle();
   })
+
+$(".specialties-container").on("click",".specialties-toggle", function(event){
+  console.log("lskdjf");
+  event.preventDefault();
+  console.log(this);
+  // $(this).parent().toggle();
+
+  $(".specialties-list").hide();
+  $("#all-specialties").show();
+  $(this).hide();
+  $(".specialties-form-area").show();
+})
 });
