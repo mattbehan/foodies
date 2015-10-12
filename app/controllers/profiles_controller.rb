@@ -20,7 +20,7 @@ class ProfilesController < ApplicationController
 	end
 
 	def edit
-		must_be_owner(@profile)		
+		must_be_owner(@profile.id)
 	end
 
 
