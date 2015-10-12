@@ -57,6 +57,19 @@
 			</div>
 		</div>
 
+		<div class="row">
+			<div class="col-xs-12">
+				<% if @user.followers.length > 0 %>
+					<h3>Followed By:</h3>
+						<% @user.followers.each do |follower| %>
+							<div class="col-xs-2 col-sm-1">
+							<a href="<%= user_path(follower) %>"><img src="<%= follower.show_gravatar %>" alt="<%= follower.username %>" class="img-responsive gravatar-row" title="<%= follower.username %>"></a>
+							</div>
+						<% end %>
+				<% end %>
+			</div>
+		</div>
+
 	<% end %>
 
 	<div class="row">
