@@ -1,11 +1,6 @@
 <!-- pass in resource as a local -->
-<div>
-
-	<%= form_tag "/followings" do %>
-	  <%= hidden_field_tag "resource", "#{resource.class.to_s}" %><br />
-	  <%= hidden_field_tag "resource_id", "#{resource.id}" %><br />
-	  <%= submit_tag "Follow"%>
+	<%= form_tag "/followings", :class => "follow-button" do %>
+	  <%= hidden_field_tag "resource", "#{resource.class.to_s}" %>
+	  <%= hidden_field_tag "resource_id", "#{resource.id}" %>
+	  <%= submit_tag "Follow", :class => "btn btn-primary" %>
 	<% end %>
-
-
-</div>
