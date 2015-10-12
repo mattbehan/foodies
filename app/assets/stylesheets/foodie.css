@@ -133,6 +133,11 @@ h1, h2, h3, h4, h5, h6 {
   vertical-align: middle;
 }
 
+.gravatar-row {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
 .comment {
   margin-bottom: 10px;
   padding-bottom: 5px;
