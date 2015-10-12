@@ -31,7 +31,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   def top_three_dishes
-    dishes = self.specialties.sort_by { |dish| dish.vote_count }[-3..-1]
+    dishes = self.specialties.sort_by { |dish| dish.vote_count }[-3..-1].reverse
   end
 
 end
