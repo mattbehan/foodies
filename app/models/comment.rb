@@ -8,4 +8,8 @@ class Comment < ActiveRecord::Base
   def vote_count
     self.votes.inject(0) { |total, vote| total += vote.value }
   end
+
+  def good_comment?
+    self.vote_count > -3
+  end
 end

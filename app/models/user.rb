@@ -1,3 +1,5 @@
+require 'gravatar-ultimate'
+
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -27,17 +29,16 @@ class User < ActiveRecord::Base
   has_many :visits, foreign_key: "visitor_id"
   has_many :visited_restaurants, through: :visits
 
-  validates :role, presence: true, 
+  validates :role, presence: true,
     inclusion: {in: ROLES, message: "Invalid role" }
   validates :username, presence: true, uniqueness: true
 
+  def follows? other_user_id
+    followings.find_by(followed_user_id: other_user_id ) != nil
+  end
+
   def followers
-    following_relationships = Following.where(followed_user_id: self.id)
-    all_followers = []
-    following_relationships.each do |following_relationship|
-      all_followers << following_relationship.follower
-    end
-    all_followers
+    following_relationships = Following.where(followed_user_id: self.id).map{ |following_relationship| following_relationship.follower }
   end
 
  	def admin?
@@ -63,6 +64,10 @@ class User < ActiveRecord::Base
  	def self.all_reviewers
  		User.all.select {|user| user.role == "reviewer"}
  	end
+
+  def show_gravatar
+    Gravatar.new(self.email).image_url
+  end
 
 
 

@@ -1,17 +1,20 @@
 <div>
 	<div>
-		<h2> <% if @profile %> <%= @user.profile.username || @user.email %>'s 
+		<h2> <% if @profile %> <%= @user.username || @user.email %>'s
 		<% else %>
-		<%= @user.email %>'s 
+		<%= @user.username %>'s
 		<% end %>
 		profile page</h2>
+		<img src="<%= @user.show_gravatar %>" alt="<%= @user.username %>">
 	</div>
 <!-- if there is a profile, show it -->
 	<% if @profile %>
 		<%= render partial: "profiles/show", layout: false, locals: {profile: @profile } %>
 
 		<!-- if the current user owns that profile, display links for edit and destroy -->
-	  <% if owner?(@profile) %>
+    <% puts "profile: #{@profile}" %>
+    <% puts "\n\n @user: #{@user}" %>
+	  <% if owner?(@profile.id) %>
 	  	<div>
 	  	<li>
 				<%= link_to("Edit profile information", edit_user_profile_path(@user.id, @profile.id) )%>
@@ -20,6 +23,19 @@
 			  <%= link_to('Edit account information', edit_user_registration_path) %>
 		  </li>
 		</div>
+
+		<!-- if not owner, but the profile exists, display follow/unfollow button -->
+		<% else %>
+
+			<!-- if user doesn't follow, show button for unfollow -->
+			<% if user_signed_in?  && !owner?(@profile.id) && !current_user.follows?(@profile.user_id) %>
+				<%= render partial: "followings/follow", layout: false, locals: { resource: @profile } %>
+
+			<!-- if user already follows, show button for unfollow -->
+			<% elsif user_signed_in? %>
+        <%= render partial: "followings/unfollow", layout: false, locals: { resource: @profile } %>
+			<% end %>
+
 		<% end %>
 
 	<!-- if current user does not have a profile, provide link to create one -->
@@ -39,7 +55,7 @@
   <!-- link to destroy registration within edit -->
 
   <li>
-  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
+  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
   </li>
 
 
@@ -47,7 +63,7 @@
 <!-- if user not signed in -->
 	<% else %>
 	  <li>
-	  <%= link_to('Login', new_user_session_path)  %>  
+	  <%= link_to('Login', new_user_session_path)  %>
 	  </li>
 
 	  <li>

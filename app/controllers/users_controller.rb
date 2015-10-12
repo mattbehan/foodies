@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @profile = Profile.find_by(id: params[:id])
+    @profile = Profile.find_by(user_id: params[:id])
   end
 
 end

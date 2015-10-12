@@ -1,4 +1,44 @@
-<h1>Splash?homepage</h1>
 <div>
   <%= inline_svg("neighborhoods.html.erb") %>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-8 col-xs-12 faux-panel" id="featured-restaurant">
+      <h2>Restaurant of the Day</h2>
+      <div class="faux-panel-body">
+        <h3 class="plain"><%= @restaurant.name %></h3>
+        <p>This <%= @restaurant.cuisine %> eatery located in the trendy Chicago neighborhood <%= @restaurant.neighborhood %> offers delectable dishes and scores a <%= @restaurant.vegan_friendliness %> out of 5 on the vegan friendliness scale.</p>
+
+        <p>Read foodie reviews of <%= @restaurant.name %>, see recommended dishes, and much more by checking our <%= link_to "#{@restaurant.name} page", restaurant_path(@restaurant) %>.</p>
+
+        <p>Bon appetit!</p>
+      </div>
+    </div>
+
+    <div class="col-sm-4 hidden-xs">
+      Placeholder for awesome local SVG map
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6 col-xs-12 faux-panel" id="featured-review">
+      <h2>Featured Review</h2>
+      <div class="faux-panel-body">
+        <h3 class="plain"><%= @review.title %></h3>
+        <p><strong>Review of <%= link_to "#{@review.restaurant.name}", restaurant_path(@review.restaurant) %> composed by <%= link_to "#{@review.reviewer.username}", user_path(@review.reviewer) %></strong></p>
+        <p><%= @review.get_preview %>
+          <%= link_to "read more...", restaurant_review_path(@review.restaurant, @review) %></p>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-xs-12 faux-panel" id="featured-article">
+      <h2>Featured Article</h2>
+      <div class="faux-panel-body">
+        <h3 class="plain"><%= @article.title %></h3>
+        <p><strong>Penned with love by <%= link_to "#{@article.author.username}", user_path(@article.author) %></strong></p>
+        <p><%= @article.get_preview %>
+          <%= link_to "read more...", article_path(@article) %></p>
+      </div>
+    </div>
+
 </div>

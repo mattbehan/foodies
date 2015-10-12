@@ -1,3 +1,21 @@
+/* Mobile First */
+
+body {
+  font-family: 'Lato', sans-serif;
+}
+
+main {
+  margin: 0 10px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #810541
+}
+
+h1.plain, h2.plain, h3.plain, h4.plain, h5.plain, h6.plain {
+  color: black;
+}
+
 .navbar-default {
   color: white;
   background-color: #810541;
@@ -21,6 +39,48 @@
   width: 180px;
 }
 
-@media screen and (min-width: 992px) {
+.faux-panel {
+  margin-bottom: 20px;
+}
+
+.faux-panel h2 {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-bottom: 0px;
+  border-radius: 6px 6px 0 0;
+  margin-bottom: 0px;
+}
+
+.faux-panel-body {
+  padding: 0 10px 10px 10px;
+  border: 1px solid #ccc;
+  border-radius: 0 0 2px 2px;
+}
+
+.comment {
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ccc;
+}
+
+.comments-header {
+  margin-bottom: 20px;
+}
+
+.bad-comment {
+  display: none;
+}
+
+.comments-uber-container {
+  display: none;
+  margin-left: 4%;
+}
+
+.new-comment-form {
+  display: none;
+}
+
+/* Desktop Second */
+@media screen and (min-width: 768px) {
 
 }

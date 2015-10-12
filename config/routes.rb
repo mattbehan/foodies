@@ -7,10 +7,13 @@ Rails.application.routes.draw do
     get "users/sign_up", to: "registrations#register"
   end
 
+  post "/followings" => "followings#create"
+  delete "/followings" => "followings#destroy"
+
   # search
   get "search" => 'restaurants#search'
   resources :articles, except: :index
-  resources :restaurants, except: :index do
+  resources :restaurants, except: [:index, :destroy] do
     resources :reviews
   end
   get "users/hey" => "users#hey"
@@ -18,7 +21,7 @@ Rails.application.routes.draw do
   get "/users/invite" => 'users#invite'
   post "/admins/invite" => 'users#reviewer_invite'
   post "/users/invite" => "users#user_invite"
-  resources :users, only: [:show] do 
+  resources :users, only: [:show] do
     resources :profiles, only: [:new, :create, :edit, :update]
   end
 

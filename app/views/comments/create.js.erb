@@ -1,2 +1,4 @@
 $('.comments-container').append("<%= j (render @comment)  %>");
 $('.comment-text-area-<%= @review.id %>').val('');
+$('.new-comment-form').toggle();
+$(".new-comment-form-toggle").show();

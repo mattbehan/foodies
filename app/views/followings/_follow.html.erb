@@ -1,0 +1,11 @@
+<!-- pass in resource as a local -->
+<div>
+
+	<%= form_tag "/followings" do %>
+	  <%= hidden_field_tag "resource", "#{resource.class.to_s}" %><br />
+	  <%= hidden_field_tag "resource_id", "#{resource.id}" %><br />
+	  <%= submit_tag "Follow"%>
+	<% end %>
+
+
+</div>

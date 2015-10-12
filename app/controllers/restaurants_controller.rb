@@ -1,5 +1,9 @@
 class RestaurantsController < ApplicationController
+
+  include ApplicationHelper
+
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
+  before_action :admin_or_reviewer?, only: [:new, :create, :edit, :update]
 
   def search
     # Search path
@@ -37,11 +41,6 @@ class RestaurantsController < ApplicationController
     else
       redirect_to edit_restaurant_path
     end
-  end
-
-  def destroy
-    @restaurant.destroy
-    redirect_to root_path
   end
 
   private
