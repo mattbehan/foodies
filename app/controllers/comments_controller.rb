@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :must_be_signed_in
+  before_action :must_be_logged_in
   respond_to :html, :js, :json
 
   def create
@@ -21,6 +21,7 @@ class CommentsController < ApplicationController
 
   def upvote
     if request.xhr?
+      prepare_upvote
       prepare_upvote
     else
       prepare_upvote
