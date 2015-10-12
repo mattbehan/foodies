@@ -16,7 +16,7 @@ end
 
 # Create users
 while User.all.length <= 100
-  user = User.new(email: FFaker::Internet.email + ".ru", username: FFaker::Internet.user_name, password: "p@ssw0rd")
+  user = User.new(email: FFaker::Internet.email + ".ru", username: FFaker::Internet.user_name + rand(1000).to_s, password: "p@ssw0rd")
   user.confirm!
   profile = Profile.create(bio: FFaker::BaconIpsum.words(50), affiliation: FFaker::Company.bs, full_name: FFaker::Name.name, user_id: user.id )
 end
