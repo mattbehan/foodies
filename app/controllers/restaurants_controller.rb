@@ -7,7 +7,9 @@ class RestaurantsController < ApplicationController
 
   def search
     # Search path
-    if params[:search]
+    if params[:search] = ""
+      @restaurants = Restaurant.order("name").page(params[:page]).per(5)
+    elsif params[:search]
       @restaurants = Restaurant.search(params[:search]).order("name").page(params[:page]).per(5)
     # Normal Render path
     else
