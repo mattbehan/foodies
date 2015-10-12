@@ -34,4 +34,10 @@ class Restaurant < ActiveRecord::Base
     dishes = self.specialties.sort_by { |dish| dish.vote_count }[-3..-1]
   end
 
+  def aggregate_score
+    # 1. Get all restaurant reviews
+    # 2. Get the scores of those restaurants into an array
+    # 3. Return the average of those scores. 
+  end
+
 end
