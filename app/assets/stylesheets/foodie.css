@@ -2,10 +2,21 @@
 
 body {
   font-family: 'Lato', sans-serif;
+  margin-bottom: 40px;
 }
 
 main {
-  margin: 0 10px;
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+a {
+  color: #054282;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -73,14 +84,55 @@ h1.plain, h2.plain, h3.plain, h4.plain, h5.plain, h6.plain {
 
 .comments-uber-container {
   display: none;
-  margin-left: 4%;
+  margin-left: 5%;
+}
+
+.comment-text-input {
+  margin-left: 5%;
+  width: 90%;
+  height: 100px;
+  margin-bottom: 10px;
 }
 
 .new-comment-form {
   display: none;
 }
 
+.review-header a {
+  color: #999;
+}
+
+.review-byline a {
+  color: #810541;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding-top: 10px;
+  height: 40px;
+  background-color: #aaa;
+  color: #810541;
+}
+
+footer a {
+  color: white;
+}
+
+footer a:hover {
+  text-decoration: underline;
+  color: white;
+}
+
+footer p {
+  margin-bottom: 0;
+}
+
 /* Desktop Second */
 @media screen and (min-width: 768px) {
 
+  #featured-restaurant-body {
+    min-height: 440px;
+  }
 }

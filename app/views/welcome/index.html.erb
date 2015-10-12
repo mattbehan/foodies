@@ -4,16 +4,19 @@
       <h2>Restaurant of the Day</h2>
       <div class="faux-panel-body">
         <h3 class="plain"><%= @restaurant.name %></h3>
-        <p>This <%= @restaurant.cuisine %> eatery located in the trendy Chicago neighborhood <%= @restaurant.neighborhood %> offers delectable dishes and scores a <%= @restaurant.vegan_friendliness %> out of 5 on the vegan friendliness scale.</p>
+        <div id="featured-restaurant-body">
+          <p>This <%= @restaurant.cuisine %> eatery located in the trendy Chicago neighborhood <%= @restaurant.neighborhood %> offers delectable dishes and scores a <%= @restaurant.vegan_friendliness %> out of 5 on the vegan friendliness scale.</p>
 
-        <p>Read foodie reviews of <%= @restaurant.name %>, see recommended dishes, and much more by checking our <%= link_to "#{@restaurant.name} page", restaurant_path(@restaurant) %>.</p>
+          <p>Read foodie reviews of <%= @restaurant.name %>, see recommended dishes, and much more by checking our <%= link_to "#{@restaurant.name} page", restaurant_path(@restaurant) %>.</p>
 
-        <p>Bon appetit!</p>
+          <p>Bon appetit!</p>
+        </div>
       </div>
     </div>
 
     <div class="col-sm-4 hidden-xs">
-      Placeholder for awesome local SVG map
+      <p>Click on a Chicago neighborhood to see its foodie-approved restaurants.</p>
+      <%= inline_svg("neighborhoods.html.erb") %>
     </div>
   </div>
 

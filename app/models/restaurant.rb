@@ -18,12 +18,15 @@ class Restaurant < ActiveRecord::Base
   validates_format_of :zip, with: /\d{5}/
 
   def self.search(query)
-    # where(:title, query) -> This would return an exact match of the query
-    # where("lower(name) LIKE ?", "%#{query.downcase}%")
 
     if query
       query_length = query.split.length
-      query_input = [(['lower(name) LIKE ?'] * query_length).join(' AND ')] + query.split.map { |name| "%#{name.downcase}%" }
+      # query_old_input = [(['lower(name) LIKE ?'] * query_length).join(' AND ')] + query.split.map { |name| "%#{name.downcase}%" }
+      query_input =
+      [([(['lower(name) LIKE ?'] * query_length).join(' AND ')] +
+        [(['lower(cuisine) LIKE ?'] * query_length).join(' AND ')] +
+        [(['lower(neighborhood) LIKE ?'] * query_length).join(' AND ')]).join(' OR ')] +
+        query.split.map { |name| "%#{name.downcase}%" }*3
       where(query_input)
     else
       where(:all)
@@ -31,7 +34,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   def top_three_dishes
-    dishes = self.specialties.sort_by { |dish| dish.vote_count }[-3..-1]
+    dishes = self.specialties.sort_by { |dish| dish.vote_count }[-3..-1].reverse
   end
 
   def aggregate_score

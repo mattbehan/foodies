@@ -1,23 +1,40 @@
-<h1><%= @restaurant.name %></h1>
-<div class="restaurant-info">
-  <h4>Restaurant Info</h4>
-  <ul style="list-style: none">
-    <li>Cuisine: <%= @restaurant.cuisine %></li>
-    <li>Address:
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+    <h1><%= @restaurant.name %></h1>
+    <div class="restaurant-info">
+      <h4>Restaurant Info</h4>
       <ul style="list-style: none">
-        <li><%= @restaurant.street_address %></li>
-        <li><%= @restaurant.city %>, <%= @restaurant.state %> <%= @restaurant.zip %></li>
+        <li>Cuisine: <%= @restaurant.cuisine %></li>
+        <li>Address:
+          <ul style="list-style: none">
+            <li><%= @restaurant.street_address %></li>
+            <li><%= @restaurant.city %>, <%= @restaurant.state %> <%= @restaurant.zip %></li>
+          </ul>
+        </li>
+        <li>Phone Number: <%= @restaurant.phone_number %></li>
+        <li>Neighborhood: <%= @restaurant.neighborhood %></li>
+        <li>Price Scale: <%= @restaurant.price_scale %></li>
+
       </ul>
-    </li>
-    <li>Phone Number: <%= @restaurant.phone_number %></li>
-    <li>Neighborhood: <%= @restaurant.neighborhood %></li>
-    <li>Price Scale: <%= @restaurant.price_scale %></li>
+      <div class="specialties-container">
+        <h4> Specialties </h4>
+        <div class="specialties-list"> <%= render partial: @specialties %>
 
-  </ul>
+        <%= render partial: "specialties/form", locals: {restaurant: @restaurant} %>
 
-  <h1>Reviews for <%= @restaurant.name %></h1>
-  <hr>
-  <%= render @reviews %>
+        <!-- when ajaxing for show all, just listen for a click and then change display to show all.  -->
+        <div id="all-specialties" style="display:none"><%= render partial: "specialties/all_specialties", locals: {specialties: @all_specialties} %> </div>
+      </div>
 
 
+
+      <h1>Reviews for <%= @restaurant.name %></h1>
+      <hr>
+      <%= render @reviews %>
+
+
+    </div>
+    </div>
+  </div>
 </div>

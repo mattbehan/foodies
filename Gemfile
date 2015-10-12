@@ -47,7 +47,6 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'rspec-rails'
   gem 'byebug'
-  gem 'ffaker'
   gem 'database_cleaner'
   gem 'shoulda-matchers'
   gem 'capybara'
@@ -61,5 +60,5 @@ group :development do
   gem 'spring'
 end
 
-
+gem 'ffaker' # Needed here to seed on Heroku
 gem 'rails_12factor', group: :production
