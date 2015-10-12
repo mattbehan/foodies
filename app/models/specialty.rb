@@ -6,6 +6,9 @@ class Specialty < ActiveRecord::Base
   validates :restaurant_id, :dish_id, presence: true
 
   def vote_count
-    self.votes.inject(0) { |total, vote| total += vote.value }
+    votes.sum(:value)
   end
+
+
+
 end
