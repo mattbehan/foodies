@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   validates :username, presence: true, uniqueness: true
 
   def has_bookmarked? restaurant_id
-    bookmarks.find_by(id: restaurant_id) != nil
+    bookmarks.find_by(bookmarked_restaurant_id: restaurant_id) != nil
   end
 
   def follows? other_user_id

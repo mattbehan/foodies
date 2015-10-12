@@ -2,11 +2,14 @@
   <div class="row">
     <div class="col-xs-12">
     <h1><%= @restaurant.name %></h1>
-    <% if current_user.has_bookmarked?(@restaurant.id) %>
-      <%= render partial: "bookmarks/bookmark", locals: { restaurant: @restaurant }%>
-    <% else %>
 
+    <p id="bookmark-flash" style="color:red"><%= flash[:bookmark] %></p>
+    <% if current_user.has_bookmarked?(@restaurant.id) %>
+      <%= render partial: "bookmarks/unbookmark", locals: { restaurant: @restaurant }%>
+    <% else %>
+      <%= render partial: "bookmarks/bookmark", locals: { restaurant: @restaurant }%>
     <% end %>
+
     <div class="restaurant-info">
       <h4>Restaurant Info</h4>
       <ul style="list-style: none">
