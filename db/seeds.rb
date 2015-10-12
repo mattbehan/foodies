@@ -7,7 +7,7 @@ neighborhoods = ["Albany Park","Andersonville","Archer Heights","Ashburn","Aubru
                       street_address: FFaker::AddressUS.street_address,
                       city: FFaker::AddressUS.city, state: FFaker::AddressUS.state,
                       zip: FFaker::AddressUS.zip_code, phone_number: FFaker::PhoneNumber.short_phone_number,
-                      neighborhood: neighborhoods.sample nearest_l: FFaker::AddressUS.neighborhood,
+                      neighborhood: neighborhoods.sample, nearest_l: FFaker::AddressUS.neighborhood,
                       website: FFaker::Internet.http_url, menu_url: FFaker::Internet.http_url,
                       price_scale: rand(1..5), atmosphere: FFaker::HipsterIpsum.word, delivery: true,
                       reservations: false, vegan_friendliness: rand(1..5), patios: false,
