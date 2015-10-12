@@ -9,6 +9,10 @@ class RegistrationsController < Devise::RegistrationsController
     super
   end
 
+  def edit
+    render :"users/registrations/edit"
+  end
+
   # The path used after sign up. You need to overwrite this method
   # in your own RegistrationsController.
   def after_sign_up_path_for(resource)
