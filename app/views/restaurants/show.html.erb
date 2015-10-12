@@ -4,10 +4,18 @@
     <h1><%= @restaurant.name %></h1>
 
     <p id="bookmark-flash" style="color:red"><%= flash[:bookmark] %></p>
-    <% if current_user.has_bookmarked?(@restaurant.id) %>
+    <% if user_signed_in? && current_user.has_bookmarked?(@restaurant.id) %>
       <%= render partial: "bookmarks/unbookmark", locals: { restaurant: @restaurant }%>
-    <% else %>
+    <% elsif user_signed_in? %>
       <%= render partial: "bookmarks/bookmark", locals: { restaurant: @restaurant }%>
+    <% end %>
+
+
+    <p id="visit-flash" style="color:red"><%= flash[:visit] %></p>
+    <% if user_signed_in? && current_user.has_visited?(@restaurant.id) %>
+      <%= render partial: "visits/visited", locals: { restaurant: @restaurant }%>
+    <% elsif user_signed_in? %>
+      <%= render partial: "visits/visit", locals: { restaurant: @restaurant }%>
     <% end %>
 
     <div class="restaurant-info">
