@@ -1,3 +1,2 @@
-
-	$('.specialties-list').append("<%= j (render @specialty)  %>");
-	$('#new-specialty-text').val('');
+$('.specialties-container').append("<%= j (render @specialty)  %>");
+$('.specialty-text-area-<%= @review.id %>').val('');

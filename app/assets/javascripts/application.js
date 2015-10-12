@@ -31,7 +31,7 @@ $(function() {
     );
     window.location.href = '/search'+"?search="+neighborhood;
   })
-  // Comments
+
   $(".bad-comment-warning a").on("click", function(){
     $(this).parent().toggle();
     $(this).parent().prev().show();
@@ -46,17 +46,4 @@ $(function() {
     $(this).hide();
     $(this).next().toggle();
   })
-  // Specialties
-  $(".specialties-container").on("click",".specialties-toggle", function(event){
-    console.log("lskdjf");
-    event.preventDefault();
-    console.log(this);
-    // $(this).parent().toggle();
-
-    $(".specialties-list").hide();
-    $("#all-specialties").show();
-    $(this).hide();
-    $(".specialties-form-area").show();
-  })
-
 });
