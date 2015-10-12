@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :current_user
+  before_action :must_be_signed_in
   respond_to :html, :js, :json
 
   def create

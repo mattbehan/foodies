@@ -13,12 +13,16 @@ Rails.application.routes.draw do
   post "/followings" => "followings#create"
   delete "/followings" => "followings#destroy"
 
+  delete "/restaurants/:id/bookmarks" => "bookmarks#destroy"
+
   # search
   get "search" => 'restaurants#search'
   resources :articles, except: :index
   resources :restaurants, except: [:index, :destroy] do
     resources :reviews
-    resources :specialties, only: [:create, :index]
+    resources :bookmarks, only: [:create]
+    resources :visits, only: [:create]
+    resources :specialties, only: [:create]
   end
   get "users/hey" => "users#hey"
   devise_for :users, :controllers => {:registrations => "registrations"}
