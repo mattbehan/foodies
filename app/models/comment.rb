@@ -8,4 +8,8 @@ class Comment < ActiveRecord::Base
   def vote_count
   	votes.sum(:value)
   end
+
+  def good_comment?
+    self.vote_count > -3
+  end
 end
