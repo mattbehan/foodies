@@ -1,65 +1,72 @@
-<div>
-	<div>
-		<h2> <% if @profile %> <%= @user.username || @user.email %>'s
-		<% else %>
-		<%= @user.username %>'s
-		<% end %>
-		profile page</h2>
-		<img src="<%= @user.show_gravatar %>" alt="<%= @user.username %>">
-	</div>
-<!-- if there is a profile, show it -->
-	<% if @profile %>
-		<%= render partial: "profiles/show", layout: false, locals: {profile: @profile } %>
-
-		<!-- if the current user owns that profile, display links for edit and destroy -->
-    <% puts "profile: #{@profile}" %>
-    <% puts "\n\n @user: #{@user}" %>
-	  <% if owner?(@profile.id) %>
-	  	<div>
-	  	<li>
-				<%= link_to("Edit profile information", edit_user_profile_path(@user.id, @profile.id) )%>
-			</li>
-		  <li>
-			  <%= link_to('Edit account information', edit_user_registration_path) %>
-		  </li>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-2 col-md-1">
+			<img src="<%= @user.show_gravatar %>" alt="<%= @user.username %>" class="img-responsive">
 		</div>
+		<div class="col-xs-9 col-md-9">
+			<p class="h2 profile-header"><%= @user.username %></p>
+			<% if @profile %>
+				<!-- Follow/Unfollow Button for Logged-In Users -->
+				<% if user_signed_in?  && !owner?(@profile.user_id) && !current_user.follows?(@profile.user_id) %>
+					<%= render partial: "followings/follow", layout: false, locals: { resource: @profile } %>
+				<% elsif user_signed_in? && !owner?(@profile.user_id) %>
+	        <%= render partial: "followings/unfollow", layout: false, locals: { resource: @profile } %>
+				<% end %>
 
-		<!-- if not owner, but the profile exists, display follow/unfollow button -->
-		<% else %>
-
-			<!-- if user doesn't follow, show button for unfollow -->
-			<% if user_signed_in?  && !owner?(@profile.id) && !current_user.follows?(@profile.user_id) %>
-				<%= render partial: "followings/follow", layout: false, locals: { resource: @profile } %>
-
-			<!-- if user already follows, show button for unfollow -->
-			<% elsif user_signed_in? %>
-        <%= render partial: "followings/unfollow", layout: false, locals: { resource: @profile } %>
+				<!-- Profile Editing Buttons -->
+			  <% if owner?(@profile.id) %>
+						<p><%= link_to "Edit profile", edit_user_profile_path(@user, @user.profile), :class => "btn btn-primary edit-profile" %>
+					  <%= link_to "Edit account info", edit_user_registration_path, :class => "btn btn-primary edit-profile" %></p>
+				<% end %>
 			<% end %>
 
-		<% end %>
-
-	<!-- if current user does not have a profile, provide link to create one -->
-	<% elsif current_user.id == params[:id].to_i %>
-	<div>
-		<li>
-		  <%= link_to('Create profile', new_user_profile_path(current_user)) %>
-	  </li>
+			<% if @profile %>
+				<%= render partial: "profiles/show", layout: false, locals: {profile: @profile } %>
+			<% elsif current_user.id == params[:id].to_i %>
+				<li>
+				  <%= link_to'Create profile', new_user_profile_path(current_user), :class => "btn btn-primary " %>
+			  </li>
+			<% end %>
+		</div>
 	</div>
 
-	<% end %>
+	<div class="row">
+		<div class="col-xs-12">
+			<% if @user.followed_users.length > 0 %>
+				<h3>Followed Users:</h3>
+					<% @user.followed_users.each do |followed_user| %>
+						<div class="col-xs-2 col-sm-1">
+						<a href="<%= user_path(followed_user) %>"><img src="<%= @user.show_gravatar %>" alt="<%= @user.username %>" class="img-responsive"></a>
+						</div>
+					<% end %>
+				<% end %>
+		</div>
+	</div>
 
+	<div class="row">
+		<div class="col-xs-12">
+			<% if @user.visited_restaurants.length > 0 %>
+				<h3>Visited Restaurants:</h3>
+					<ul>
+					<% @user.visited_restaurants.each do |visited_restaurant| %>
+						<li><%= visited_restaurant.name %></li>
+					<% end %>
+				</ul>
+			<% end %>
+		</div>
+	</div>
 
-<!--
+		<div class="row">
+		<div class="col-xs-12">
+			<% if @user.bookmarked_restaurants.length > 0 %>
+				<h3>Bookmarked Restaurants:</h3>
+					<ul>
+					<% @user.bookmarked_restaurants.each do |bookmarked_restaurant| %>
+						<li><%= bookmarked_restaurant.name %></li>
+					<% end %>
+				</ul>
+			<% end %>
+		</div>
+	</div>
 
-
-<br> <br> <br>
-<% if @profile %>
-<h4> not working, being processed as post requests </h4>
-	  	<li>
-				<%= button_to("Edit profile information", formaction: edit_user_profile_path(@user.id, @profile.id), :class => "button", method: :get) %>
-			</li>
-		  <li>
-			  <%= button_to('Edit account information', formaction:edit_user_registration_path, :class => "button", method: :get) %>
-		  </li>
-<% end %>
--->
+</div>
