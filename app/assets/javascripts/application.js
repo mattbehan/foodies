@@ -14,11 +14,22 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require_tree .
+
+// Jquery
 $(function() {
+  // Pagination AJAX
   $("#restaurants").on("click",".pagination a", function(){
     $(".pagination").html("Page is loading...");
     $.get(this.href, null, null, "script")
     return false
+  })
+  //SVG Redirect
+  $("path").on("click", function(){
+    var neighborhood = $(this).attr("id")
+    console.log(
+      $(this).attr("id")
+    );
+    window.location.href = '/search'+"?search="+neighborhood;
   })
 
   $(".bad-comment-warning a").on("click", function(){
