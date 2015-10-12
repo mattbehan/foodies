@@ -49,28 +49,7 @@
 	<% end %>
 
 
-<!-- stuff for topbar -->
-<% if user_signed_in? %>
-
-  <!-- link to destroy registration within edit -->
-
-  <li>
-  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
-  </li>
-
-
-
-<!-- if user not signed in -->
-	<% else %>
-	  <li>
-	  <%= link_to('Login', new_user_session_path)  %>
-	  </li>
-
-	  <li>
-		  <%= link_to('Register', new_user_registration_path)  %>
-	  </li>
-	<% end %>
-</div>
+<!--
 
 
 <br> <br> <br>
@@ -83,3 +62,4 @@
 			  <%= button_to('Edit account information', formaction:edit_user_registration_path, :class => "button", method: :get) %>
 		  </li>
 <% end %>
+-->
