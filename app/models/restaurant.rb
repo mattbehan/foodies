@@ -38,9 +38,23 @@ class Restaurant < ActiveRecord::Base
   end
 
   def aggregate_score
-    # 1. Get all restaurant reviews
-    # 2. Get the scores of those restaurants into an array
-    # 3. Return the average of those scores. 
+    if self.reviews.any? || self.quick_takes.any?
+      qt_avg = mean(self.quick_takes.map { |qt| qt.rating })
+      review_avg = mean(self.reviews.map { |review| review.rating })
+      weighted_mean(review_avg, 0.75) + weighted_mean(qt_avg, 0.25)
+    else
+      "There are no reviews for this restaurant"
+    end
+  end
+
+  private
+
+  def mean(numbers)
+    numbers.inject(:+) / numbers.length
+  end
+
+  def weighted_mean(number, decimal)
+    number * decimal
   end
 
 end

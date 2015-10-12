@@ -53,6 +53,8 @@ ActiveRecord::Schema.define(version: 20151009184052) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "dishes", ["name"], name: "index_dishes_on_name", unique: true, using: :btree
+
   create_table "followings", force: :cascade do |t|
     t.integer  "follower_id",      null: false
     t.integer  "followed_user_id", null: false
