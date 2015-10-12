@@ -20,10 +20,16 @@
       <p><%= @restaurant.name %> has an aggergated score of <strong><%= @restaurant.aggregate_score %></strong></p>
       <div class="specialties-container">
         <h4> Specialties </h4>
-        <div class="specialties-list"> <%= render partial: @specialties %>
+        <div class="specialties-list"> <%= render partial: @specialties %> </div>
 
-        <%= render partial: "specialties/form", locals: {restaurant: @restaurant} %>
-
+        <!-- when ajaxing for show all, just listen for a click and then change display to show all.  -->
+        <div id="all-specialties" style="display:none"><%= render partial: "specialties/all_specialties", locals: {specialties: @all_specialties} %> </div>
+        <hr>  
+          <%= link_to "Show all specialties", root_path, remote: true, :class => "btn btn-default specialties-toggle" %>
+          <!-- restaurant_specialties_path(@restaurant, @specialties) -->
+        <p><%= flash[:alert] %> </p>
+        <%= render partial: "specialties/form", id:"specialties-form", locals: {specialty: @new_specialty, restaurant: @restaurant} %>
+        <hr>
         <!-- when ajaxing for show all, just listen for a click and then change display to show all.  -->
         <div id="all-specialties" style="display:none"><%= render partial: "specialties/all_specialties", locals: {specialties: @all_specialties} %> </div>
       </div>
