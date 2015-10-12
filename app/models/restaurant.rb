@@ -37,4 +37,24 @@ class Restaurant < ActiveRecord::Base
     dishes = self.specialties.sort_by { |dish| dish.vote_count }[-3..-1].reverse
   end
 
+  def aggregate_score
+    if self.reviews.any? || self.quick_takes.any?
+      qt_avg = mean(self.quick_takes.map { |qt| qt.rating })
+      review_avg = mean(self.reviews.map { |review| review.rating })
+      weighted_mean(review_avg, 0.75) + weighted_mean(qt_avg, 0.25)
+    else
+      "N/A"
+    end
+  end
+
+  private
+
+  def mean(numbers)
+    numbers.inject(:+) / numbers.length
+  end
+
+  def weighted_mean(number, decimal)
+    number * decimal
+  end
+
 end

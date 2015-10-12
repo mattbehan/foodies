@@ -1,7 +1,10 @@
+<!-- In progress, needs to be edited -->
+
 <div class="enter-site">
   <h2>Log in</h2>
 
   <%= form_for(@user, url: new_user_session_path(@user) ) do |f| %>
+    <%= devise_error_messages! %>
     <div class="field">
       <%= f.label :email %><br />
       <%= f.email_field :email, autofocus: true %>
