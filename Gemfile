@@ -61,5 +61,5 @@ group :development do
   gem 'spring'
 end
 
-
+gem 'ffaker'
 gem 'rails_12factor', group: :production
