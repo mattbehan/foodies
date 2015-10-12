@@ -25,4 +25,14 @@ $(function() {
     $(this).parent().toggle();
     $(this).parent().prev().show();
   })
+
+  $(".comment-toggle").on("click", function(){
+    $(this).hide();
+    $(this).next().toggle();
+  })
+
+  $(".new-comment-form-toggle").on("click", function(){
+    $(this).hide();
+    $(this).next().toggle();
+  })
 });

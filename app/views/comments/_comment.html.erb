@@ -1,4 +1,4 @@
-<div class="comment" id="comment-<%= comment.id %>">
+<div class="comment col-sm-8 col-xs-10" id="comment-<%= comment.id %>">
 <% if comment.good_comment? %>
   <p><%= comment.content %> <%= link_to "#{comment.user.username}", user_path(comment.user) %></p>
 <% else %>

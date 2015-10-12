@@ -57,7 +57,26 @@ h1.plain, h2.plain, h3.plain, h4.plain, h5.plain, h6.plain {
   border-radius: 0 0 2px 2px;
 }
 
+.comment {
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ccc;
+}
+
+.comments-header {
+  margin-bottom: 20px;
+}
+
 .bad-comment {
+  display: none;
+}
+
+.comments-uber-container {
+  display: none;
+  margin-left: 4%;
+}
+
+.new-comment-form {
   display: none;
 }
 
