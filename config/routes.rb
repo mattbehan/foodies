@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   resources :articles, except: :index
   resources :restaurants, except: [:index, :destroy] do
     resources :reviews
+    resources :bookmarks, only: [:create, :destroy]
+    resources :visits, only: [:create]
     resources :specialties, only: [:create]
   end
   get "users/hey" => "users#hey"

@@ -33,6 +33,10 @@ class User < ActiveRecord::Base
     inclusion: {in: ROLES, message: "Invalid role" }
   validates :username, presence: true, uniqueness: true
 
+  def has_bookmarked? restaurant_id
+    bookmarks.find_by(id: restaurant_id) != nil
+  end
+
   def follows? other_user_id
     followings.find_by(followed_user_id: other_user_id ) != nil
   end

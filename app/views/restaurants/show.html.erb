@@ -2,6 +2,11 @@
   <div class="row">
     <div class="col-xs-12">
     <h1><%= @restaurant.name %></h1>
+    <% if current_user.has_bookmarked?(@restaurant.id) %>
+      <%= render partial: "bookmarks/bookmark", locals: { restaurant: @restaurant }%>
+    <% else %>
+
+    <% end %>
     <div class="restaurant-info">
       <h4>Restaurant Info</h4>
       <ul style="list-style: none">
@@ -17,7 +22,7 @@
         <li>Price Scale: <%= @restaurant.price_scale %></li>
 
       </ul>
-      <p><%= @restaurant.name %> has an aggergated score of <strong><%= @restaurant.aggregate_score %></strong></p>
+      <p><%= @restaurant.name %> has an aggregated score of <strong><%= @restaurant.aggregate_score %></strong></p>
       <div class="specialties-container">
         <h4> Specialties </h4>
         <div class="specialties-list"> <%= render partial: @specialties %>
