@@ -30,16 +30,45 @@
 		</div>
 	</div>
 
+	<% if @user.reviewer? || @user.admin? %>
+		<div class="row">
+			<div class="col-xs-12">
+				<% if @user.reviews.length > 0 %>
+					<h3>Reviews:</h3>
+						<ul>
+						<% @user.reviews.each do |review| %>
+							<li><%= link_to "#{review.title}", restaurant_review_path(review.restaurant, review) %></li>
+						<% end %>
+					</ul>
+				<% end %>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<% if @user.articles.length > 0 %>
+					<h3>Articles:</h3>
+						<ul>
+						<% @user.articles.each do |article| %>
+							<li><%= link_to "#{article.title}", article_path(article) %></li>
+						<% end %>
+					</ul>
+				<% end %>
+			</div>
+		</div>
+
+	<% end %>
+
 	<div class="row">
 		<div class="col-xs-12">
 			<% if @user.followed_users.length > 0 %>
 				<h3>Followed Users:</h3>
 					<% @user.followed_users.each do |followed_user| %>
 						<div class="col-xs-2 col-sm-1">
-						<a href="<%= user_path(followed_user) %>"><img src="<%= followed_user.show_gravatar %>" alt="<%= followed_user.username %>" class="img-responsive" title="<%= followed_user.username %>"></a>
+						<a href="<%= user_path(followed_user) %>"><img src="<%= followed_user.show_gravatar %>" alt="<%= followed_user.username %>" class="img-responsive gravatar-row" title="<%= followed_user.username %>"></a>
 						</div>
 					<% end %>
-				<% end %>
+			<% end %>
 		</div>
 	</div>
 
