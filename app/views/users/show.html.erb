@@ -36,7 +36,7 @@
 				<h3>Followed Users:</h3>
 					<% @user.followed_users.each do |followed_user| %>
 						<div class="col-xs-2 col-sm-1">
-						<a href="<%= user_path(followed_user) %>"><img src="<%= @user.show_gravatar %>" alt="<%= @user.username %>" class="img-responsive"></a>
+						<a href="<%= user_path(followed_user) %>"><img src="<%= followed_user.show_gravatar %>" alt="<%= followed_user.username %>" class="img-responsive" title="<%= followed_user.username %>"></a>
 						</div>
 					<% end %>
 				<% end %>
