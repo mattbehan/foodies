@@ -1,3 +1,50 @@
+<div id="map_wrapper">
+    <div id="map_canvas" class="mapping"></div>
+</div>
+<style type="text/css">
+    #map_wrapper {
+        height: 400px;
+    }
+
+    #map_canvas {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+<script type="text/javascript">
+    jQuery(function($) {
+        // Asynchronously Load the map API
+        var script = document.createElement('script');
+        script.src = "http://maps.googleapis.com/maps/api/js?sensor=false&callback=initialize";
+        document.body.appendChild(script);
+    });
+
+    function initialize() {
+        var map;
+        // Set the latitude & longitude for our location (London Eye)
+        var myLatlng = new google.maps.LatLng(41.8896967,-87.6376920);
+        var mapOptions = {
+            center: myLatlng, // Set our point as the centre location
+            zoom: 14, // Set the zoom level
+            mapTypeId: 'roadmap' // set the default map type
+        };
+
+        // Display a map on the page
+        map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+        // Allow our satellite view have a tilted display (This only works for certain locations)
+        map.setTilt(45);
+
+        // Add a marker to the map based on our coordinates
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            title: 'London Eye, London'
+        });
+     }
+</script>
+
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12">
