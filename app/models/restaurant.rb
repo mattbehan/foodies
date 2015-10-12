@@ -43,7 +43,7 @@ class Restaurant < ActiveRecord::Base
       review_avg = mean(self.reviews.map { |review| review.rating })
       weighted_mean(review_avg, 0.75) + weighted_mean(qt_avg, 0.25)
     else
-      "There are no reviews for this restaurant"
+      "N/A"
     end
   end
 
