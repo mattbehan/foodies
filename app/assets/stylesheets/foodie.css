@@ -40,7 +40,6 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #810541;
 }
 
-
 .navbar-brand {
   padding-top: 10px;
   padding-bottom: 40px;
@@ -82,12 +81,14 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
   width: 300px;
   padding: 0 50px;
-  margin: 10px auto;
+  margin: 50px auto;
+  border-radius: 5px;
 }
 
 .enter-site label {
   text-align: left;
   display: block;
+  padding-top: 10px;
 }
 
 .enter-site label[for="user_remember_me"] {
@@ -100,7 +101,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .enter-site .field {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .enter-site input[type="checkbox"] {
@@ -157,6 +158,10 @@ h1, h2, h3, h4, h5, h6 {
   margin-left: 5%;
 }
 
+.comments-box {
+  margin-bottom: 30px;
+}
+
 .comment-text-input {
   margin-left: 5%;
   width: 90%;
@@ -168,9 +173,23 @@ h1, h2, h3, h4, h5, h6 {
   display: none;
 }
 
-
 .review-byline a {
   color: #810541;
+}
+
+#articles-container {
+  margin-left: 20px;
+}
+
+.article-form label {
+  display: block;
+  margin: 10px 0;
+}
+
+.article-form textarea {
+  width: 80%;
+  min-height: 300px;
+  margin-bottom: 10px;
 }
 
 .footer {

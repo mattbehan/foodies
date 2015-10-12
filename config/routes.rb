@@ -15,12 +15,12 @@ Rails.application.routes.draw do
 
   # search
   get "search" => 'restaurants#search'
-  resources :articles, except: :index
+  resources :articles, except: :destroy
   resources :restaurants, except: [:index, :destroy] do
     resources :reviews
     resources :specialties, only: [:create, :index]
   end
-  get "users/hey" => "users#hey"
+
   devise_for :users, :controllers => {:registrations => "registrations"}
   get "/users/invite" => 'users#invite'
   post "/admins/invite" => 'users#reviewer_invite'
