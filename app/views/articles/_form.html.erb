@@ -1,6 +1,6 @@
 <%= form_for @article do |f| %>
   <%= f.label :title %>
-  <%= f.text_field :title %> <br>
+  <%= f.text_field :title, size: 50 %> <br>
 
   <%= f.label :content %>
   <%= f.text_area :content, cols: "50", rows: "5" %> <br>

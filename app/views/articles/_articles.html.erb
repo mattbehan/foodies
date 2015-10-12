@@ -1,0 +1,11 @@
+<%= paginate @articles, :window => 10 %>
+
+  <% @articles.each do |article| %>
+    <div class="article-grouping">
+      <h3 class="header-link"><%= link_to "#{article.title}", article_path(article) %></h3>
+      <p>By <%= link_to "#{article.author.username}", user_path(article.author) %></p>
+  <% end %>
+
+<%= "No articles found" if @articles.empty? %>
+
+<%= paginate @articles %>
