@@ -26,6 +26,8 @@ it still responds to after_sign_up_path_for and not after_inactive_sign_up_path_
 when we want to push to production all we will have to do is set the environment variables for sendgrid username and password using-
 heroku config:set SENDGRID_USERNAME
 
+config.scoped_views
+
 ________________
 DEVISE INVITABLE
 
