@@ -1,5 +1,5 @@
-<div style="display:none" class="specialties-form-area">
-	<%= form_tag("/restaurants/#{restaurant.id}/specialties", class: "comment-form", method: "post")  do %>
+<div style="display:none" id="new-specialties-form">
+	<%= form_tag("/restaurants/#{restaurant.id}/specialties", class: "comment-form", method: "post", remote: true)  do %>
 		<%= text_field_tag "name", nil, placeholder: "Add a new dish as a specialty", id: "new-specialty-text" %>
 		<%= submit_tag "Add dish" %>
 	<% end %>
