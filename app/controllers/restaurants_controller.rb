@@ -34,6 +34,7 @@ class RestaurantsController < ApplicationController
     @reviews = @restaurant.reviews
     @specialties = @restaurant.top_three_dishes
     @all_specialties = @restaurant.specialties
+    @rest_of_specialties = @restaurant
     @new_specialty = Specialty.new
   end
 

@@ -39,6 +39,7 @@
         <h4> Specialties </h4>
         <div class="specialties-list"> <%= render partial: @specialties %>
 
+          <!-- this shows -->
         <%= render partial: "specialties/form", locals: {restaurant: @restaurant} %>
 
         <!-- when ajaxing for show all, just listen for a click and then change display to show all.  -->
