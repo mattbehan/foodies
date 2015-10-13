@@ -181,17 +181,64 @@ class User < ActiveRecord::Base
     end
   end
 
+  def reviews_near_aggregate
+    if reviewer_has_reviews?
+      points = 0
+      self.reviews.each do |review|
+        restaurant = Restaurant.find(review.restaurant_id)
+        acceptable_range_high = restaurant.aggregate_score + 1
+        acceptable_range_low = restaurant.aggregate_score - 1
+        points += 1 if review.rating.between?(acceptable_range_low, acceptable_range_high)
+      end
+      points
+    end
+  end
+
+  def downvoted_more_than_upvoted
+    if reviewer_has_reviews?
+      points = 0
+      self.reviews.each do |review|
+        if review.votes.where(value: -1).count > review.votes.where(value: 1).count
+          points -= 2
+        end
+      end
+    end
+    points
+  end
+
   # Returns a users total points from comments
   def comment_points
     self.comments.map { |comment| comment.vote_count }.inject(:+)
   end
 
   def reviewer_reputation
-    
+    points = 0
+    points += (self.number_of_reviews * 5)
+    points += self.reviews_near_aggregate
+    points += self.downvoted_more_than_upvoted
+    points += self.review_points / 2 unless self.review_points <= 0
+    points -= self.review_comment_downvote_count / 2 unless self.review_comment_downvote_count <= 0
+    points += self.review_comment_count
+    points += self.comment_points
+    points
   end
 
-  def english_repuation
-
+  def english_reviewer_repuation
+    if self.reviewer_reputation.between?(0, 5)
+      "Poor."
+    elsif self.reviewer_reputation.between?(6, 10)
+      "Fair."
+    elsif self.reviewer_reputation.between?(11, 15)
+      "Good."
+    elsif self.reviewer_reputation.between?(16, 20)
+      "Great!"
+    elsif self.reviewer_reputation.between?(21..25)
+      "Most Excellent."
+    elsif self.reviewer_reputation >= 26
+      "Off the Charts!"
+    else
+      "Awful"
+    end
   end
 
 
