@@ -29,7 +29,7 @@ end
 reviewers = User.where(role: "reviewer")
 
 50.times do
-  review = Review.create!(title: FFaker::Company.bs, content: FFaker::HipsterIpsum.paragraphs,
+  review = Review.create!(title: FFaker::Company.bs, content: FFaker::HipsterIpsum.paragraphs.join(" "),
                   rating: rand(1..5), restaurant_id: rand(1..15), reviewer_id: reviewers.sample.id)
   rand(1..8).times do
     Comment.create!(content: FFaker::HipsterIpsum.sentence, review_id: review.id, user_id: rand(1..100))
@@ -37,7 +37,7 @@ reviewers = User.where(role: "reviewer")
 end
 
 20.times do
-  Article.create!(title: FFaker::Company.bs, content: FFaker::HipsterIpsum.paragraphs,
+  Article.create!(title: FFaker::Company.bs, content: FFaker::HipsterIpsum.paragraphs.join(" "),
                   author_id: reviewers.sample.id)
 end
 
