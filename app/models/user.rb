@@ -3,9 +3,6 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-
-  include ApplicationHelper
-
   attr_writer :invitation_instructions
 
   ROLES = %w(user reviewer admin)
@@ -75,11 +72,6 @@ class User < ActiveRecord::Base
  		User.all.select {|user| user.role == "reviewer"}
  	end
 
-  # def get_gravatar
-  #   show_gravatar(self)
-  # end
-
-
 	def deliver_invitation
 	 if @invitation_instructions.present?
 	   ::Devise.mailer.send(@invitation_instructions, self).deliver
@@ -121,24 +113,93 @@ class User < ActiveRecord::Base
     self.quick_takes.any? { |qt| qt.restaurant_id == restaurant.id }
   end
 
-  def random_avatar
-    food_photos = [
-      "/app/assets/images/apples_and_bananas.jpg",
-      "/app/assets/images/bento_box.jpg",
-      "/app/assets/images/breakfast_croissants.jpg",
-      "/app/assets/images/chocolate_doughnut.jpg",
-      "/app/assets/images/dessert.jpg",
-      "/app/assets/images/fast_food_meal.jpg",
-      "/app/assets/images/fried_breakfast.jpg",
-      "/app/assets/images/pizza.jpg",
-      "/app/assets/images/ramen.jpg",
-      "/app/assets/images/strawberries_halved.jpg"
-    ]
-    food_photos.sample
+  # Returns the aggregate number of comments across a reviewers reviews
+  def review_comment_count
+    if reviewer_has_reviews?
+      self.reviews.map { |review| review.comments.count }.inject(:+)
+    else
+      0
+    end
+  end
+
+  # Returns the aggergate score of all comments for all of the users reviews
+  def score_of_review_comments
+    if reviewer_has_reviews?
+      votes = 0
+      self.reviews.each do |review|
+        review.comments.each do |comment|
+          votes += comment.vote_count
+        end
+      end
+      votes
+    else
+      0
+    end
+  end
+
+  # Returns the total amount of votes for all comments across all reviews, regardless of SCORE
+  def review_comment_vote_count
+    if reviewer_has_reviews?
+      number_of_votes = 0
+      self.reviews.each do |review|
+        review.comments.each do |comment|
+          number_of_votes += comment.votes.count
+        end
+      end
+      number_of_votes
+    else
+      0
+    end
+  end
+
+  # Returns the number of reviews authored by a user
+  def number_of_reviews
+    reviewer_has_reviews? ? self.reviews.count : 0
   end
 
 
-# private
+  # Returns the total number of downvotes of all reviews
+  def review_comment_downvote_count
+    if reviewer_has_reviews?
+      number_of_downvotes = 0
+      self.reviews.each do |review|
+        number_of_downvotes += Vote.where(votable_type: "Review",
+                                          votable_id: review.id, value: -1).count
+      end
+      number_of_downvotes
+    else
+      0
+    end
+  end
+
+  # Returns the vote-based score across all reviews for a reviewer
+  def review_points
+    if reviewer_has_reviews?
+      self.reviews.map { |review| review.vote_count }.inject(:+)
+    else
+      0
+    end
+  end
+
+  # Returns a users total points from comments
+  def comment_points
+    self.comments.map { |comment| comment.vote_count }.inject(:+)
+  end
+
+  def reviewer_reputation
+    
+  end
+
+  def english_repuation
+
+  end
+
+
+  private
+
+  def reviewer_has_reviews?
+    self.role == "reviewer" && self.reviews.count > 0
+  end
 
 #   def welcome_message
 #     UserMailer.welcome_message(self).deliver

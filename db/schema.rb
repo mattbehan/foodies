@@ -69,9 +69,9 @@ ActiveRecord::Schema.define(version: 20151009184052) do
     t.integer  "user_id"
     t.string   "full_name"
     t.string   "affiliation"
-    t.text     "bio"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.text     "bio",         default: "Lover of food"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   create_table "quick_takes", force: :cascade do |t|
