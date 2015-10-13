@@ -89,9 +89,7 @@ GEM
     ffaker (2.1.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
-    gravatar-ultimate (2.0.0)
-      activesupport (>= 2.3.14)
-      rack
+    gravatar_image_tag (1.2.0)
     hashie (3.4.2)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
@@ -251,7 +249,7 @@ DEPENDENCIES
   devise
   devise_invitable
   ffaker
-  gravatar-ultimate
+  gravatar_image_tag
   jbuilder (~> 2.0)
   jquery-rails
   kaminari
@@ -267,3 +265,6 @@ DEPENDENCIES
   spring
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
+
+BUNDLED WITH
+   1.10.6
