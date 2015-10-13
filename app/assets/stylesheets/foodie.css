@@ -15,8 +15,8 @@ html {
   min-height: 100%;
 }
 
-a {
-  color: #054282;
+a, a:hover {
+  color: #c75204;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -181,7 +181,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-left: 20px;
 }
 
-.article-form label, .review-form label, .review-form select, .profile-form label{
+.article-form label, .review-form label, .review-form select, .profile-form label, {
   display: block;
   margin: 10px 0;
 }
@@ -196,6 +196,25 @@ h1, h2, h3, h4, h5, h6 {
   width: 80%;
   min-height: 200px;
   margin-bottom: 10px;
+}
+
+.restaurant-form-group {
+  display: block;
+}
+
+.restaurant-form-group label {
+  margin: 10px;
+  width: 120px;
+  text-align: right;
+}
+
+.restaurant-form-pair {
+  width: 85%;
+}
+
+.restaurant-form-indented {
+  margin-top: 20px;
+  margin-left: 140px;
 }
 
 .footer {
@@ -224,7 +243,16 @@ footer p {
 /* Desktop Second */
 @media screen and (min-width: 768px) {
 
+  body {
+    font-size: 16px;
+  }
+
   #featured-restaurant-body {
     min-height: 440px;
+  }
+
+  .restaurant-form-pair {
+    width: 380px;
+    display: inline-block;
   }
 }
