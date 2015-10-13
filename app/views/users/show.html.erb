@@ -1,7 +1,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-xs-2 col-md-1">
-			<img src="<%= @user.show_gravatar %>" alt="<%= @user.username %>" class="img-responsive">
+			<%= image_tag avatar_url(@user), class: "img-responsive" %>
 		</div>
 		<div class="col-xs-9 col-md-9">
 			<p class="h2 profile-header"><%= @user.username %></p>
@@ -78,7 +78,7 @@
 					<h3>Followed By:</h3>
 						<% @user.followers.each do |follower| %>
 							<div class="col-xs-2 col-sm-1">
-							<a href="<%= user_path(follower) %>"><img src="<%= follower.show_gravatar %>" alt="<%= follower.username %>" class="img-responsive gravatar-row" title="<%= follower.username %>"></a>
+							<%= link_to image_tag(avatar_url(follower), alt: follower.username, class: "img-responsive"), user_path(follower) %>
 							</div>
 						<% end %>
 				<% end %>
@@ -93,7 +93,8 @@
 				<h3>Followed Users:</h3>
 					<% @user.followed_users.each do |followed_user| %>
 						<div class="col-xs-2 col-sm-1">
-						<a href="<%= user_path(followed_user) %>"><img src="<%= followed_user.show_gravatar %>" alt="<%= followed_user.username %>" class="img-responsive gravatar-row" title="<%= followed_user.username %>"></a>
+							<%= link_to image_tag(avatar_url(followed_user), alt: followed_user.username, class: "img-responsive"), user_path(followed_user) %>
+
 						</div>
 					<% end %>
 			<% end %>
