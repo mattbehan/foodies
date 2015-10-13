@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151009184052) do
+ActiveRecord::Schema.define(version: 20151013024728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,9 +69,9 @@ ActiveRecord::Schema.define(version: 20151009184052) do
     t.integer  "user_id"
     t.string   "full_name"
     t.string   "affiliation"
-    t.text     "bio"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.text     "bio",         default: "Lover of food"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   create_table "quick_takes", force: :cascade do |t|
@@ -158,7 +158,7 @@ ActiveRecord::Schema.define(version: 20151009184052) do
     t.string   "email",                  default: "",     null: false
     t.string   "encrypted_password",     default: ""
     t.string   "role",                   default: "user"
-    t.string   "username",                                null: false
+    t.string   "username"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -181,6 +181,8 @@ ActiveRecord::Schema.define(version: 20151009184052) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

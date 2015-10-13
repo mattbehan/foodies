@@ -53,7 +53,7 @@ $(".specialties-container").on("click",".specialties-toggle", function(event){
   console.log(this);
   // $(this).parent().toggle();
 
-  $(".specialties-list").hide();
+  $(".specialties-list").remove();
   $("#all-specialties").show();
   $(this).hide();
   $(".specialties-form-area").show();

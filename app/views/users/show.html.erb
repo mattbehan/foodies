@@ -21,6 +21,9 @@
 							<%= link_to "Create New Article", new_article_path, :class => "btn btn-success edit-profile" %>
 					<% end %>
 					</p>
+					<p>
+						<%= render partial: "users/invite", locals: { new_user: @new_user, profile: @profile } %>	
+					</p>
 				<% end %>
 
 				<!-- Article creation button for reviewers -->

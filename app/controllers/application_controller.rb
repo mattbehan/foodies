@@ -56,11 +56,14 @@ class ApplicationController < ActionController::Base
   	root_path
   end
 
+  def after_invite_path_for resource
+  	users_path
+  end
+
 
 	protected
 
 	def configure_permitted_parameters
-	  # # Only add some parameters
 	  # devise_parameter_sanitizer.for(:accept_invitation).concat [:first_name, :last_name, :phone]
 	  # Override accepted parameters
 	  devise_parameter_sanitizer.for(:accept_invitation) do |u|

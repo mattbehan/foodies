@@ -24,6 +24,7 @@ class UsersController < ApplicationController
 
   def show
     @profile = Profile.find_by(user_id: params[:id])
+    @new_user = User.new
   end
 
 end

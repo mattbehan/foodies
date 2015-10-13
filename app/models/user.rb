@@ -33,6 +33,47 @@ class User < ActiveRecord::Base
     inclusion: {in: ROLES, message: "Invalid role" }
   validates :username, presence: true, uniqueness: true
 
+  # create a new user 
+  def self.from_omniauth auth
+    raise auth.inspect
+    where( provider: auth.provider, uid: auth.uid ).first_or_create do |user|
+      user.provider = auth.provider
+      user.uid = auth.uid
+      user.username = auth.info.nickname
+    end
+  end
+
+  # set the attributes on the user so that it can pass the method sign_up
+  def self.new_with_session params, session
+    if session["devise.user_attributes"]
+      # create a new user record based on the attributes in the hash. since we trust the hash it does not need to have protection
+      new(session["devise.user_attributes"], without_protection: true) do |user|
+        user.attributes = params
+        user.valid?
+      end
+    else
+      super
+    end
+  end
+
+  def email_required?
+    super && provider.blank?
+  end
+
+  # need to override so user can pass through the form without a password, given that a provider is present
+  def password_required?
+    super && provider.blank?
+  end
+
+  # on the edit form, if the user has never set a password, make it ok for them to update their account information. Also, we should change the edit form displayed so they don't see it if they don't have it
+  def update_with_password params, *options
+    if encrypted_password.blank?
+      update_attributes(params, *options)
+    else
+      super
+    end
+  end
+
   def has_visited? restaurant_id
     visits.find_by(visited_restaurant_id: restaurant_id) != nil
   end
