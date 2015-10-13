@@ -2,9 +2,15 @@
   <div class="row">
     <div class="col-xs-12 col-lg-offset-1 col-lg-10">
       <h1>Restaurant Results</h1>
+      <%= link_to 'Sort by Cuisine', {controller: 'restaurants', action: 'filter' ,remote: true, type: 'cuisine'} %>
+      <%= link_to 'Sort by Name', {controller: 'restaurants', action: 'filter' ,remote: true, type: 'name'} %>
+      <%= link_to 'Sort by Neighborhood', {controller: 'restaurants', action: 'filter' ,remote: true, type: 'neighborhood'} %>
+      <%= link_to 'Sort by Score', {controller: 'restaurants', action: 'filter' ,remote: true, type: 'score'} %>
       <div id="restaurants">
         <%= render "restaurants" %>
       </div>
     </div>
   </div>
 </div>
+
+

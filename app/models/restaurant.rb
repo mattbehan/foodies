@@ -17,6 +17,8 @@ class Restaurant < ActiveRecord::Base
   validates_inclusion_of :vegan_friendliness, :in => 1..5
   validates_format_of :zip, with: /\d{5}/
 
+  attr_accessor   :score
+
   def self.search(query)
 
     if query
@@ -27,6 +29,7 @@ class Restaurant < ActiveRecord::Base
         [(['lower(cuisine) LIKE ?'] * query_length).join(' AND ')] +
         [(['lower(neighborhood) LIKE ?'] * query_length).join(' AND ')]).join(' OR ')] +
         query.split.map { |name| "%#{name.downcase}%" }*3
+
       where(query_input)
     else
       where(:all)
