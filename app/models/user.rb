@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
 
   # create a new user 
   def self.from_omniauth auth
-    raise auth.inspect
+    raise auth.info.inspect
     where( provider: auth.provider, uid: auth.uid ).first_or_create do |user|
       user.provider = auth.provider
       user.uid = auth.uid

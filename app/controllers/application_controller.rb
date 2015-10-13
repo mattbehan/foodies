@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def owner? resource_users_id
-		user_signed_in? && resource_users_id == current_user.id
+		user_signed_in? && resource_users_id.to_i == current_user.id
 	end
 
 

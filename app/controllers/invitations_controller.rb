@@ -1,5 +1,8 @@
 class InvitationsController < Devise::InvitationsController
 
+  def new
+  end
+
     def update
     respond_to do |format|
       format.js do
