@@ -2,11 +2,33 @@ class RegistrationsController < Devise::RegistrationsController
 
   def register
     @user = User.new
-    render :"users/registrations/new"
+    render "users/registrations/new"
   end
 
   def create
-    super
+    build_resource(sign_up_params)
+
+    resource.save
+    yield resource if block_given?
+    if resource.persisted?
+      if resource.active_for_authentication?
+        set_flash_message :notice, :signed_up if is_flashing_format?
+        sign_up(resource_name, resource)
+        redirect_to new_user_profile_path(resource)
+      else
+        set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_flashing_format?
+        expire_data_after_sign_in!
+        redirect_to new_user_profile_path(resource)
+      end
+    else
+      clean_up_passwords resource
+      set_minimum_password_length
+      respond_with resource
+    end
+  end
+
+  def edit
+    render :"users/registrations/edit"
   end
 
   # The path used after sign up. You need to overwrite this method

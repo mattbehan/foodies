@@ -34,12 +34,21 @@ class Restaurant < ActiveRecord::Base
   end
 
   def top_three_dishes
-    dishes = self.specialties.sort_by { |dish| dish.vote_count }[-3..-1].reverse
+    self.specialties.sort_by { |dish| dish.vote_count }.reverse[0..2]
   end
 
+  def rest_of_dishes
+    specialties.sort_by { |dish| dish.vote_count }.reverse[3..-1]
+  end
+
+
   def aggregate_score
-    if self.reviews.any? || self.quick_takes.any?
-      qt_avg = mean(self.quick_takes.map { |qt| qt.rating })
+    if self.reviews.any?
+      if self.quick_takes.any?
+        qt_avg = mean(self.quick_takes.map { |qt| qt.rating })
+      else
+        qt_avg = 5
+      end
       review_avg = mean(self.reviews.map { |review| review.rating })
       weighted_mean(review_avg, 0.75) + weighted_mean(qt_avg, 0.25)
     else

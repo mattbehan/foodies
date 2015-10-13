@@ -40,7 +40,6 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #810541;
 }
 
-
 .navbar-brand {
   padding-top: 10px;
   padding-bottom: 40px;
@@ -82,12 +81,14 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
   width: 300px;
   padding: 0 50px;
-  margin: 10px auto;
+  margin: 50px auto;
+  border-radius: 5px;
 }
 
 .enter-site label {
   text-align: left;
   display: block;
+  padding-top: 10px;
 }
 
 .enter-site label[for="user_remember_me"] {
@@ -100,7 +101,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .enter-site .field {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .enter-site input[type="checkbox"] {
@@ -122,6 +123,22 @@ h1, h2, h3, h4, h5, h6 {
   margin: 8px 0;
 }
 
+.profile-header {
+  margin-top: 5px;
+  display: inline-block;
+}
+
+.follow-button, .unfollow-button, .edit-profile {
+  display: inline-block;
+  margin: 5px 5px 10px 5px;
+  vertical-align: middle;
+}
+
+.gravatar-row {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
 .comment {
   margin-bottom: 10px;
   padding-bottom: 5px;
@@ -141,6 +158,10 @@ h1, h2, h3, h4, h5, h6 {
   margin-left: 5%;
 }
 
+.comments-box {
+  margin-bottom: 30px;
+}
+
 .comment-text-input {
   margin-left: 5%;
   width: 90%;
@@ -152,9 +173,29 @@ h1, h2, h3, h4, h5, h6 {
   display: none;
 }
 
-
 .review-byline a {
   color: #810541;
+}
+
+#articles-container {
+  margin-left: 20px;
+}
+
+.article-form label, .review-form label, .review-form select, .profile-form label{
+  display: block;
+  margin: 10px 0;
+}
+
+.article-form textarea, .review-form textarea {
+  width: 80%;
+  min-height: 300px;
+  margin-bottom: 10px;
+}
+
+.profile-form textarea {
+  width: 80%;
+  min-height: 200px;
+  margin-bottom: 10px;
 }
 
 .footer {

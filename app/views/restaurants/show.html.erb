@@ -1,3 +1,20 @@
+<%= javascript_include_tag "googlemaps" %>
+<%= stylesheet_link_tag 'googlemaps' %>
+
+<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&callback=initMap" async defer></script>
+<!-- This is the map -->
+<div id="map"></div>
+<!-- This is the directions form -->
+<h1>Calculate your route</h1>
+<form id="calculate-route" name="calculate-route" action="#" method="get">
+  <label for="from">From address: </label>
+  <input type="text" id="from" name="from" required="required" placeholder="An address" size="30" />
+  or <a id="from-link" href="#">Get my position</a>
+  <br />
+  <input type="submit" />
+</form>
+<p id="error"></p>
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12">
@@ -18,8 +35,8 @@
         <li>Cuisine: <%= @restaurant.cuisine %></li>
         <li>Address:
           <ul style="list-style: none">
-            <li><%= @restaurant.street_address %></li>
-            <li><%= @restaurant.city %>, <%= @restaurant.state %> <%= @restaurant.zip %></li>
+            <li id="street-address"><%= @restaurant.street_address %></li>
+            <li id="csz-address"><%= @restaurant.city %>, <%= @restaurant.state %> <%= @restaurant.zip %></li>
           </ul>
         </li>
         <li>Phone Number: <%= @restaurant.phone_number %></li>
@@ -38,20 +55,27 @@
 
       <p><%= @restaurant.name %> has an aggergated score of <strong><%= @restaurant.aggregate_score %></strong></p>
       <div class="specialties-container">
-        <h4> Specialties </h4>
-        <div class="specialties-list"> <%= render partial: @specialties %>
+        <h4>Specialties</h4>
+          <div class="top-specialties-list">
+            <%= render partial: @specialties %>
+          </div>
 
-        <%= render partial: "specialties/form", locals: {restaurant: @restaurant} %>
+          <%= link_to "Show all specialties/add a dish", root_path, remote: true, :class => "btn btn-default specialties-toggle" %>
 
-        <!-- when ajaxing for show all, just listen for a click and then change display to show all.  -->
-        <div id="all-specialties" style="display:none"><%= render partial: "specialties/all_specialties", locals: {specialties: @all_specialties} %> </div>
+          <div id="rest-of-specialties" style="display:none"><%= render partial: "specialties/all_specialties", locals: {specialties: @rest_of_specialties} %> </div>
+          <hr>
+          <p><%= flash[:alert] %> </p>
+          <!-- restaurant_specialties_path(@restaurant, @specialties) -->
+          <%= render partial: "specialties/form", locals: {specialty: @new_specialty, restaurant: @restaurant} %>
+          <hr>
       </div>
 
 
-
-      <h1>Reviews for <%= @restaurant.name %></h1>
-      <hr>
-      <%= render @reviews %>
+      <% unless @reviews.empty? %>
+        <h1>Reviews for <%= @restaurant.name %></h1>
+        <hr>
+        <%= render @reviews %>
+      <% end %>
 
 
     </div>

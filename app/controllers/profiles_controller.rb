@@ -20,32 +20,27 @@ class ProfilesController < ApplicationController
 	end
 
 	def edit
-		must_be_owner(@profile)		
+		must_be_owner(@profile.user_id)
 	end
 
-
-	# bug where bio not auto updating.... have to manually set it
 	def update
-		must_be_owner(@profile)
+		must_be_owner(@profile.user_id)
 		@profile.update(profile_update_params)
-		@profile.bio = params[:profile][:bio]
-		@profile.save
 		if @profile.valid?
-			flash[:alert] = "Profile updated"
 			redirect_to user_path(current_user)
 		else
-			render :new
+			render :edit
 		end
 	end
 
 	protected
 
 	def profile_create_params
-    params.require(:profile).permit(:username, :full_name, :short_bio, :affiliation)
+    params.require(:profile).permit(:full_name, :bio, :affiliation)
   end
 
 	def profile_update_params
-    params.require(:profile).permit(:full_name, :short_bio, :affiliation)
+    params.require(:profile).permit(:full_name, :bio, :affiliation)
   end
 
 

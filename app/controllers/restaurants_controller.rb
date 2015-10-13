@@ -7,7 +7,9 @@ class RestaurantsController < ApplicationController
 
   def search
     # Search path
-    if params[:search]
+    if params[:search] == ""
+      @restaurants = Restaurant.order("name").page(params[:page]).per(5)
+    elsif params[:search]
       @restaurants = Restaurant.search(params[:search]).order("name").page(params[:page]).per(5)
     # Normal Render path
     else
@@ -31,7 +33,8 @@ class RestaurantsController < ApplicationController
   def show
     @reviews = @restaurant.reviews
     @specialties = @restaurant.top_three_dishes
-    @all_specialties = @restaurant.specialties
+    @rest_of_specialties = @restaurant.rest_of_dishes
+    @new_specialty = Specialty.new
   end
 
   def edit

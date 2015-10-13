@@ -4,26 +4,32 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   devise_scope :user do
-    get "users/sign_up", to: "registrations#register"
+    get "users/sign_up", to: "registrations#register", as: "new_user_registration_path"
+    post "users/sign_up", to: "registrations#create", as: "user_registration"
   end
   devise_scope :user do
-    get "users/sign_in", to: "sessions#new"
+    get "users/sign_in", to: "sessions#new", as: "new_user_session_path"
+    post "users/sign_in", to: "sessions#create", as: "user_session"
   end
 
 
   post "/followings" => "followings#create"
   delete "/followings" => "followings#destroy"
 
+  delete "/restaurants/:id/bookmarks" => "bookmarks#destroy"
+
   # search
   get "search" => 'restaurants#search'
-  resources :articles, except: :index
+  resources :articles, except: :destroy
   resources :restaurants, except: [:index, :destroy] do
     resources :quick_takes, only: [:new, :create]
     resources :reviews
+    resources :bookmarks, only: [:create]
+    resources :visits, only: [:create]
     resources :specialties, only: [:create]
   end
-  get "users/hey" => "users#hey"
-  devise_for :users, :controllers => {:registrations => "registrations"}
+
+  devise_for :users, :controllers => {:registrations => "registrations", omniauth_callbacks: "omniauth_callbacks"}
   get "/users/invite" => 'users#invite'
   post "/admins/invite" => 'users#reviewer_invite'
   post "/users/invite" => "users#user_invite"

@@ -1,8 +1,12 @@
-<h1><%= @article.title %></h1>
-<div class="article-info">
-  <h4>Article Info</h4>
-  <ul style="list-style: none">
-    <li>Title: <%= @article.title %></li>
-    <li>Content: <%= @article.content %></li>
-  </ul>
+<div class="container-fluid review-container">
+  <div class="row">
+    <div class="col-xs-12 col-lg-offset-1 col-lg-10">
+      <h2 class="header-link text-capitalize"><%= link_to "#{@article.title}", article_path(@article) %></h2>
+      <h4 class="review-byline">By <%= link_to "#{@article.author.profile.full_name}", user_path(@article.author) %></h4>
+      <h5 class="plain"><%= @article.author.profile.affiliation %></h5>
+      <p><%= @article.content %></p>
+      <hr />
+      <%= link_to "Back to Recent Articles", articles_path %>
+    </div>
+  </div>
 </div>
