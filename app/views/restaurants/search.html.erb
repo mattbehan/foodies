@@ -1,5 +1,13 @@
 <h1>Restaurant Results</h1>
 
+<%= link_to 'Sort by Cuisine', {controller: 'restaurants', action: 'filter' ,remote: true, type: 'cuisine'} %>
+<br>
+<%= link_to 'Sort by Name', {controller: 'restaurants', action: 'filter' ,remote: true, type: 'name'} %>
+<br>
+<%= link_to 'Sort by Neighborhood', {controller: 'restaurants', action: 'filter' ,remote: true, type: 'neighborhood'} %>
+<br>
+<%= link_to 'Sort by Score', {controller: 'restaurants', action: 'filter' ,remote: true, type: 'score'} %>
+
 <div id="restaurants">
   <%= render "restaurants" %>
 </div>
