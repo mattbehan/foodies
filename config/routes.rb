@@ -4,10 +4,12 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   devise_scope :user do
-    get "users/sign_up", to: "registrations#register"
+    get "users/sign_up", to: "registrations#register", as: "new_user_registration_path"
+    post "users/sign_up", to: "registrations#create", as: "user_registration"
   end
   devise_scope :user do
-    get "users/sign_in", to: "sessions#new"
+    get "users/sign_in", to: "sessions#new", as: "new_user_session_path"
+    post "users/sign_in", to: "sessions#create", as: "user_session"
   end
 
   post "/followings" => "followings#create"
@@ -25,7 +27,7 @@ Rails.application.routes.draw do
     resources :specialties, only: [:create]
   end
 
-  devise_for :users, :controllers => {:registrations => "registrations"}
+  devise_for :users, :controllers => {:registrations => "registrations", omniauth_callbacks: "omniauth_callbacks"}
   get "/users/invite" => 'users#invite'
   post "/admins/invite" => 'users#reviewer_invite'
   post "/users/invite" => "users#user_invite"

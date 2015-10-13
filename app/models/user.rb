@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   ROLES = %w(user reviewer admin)
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :lockable, :confirmable, :invitable
+         :recoverable, :rememberable, :trackable, :validatable, :lockable, :confirmable, :invitable, :omniauthable
 
  	has_one :profile
 

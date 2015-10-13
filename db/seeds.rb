@@ -16,7 +16,8 @@ end
 
 # Create users
 while User.all.length <= 100
-  user = User.create(email: FFaker::Internet.email, username: FFaker::Internet.user_name, password: "password")
+  user = User.new(email: FFaker::Internet.email + ".ru", username: FFaker::Internet.user_name + rand(1000).to_s, password: "p@ssw0rd")
+  user.confirm!
   profile = Profile.create(bio: FFaker::BaconIpsum.words(50), affiliation: FFaker::Company.bs, full_name: FFaker::Name.name, user_id: user.id )
 end
 
@@ -28,7 +29,7 @@ end
 reviewers = User.where(role: "reviewer")
 
 50.times do
-  review = Review.create!(title: FFaker::Company.bs, content: FFaker::HipsterIpsum.paragraphs,
+  review = Review.create!(title: FFaker::Company.bs, content: FFaker::HipsterIpsum.paragraphs.join(" "),
                   rating: rand(1..5), restaurant_id: rand(1..15), reviewer_id: reviewers.sample.id)
   rand(1..8).times do
     Comment.create!(content: FFaker::HipsterIpsum.sentence, review_id: review.id, user_id: rand(1..100))
@@ -36,7 +37,7 @@ reviewers = User.where(role: "reviewer")
 end
 
 20.times do
-  Article.create!(title: FFaker::Company.bs, content: FFaker::HipsterIpsum.paragraphs,
+  Article.create!(title: FFaker::Company.bs, content: FFaker::HipsterIpsum.paragraphs.join(" "),
                   author_id: reviewers.sample.id)
 end
 

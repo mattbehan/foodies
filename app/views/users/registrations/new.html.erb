@@ -1,7 +1,7 @@
 <div class="enter-site">
   <h2>Sign up</h2>
 
-  <%= form_for(@user, url: registration_path(@user)) do |f| %>
+  <%= form_for(@user, url: "/users/sign_up") do |f| %>
     <%= devise_error_messages! %>
 
     <div class="field">
