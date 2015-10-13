@@ -52,6 +52,10 @@ end
   Specialty.create!(restaurant_id: rand(1..15),dish_id: rand(1..10))
 end
 
+# Tags
+restaurants
+possible_tags = []
+
 # Votes
 comments = Comment.all
 600.times do
