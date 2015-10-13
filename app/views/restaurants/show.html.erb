@@ -18,9 +18,19 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12">
+      <% if current_user && current_user.already_quick_took?(@restaurant) %>
+        <% user_quick_take = QuickTake.find_by(rater_id: current_user.id, restaurant_id: @restaurant.id) %>
+        <p>
+          You rated <%= @restaurant.name %> on <%= user_quick_take.created_at.strftime("%A, %B %d, %Y") %>.
+          Thanks for contributing!
+        </p>
+      <% end %>
+
     <h1><%= @restaurant.name %></h1>
+
     <div class="restaurant-info">
       <h4>Restaurant Info</h4>
+
       <ul style="list-style: none">
         <li>Cuisine: <%= @restaurant.cuisine %></li>
         <li>Address:
@@ -32,26 +42,32 @@
         <li>Phone Number: <%= @restaurant.phone_number %></li>
         <li>Neighborhood: <%= @restaurant.neighborhood %></li>
         <li>Price Scale: <%= @restaurant.price_scale %></li>
-
       </ul>
+
+
+      <% if current_user && !current_user.already_quick_took?(@restaurant) %>
+        <h3 class="rate-invitation">Been to <%= @restaurant.name %>?</h3>
+        <h4><%= link_to "Rate it.", new_restaurant_quick_take_path(@restaurant), class: "quick-take-link", method: "get", remote: true %></h4>
+      <% end %>
+
+      <div class="quick-take-form" style="display:none;">
+      </div>
+
       <p><%= @restaurant.name %> has an aggergated score of <strong><%= @restaurant.aggregate_score %></strong></p>
       <div class="specialties-container">
-        <h4> Specialties </h4>
-        <div class="specialties-list"> <%= render partial: @specialties %>
+        <h4>Specialties</h4>
+          <div class="top-specialties-list">
+            <%= render partial: @specialties %>
+          </div>
 
-          <!-- this shows -->
-        <%= render partial: "specialties/form", locals: {restaurant: @restaurant} %>
+          <%= link_to "Show all specialties/add a dish", root_path, remote: true, :class => "btn btn-default specialties-toggle" %>
 
-        <!-- when ajaxing for show all, just listen for a click and then change display to show all.  -->
-        <div id="all-specialties" style="display:none"><%= render partial: "specialties/all_specialties", locals: {specialties: @all_specialties} %> </div>
-        <hr>
-        <p><%= flash[:alert] %> </p>
-          <%= link_to "Show all specialties/ add a dish", root_path, remote: true, :class => "btn btn-default specialties-toggle" %>
+          <div id="rest-of-specialties" style="display:none"><%= render partial: "specialties/all_specialties", locals: {specialties: @rest_of_specialties} %> </div>
+          <hr>
+          <p><%= flash[:alert] %> </p>
           <!-- restaurant_specialties_path(@restaurant, @specialties) -->
-        <%= render partial: "specialties/form", id:"specialties-form", locals: {specialty: @new_specialty, restaurant: @restaurant} %>
-        <hr>
-        <!-- when ajaxing for show all, just listen for a click and then change display to show all.  -->
-        <div id="all-specialties" style="display:none"><%= render partial: "specialties/all_specialties", locals: {specialties: @all_specialties} %> </div>
+          <%= render partial: "specialties/form", locals: {specialty: @new_specialty, restaurant: @restaurant} %>
+          <hr>
       </div>
 
 

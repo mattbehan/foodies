@@ -116,6 +116,10 @@ class User < ActiveRecord::Base
 	 end
 	end
 
+  def already_quick_took?(restaurant)
+    self.quick_takes.any? { |qt| qt.restaurant_id == restaurant.id }
+  end
+
 
 # private
 

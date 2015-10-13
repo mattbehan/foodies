@@ -1,0 +1,8 @@
+<% if current_user && !current_user.already_quick_took?(@restaurant) %>
+  <%= render "new_quick_take_form.html.erb" %>
+<% else %>
+  <h1>Uh Oh.  You already rated this restaurant.</h1>
+  <h3>Would you like to
+    <%= link_to "go home", root_path %> or go back to the <%= link_to "restaurant", restaurant_path(@restaurant) %>? 
+  </h3>
+<% end %>

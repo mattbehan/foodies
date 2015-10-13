@@ -34,8 +34,13 @@ class Restaurant < ActiveRecord::Base
   end
 
   def top_three_dishes
-    dishes = self.specialties.sort_by { |dish| dish.vote_count }[-3..-1].reverse
+    self.specialties.sort_by { |dish| dish.vote_count }.reverse[0..2]
   end
+
+  def rest_of_dishes
+    specialties.sort_by { |dish| dish.vote_count }.reverse[3..-1]
+  end
+
 
   def aggregate_score
     if self.reviews.any?

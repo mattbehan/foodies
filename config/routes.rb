@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     post "users/sign_in", to: "sessions#create", as: "user_session"
   end
 
+
   post "/followings" => "followings#create"
   delete "/followings" => "followings#destroy"
 
@@ -21,6 +22,7 @@ Rails.application.routes.draw do
   get "search" => 'restaurants#search'
   resources :articles, except: :destroy
   resources :restaurants, except: [:index, :destroy] do
+    resources :quick_takes, only: [:new, :create]
     resources :reviews
     resources :bookmarks, only: [:create]
     resources :visits, only: [:create]
