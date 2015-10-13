@@ -14,7 +14,8 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-gem 'gravatar-ultimate'
+# gem 'gravatar-ultimate'
+gem 'gravatar_image_tag'
 
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'

@@ -6,7 +6,10 @@ working with devise
 #sign_in(@user) and sign_out(@user) - devise created methods that will either sign users in our out
 # user_session - returns metadata... by and large DO NOT USE
 
-seed using 
+<a href="<%= user_path(follower) %>"><img src="<%= follower.show_gravatar %>" alt="<%= follower.username %>" class="img-responsive gravatar-row" title="<%= follower.username %>"></a>
+				<a href="<%= user_path(followed_user) %>"><%= gravatar_image_tag(followed_user.email, alt: followed_user.username) %></a>
+
+seed using
 user = user.create()
 user.confirm! <-- uses the devise method confirm
 

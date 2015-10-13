@@ -1,4 +1,4 @@
-module ApplicationHelper
+ module ApplicationHelper
 
   def authorized_reviewer?
     redirect_to new_user_session_path unless current_user && current_user.reviewer?
@@ -14,6 +14,12 @@ module ApplicationHelper
 
   def review_creator?
     redirect_to @restaurant unless current_user && @review.reviewer_id == current_user.id
+  end
+
+  def avatar_url(user)
+    default_url = "#{root_path}images/ramen.jpg"
+    gravatar_id = Digest::MD5::hexdigest(user.email).downcase
+    "http://gravatar.com/avatar/#{gravatar_id}.png?s=48&d=#{CGI.escape(default_url)}"
   end
 
 end
