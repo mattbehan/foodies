@@ -20,6 +20,8 @@ Rails.application.routes.draw do
 
   # search
   get "search" => 'restaurants#search'
+  get "search/filter" => 'restaurants#filter'
+
   resources :articles, except: :destroy
   resources :restaurants, except: [:index, :destroy] do
     resources :quick_takes, only: [:new, :create]
