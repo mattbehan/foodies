@@ -1,7 +1,7 @@
 <div class="container-fluid review-container">
   <div class="row">
     <div class="col-xs-12 col-lg-10 col-lg-offset-1">
-      <h2 class="header-link"><%= link_to "#{review.title}", restaurant_review_path(review.restaurant, review) %></h2>
+      <h2 class="header-link text-capitalize"><%= link_to "#{review.title}", restaurant_review_path(review.restaurant, review) %></h2>
       <h4 class="review-byline"><%= link_to "#{review.reviewer.profile.full_name}, #{review.reviewer.profile.affiliation}", user_path(review.reviewer) %></h4>
       <h6 class="plain">Rating: <%= review.rating %></h6>
       <p><%= review.content %></p>
@@ -11,7 +11,6 @@
           <%= link_to image_tag("downvote.png"), downvote_review_path(review), class: "downvote-button", method: :post, remote: true %>
         <% end %>
       </p>
-      <hr />
     </div>
   </div>
 
@@ -19,7 +18,7 @@
     <div class="col-xs-12 col-lg-10 col-lg-offset-1">
       <%= link_to "Show comments", root_path, remote: true, :class => "btn btn-default comment-toggle" %>
       <div class="comments-uber-container">
-        <div class="comments-container">
+        <div class="comments-container" id="comments-on-review-<%= review.id %>">
           <h3 class="comments-header col-sm-8 col-xs-10">Comments</h3>
         <%= render partial: "comments/comment", collection: review.comments %>
         </div>
