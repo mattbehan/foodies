@@ -24,7 +24,7 @@
     <div class="col-sm-6 col-xs-12 faux-panel" id="featured-review">
       <h2>Featured Review</h2>
       <div class="faux-panel-body">
-        <h3 class="header-link"><%= link_to "#{@review.title}", restaurant_review_path(@review.restaurant, @review) %></h3>
+        <h3 class="header-link text-capitalize"><%= link_to "#{@review.title}", restaurant_review_path(@review.restaurant, @review) %></h3>
         <p><strong>Review of <%= link_to "#{@review.restaurant.name}", restaurant_path(@review.restaurant) %> composed by <%= link_to "#{@review.reviewer.username}", user_path(@review.reviewer) %></strong></p>
         <p><%= @review.get_preview %>
           <%= link_to "read more...", restaurant_review_path(@review.restaurant, @review) %></p>
@@ -34,7 +34,7 @@
     <div class="col-sm-6 col-xs-12 faux-panel" id="featured-article">
       <h2>Featured Article</h2>
       <div class="faux-panel-body">
-        <h3 class="header-link"><%= link_to "#{@article.title}", article_path(@article) %></h3>
+        <h3 class="header-link text-capitalize"><%= link_to "#{@article.title}", article_path(@article) %></h3>
         <p><strong>Penned with love by <%= link_to "#{@article.author.username}", user_path(@article.author) %></strong></p>
         <p><%= @article.get_preview %>
           <%= link_to "read more...", article_path(@article) %></p>

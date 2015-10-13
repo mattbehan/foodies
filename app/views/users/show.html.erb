@@ -29,7 +29,7 @@
 
 			<% if @profile %>
 				<%= render partial: "profiles/show", layout: false, locals: {profile: @profile } %>
-			<% elsif current_user.id == params[:id].to_i %>
+			<% elsif current_user && (current_user.id == params[:id].to_i) %>
 				<li>
 				  <%= link_to'Create profile', new_user_profile_path(current_user), :class => "btn btn-primary " %>
 			  </li>
@@ -44,8 +44,8 @@
 					<h3>Reviews:</h3>
 						<ul>
 						<% @user.reviews.each do |review| %>
-							<li><%= link_to "#{review.title}", restaurant_review_path(review.restaurant, review) %>
-								<% if current_user.id == params[:id].to_i %>
+							<li><%= link_to "#{review.title}", restaurant_review_path(review.restaurant, review), :class => "text-capitalize" %>
+								<% if current_user && (current_user.id == params[:id].to_i) %>
 									<%= link_to "Edit review", edit_restaurant_review_path(review.restaurant, review), :class => "btn btn-primary btn-xs" %>
 								<% end %>
 							</li>
@@ -61,8 +61,8 @@
 					<h3>Articles:</h3>
 						<ul>
 						<% @user.articles.each do |article| %>
-							<li><%= link_to "#{article.title}", article_path(article) %>
-								<% if current_user.id == params[:id].to_i %>
+							<li><%= link_to "#{article.title}", article_path(article), :class => "text-capitalize" %>
+								<% if current_user && (current_user.id == params[:id].to_i) %>
 									<%= link_to "Edit article", edit_article_path(article), :class => "btn btn-primary btn-xs" %>
 								<% end %>
 							</li>
