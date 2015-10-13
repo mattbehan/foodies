@@ -46,11 +46,11 @@ class Restaurant < ActiveRecord::Base
     if self.reviews.any?
       if self.quick_takes.any?
         qt_avg = mean(self.quick_takes.map { |qt| qt.rating })
+        review_avg = mean(self.reviews.map { |review| review.rating })
+        weighted_mean(review_avg, 0.75) + weighted_mean(qt_avg, 0.25)
       else
-        qt_avg = 5
+        mean(self.reviews.map { |review| review.rating })
       end
-      review_avg = mean(self.reviews.map { |review| review.rating })
-      weighted_mean(review_avg, 0.75) + weighted_mean(qt_avg, 0.25)
     else
       "N/A"
     end

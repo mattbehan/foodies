@@ -16,7 +16,13 @@
 
   <div class="row comments-box">
     <div class="col-xs-12 col-lg-10 col-lg-offset-1">
-      <%= link_to "Show #{pluralize(review.comments.count, 'comment')}", root_path, remote: true, :class => "btn btn-default comment-toggle" %>
+      <% unless review.comments.empty? %>
+        <%= link_to "Show #{pluralize(review.comments.count, 'comment')}", root_path, remote: true, :class => "btn btn-default comment-toggle" %>
+      <% else %>
+        <div class="first-comment-form">
+          <%= render partial: "comments/form", locals: {restaurant: @restaurant, review: review} %>
+        </div>
+      <% end %>
       <div class="comments-uber-container">
         <div class="comments-container" id="comments-on-review-<%= review.id %>">
           <h3 class="comments-header col-sm-8 col-xs-10">Comments</h3>

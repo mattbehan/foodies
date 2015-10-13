@@ -22,7 +22,6 @@ class CommentsController < ApplicationController
   def upvote
     if request.xhr?
       prepare_upvote
-      prepare_upvote
     else
       prepare_upvote
       redirect_to :back
