@@ -17,6 +17,8 @@ class Restaurant < ActiveRecord::Base
   validates_inclusion_of :vegan_friendliness, :in => 1..5
   validates_format_of :zip, with: /\d{5}/
 
+  attr_accessor   :score
+
   def self.search(query)
 
     if query
@@ -27,6 +29,7 @@ class Restaurant < ActiveRecord::Base
         [(['lower(cuisine) LIKE ?'] * query_length).join(' AND ')] +
         [(['lower(neighborhood) LIKE ?'] * query_length).join(' AND ')]).join(' OR ')] +
         query.split.map { |name| "%#{name.downcase}%" }*3
+
       where(query_input)
     else
       where(:all)
@@ -46,11 +49,11 @@ class Restaurant < ActiveRecord::Base
     if self.reviews.any?
       if self.quick_takes.any?
         qt_avg = mean(self.quick_takes.map { |qt| qt.rating })
+        review_avg = mean(self.reviews.map { |review| review.rating })
+        weighted_mean(review_avg, 0.75) + weighted_mean(qt_avg, 0.25)
       else
-        qt_avg = 5
+        mean(self.reviews.map { |review| review.rating })
       end
-      review_avg = mean(self.reviews.map { |review| review.rating })
-      weighted_mean(review_avg, 0.75) + weighted_mean(qt_avg, 0.25)
     else
       "N/A"
     end
