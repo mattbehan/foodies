@@ -1,30 +1,19 @@
 class QuickTakesController < ApplicationController
 
   before_action :set_restaurant
-
   respond_to :html, :js, :json
 
   def new
     @quick_take = QuickTake.new
   end
 
-  # Needs to be cleaned UP
   def create
     @quick_take = QuickTake.new(quick_take_params)
     if request.xhr?
-      if @quick_take.save
-        flash.now[:thanks] = "Thanks! Your rating has been saved!"
-      # redirect_to @restaurant
-      else
-        redirect_to :back
-      end
+      @quick_take.save if @quick_take.valid?
     else
-      if @quick_take.save
-        flash[:thanks] = "Thanks! Your rating has been saved!"
-        redirect_to @restaurant
-      else
-        redirect_to :back
-      end
+      @quick_take.save if @quick_take.valid?
+      redirect_to :back
     end
   end
 
