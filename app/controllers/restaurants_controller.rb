@@ -17,6 +17,16 @@ class RestaurantsController < ApplicationController
     end
   end
 
+  def filter
+    @restaurants = Restaurant.page(params[:page]).per(5)
+    @filter_option = params[:type]
+
+    respond_to do |format|
+      format.js {render 'filter'}
+      format.html {}
+    end
+  end
+
   def new
     @restaurant = Restaurant.new
   end

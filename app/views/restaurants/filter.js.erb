@@ -1,0 +1,1 @@
+$("#restaurants").html("<%= escape_javascript(render('restaurants', locals: {restaurants: @restaurants, filter_option: @filter_option})) %>");
