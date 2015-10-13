@@ -7,16 +7,24 @@ class SpecialtiesController < ApplicationController
     @dish = Dish.find_or_create_by(name: params[:name])
     @specialty = Specialty.find_or_initialize_by( dish_id: @dish.id, restaurant_id: @restaurant.id )
 
+    if request.xhr?
+      if @specialty.new_record? && @specialty.save
+        #success = call create.js.erb
+      else
+
+      end
+    else
       if @specialty.new_record? && @specialty.save
         flash[:alert] = "Added #{ @dish.name }"
         redirect_to :back
       elsif @specialty.save
-        flash[:alert] = "#{@dish.name} already exists"
+        flash[:alert] = "#{@dish.name} already exists."
         redirect_to :back
       else
-        flash[:alert] = "Invalid entry. provide a dish name"
+        flash[:alert] = "Invalid entry. Provide a dish name."
         redirect_to :back
       end
+    end
   end
 
   def index

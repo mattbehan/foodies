@@ -19,6 +19,8 @@ gem 'gravatar-ultimate'
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
 
+gem 'bower-rails'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
@@ -27,6 +29,7 @@ gem 'jbuilder', '~> 2.0'
 
 gem 'devise'
 gem 'devise_invitable'
+gem "omniauth-twitter"
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 

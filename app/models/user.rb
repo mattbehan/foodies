@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   ROLES = %w(user reviewer admin)
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :lockable, :confirmable, :invitable
+         :recoverable, :rememberable, :trackable, :validatable, :lockable, :confirmable, :invitable, :omniauthable
 
  	has_one :profile
 
@@ -115,6 +115,10 @@ class User < ActiveRecord::Base
 	   invitable.invitation_instructions = :reviewer_invitation_instructions
 	 end
 	end
+
+  def already_quick_took?(restaurant)
+    self.quick_takes.any? { |qt| qt.restaurant_id == restaurant.id }
+  end
 
 
 # private
