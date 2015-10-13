@@ -1,2 +1,9 @@
-<h1>Author an Article</h1>
-<%= render "form" %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-lg-10 col-lg-offset-1 article-form">
+      <h1>Upload Your Article Here</h1>
+        <%= render "form" %>
+        <%= link_to "Return to Profile Without Saving", user_path(current_user) %>
+    </div>
+  </div>
+</div>

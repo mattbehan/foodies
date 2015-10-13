@@ -1,7 +1,5 @@
-Username on signup
-kill routes and stuff for index users
-add reviews, followers, etc to user profile show page
-ajax following button
+Replace all the things for must_be_owner to redirect to the previous session
+Write a helper for the previous session
 
 
 Confirm user after invitation has been accepted. By 2 o'clock
@@ -32,4 +30,3 @@ vote_score(resource)
 	resource.votes.sum(:value)
 end
 
-reformat top_three_dishes in restaurant

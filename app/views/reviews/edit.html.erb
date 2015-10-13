@@ -1,4 +1,10 @@
-<h1>Update a Review</h1>
-
-<%= render "form" %>
-<%= button_to "Delete", [@restaurant, @review], method: :delete %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-lg-10 col-lg-offset-1 review-form">
+      <h1>Update Your Review Here</h1>
+        <%= render "form" %>
+        <p><%= link_to "Back to Review Without Saving", restaurant_review_path(@review.restaurant, @review) %></p>
+        <%= button_to "Delete", [@restaurant, @review], method: :delete %>
+    </div>
+  </div>
+</div>

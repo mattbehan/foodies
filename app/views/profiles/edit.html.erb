@@ -1,13 +1,11 @@
 <%= render :partial => 'errors', layout: false, locals: {resource: @profile }%>
 
-
-<div>
-
-	<%= form_for( ([current_user, @profile]), method: :put) do |f| %>
-	  <p>Full name : <%= f.text_field :full_name %></p>
-	  <p>Short bio : <%= f.text_area :bio %></p>
-	  <p>Affiliation : <%= f.text_area :affiliation %></p>
-	  <%= f.submit %>
-	<% end %>
-
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-lg-10 col-lg-offset-1 profile-form">
+      <h1>Edit Your Profile</h1>
+        <%= render "form" %>
+        <p><%= link_to "Back to Profile Without Saving", user_path(current_user) %></p>
+    </div>
+  </div>
 </div>
