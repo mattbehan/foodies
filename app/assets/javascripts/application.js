@@ -47,6 +47,7 @@ $(function() {
     $(this).next().toggle();
   })
 
+
   // Specialties
   $(".specialties-container").on("click",".specialties-toggle", function(event){
     event.preventDefault();
