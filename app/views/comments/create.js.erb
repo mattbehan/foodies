@@ -1,4 +1,6 @@
 $('#comments-on-review-<%= @review.id %>').append("<%= j (render @comment)  %>");
+$('#comments-on-review-<%= @review.id %>').parent().show();
 $('.comment-text-area-<%= @review.id %>').val('');
-$('.new-comment-form').toggle();
-$(".new-comment-form-toggle").show();
+$('#comment-form-<%= @review.id %> .new-comment-form').hide();
+$('#comment-form-<%= @review.id %> .new-comment-form-toggle').show();
+$('.first-comment-form #comment-form-<%= @review.id %>').hide();
