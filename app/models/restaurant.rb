@@ -36,6 +36,29 @@ class Restaurant < ActiveRecord::Base
     end
   end
 
+  def self.filter(type)
+    restaurants = Restaurant.all
+    restaurants.each do |restaurant|
+      restaurant.score = restaurant.aggregate_score
+    end
+
+    case type
+    when "cuisine"
+      return restaurants.sort_by(&:cuisine)
+    when "name"
+      return restaurants.sort_by(&:name)
+    when "neighborhood"
+      return restaurants.sort_by(&:neighborhood)
+    when "score"
+      restaurants.each do |restaurant|
+        p restaurant.score
+      end
+      b = restaurants.sort_by{|restaurant| -restaurant.score}
+      return b
+    end
+
+  end
+
   def top_three_dishes
     self.specialties.sort_by { |dish| dish.vote_count }.reverse[0..2]
   end
@@ -55,7 +78,7 @@ class Restaurant < ActiveRecord::Base
         mean(self.reviews.map { |review| review.rating })
       end
     else
-      "N/A"
+      0
     end
   end
 
