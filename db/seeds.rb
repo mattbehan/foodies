@@ -52,6 +52,25 @@ end
   Specialty.create!(restaurant_id: rand(1..15),dish_id: rand(1..10))
 end
 
+# Tags
+possible_tags = ["Date spot", "Farm to Table", "Globally Conscious", "Multiethnic",
+                 "Quinoa and Kale", "Molecular Gastronomy", "Locally Sourced",
+                 "Extensive Wine List", "Paleo / Neo-Paleo", "Trendy", "Hipstery"]
+
+possible_tags.each do |tag|
+  Tag.create!(name: tag)
+end
+
+tags = Tag.all
+restaurants = Restaurant.all
+
+restaurants.each do |restaurant|
+  applied_tags = tags.sample(3)
+  applied_tags.each do |applied_tag|
+    restaurant.tags << applied_tag
+  end
+end
+
 # Votes
 comments = Comment.all
 600.times do

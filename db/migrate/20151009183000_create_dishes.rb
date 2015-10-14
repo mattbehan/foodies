@@ -5,6 +5,5 @@ class CreateDishes < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :dishes, :name, unique: true
   end
 end

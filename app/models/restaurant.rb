@@ -16,6 +16,7 @@ class Restaurant < ActiveRecord::Base
   validates_inclusion_of :price_scale, :in => 1..5
   validates_inclusion_of :vegan_friendliness, :in => 1..5
   validates_format_of :zip, with: /\d{5}/
+  validates_format_of :state, with: /[A-Z]{2}/
 
   attr_accessor   :score
 
