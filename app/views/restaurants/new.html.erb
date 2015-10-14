@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-xs-12 restaurant-form">
       <h1>New Foodie-Approved Restaurant</h1>
-        <%= render "form" %>
+        <%= render partial: "form", locals: { errors: @errors } %>
         <%= link_to "Return to Profile Without Saving", user_path(current_user) %>
     </div>
   </div>
