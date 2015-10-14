@@ -1,4 +1,4 @@
-<% unless specialities.empty? %>
+<% unless specialties.empty? %>
   <% specialties.each do |specialty| %>
   	<p><%= specialty.dish.name %> <p>
   	<p> <span id="vote-total-<%= specialty.id %>"> Score: <%= specialty.vote_count %> </span>
