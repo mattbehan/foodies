@@ -245,7 +245,7 @@ class User < ActiveRecord::Base
   private
 
   def reviewer_has_reviews?
-    self.role == "reviewer" && self.reviews.count > 0
+    self.reviewer? && self.reviews.count > 0
   end
 
 #   def welcome_message
