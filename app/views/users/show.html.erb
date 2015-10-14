@@ -13,14 +13,22 @@
 	        <%= render partial: "followings/unfollow", layout: false, locals: { resource: @profile } %>
 				<% end %>
 
+				<!-- if user is on their page but has not created a profile -->
+				<% if owner?(params[:id]) %>
+					<%= link_to "Edit account info", edit_user_registration_path, :class => "btn btn-primary edit-profile" %>
+			 <% end%>
+
 				<!-- Profile Editing Buttons -->
 			  <% if owner?(@profile.user_id) %>
 					<p><%= link_to "Edit profile", edit_user_profile_path(@user, @user.profile), :class => "btn btn-primary edit-profile" %>
-					 <%= link_to "Edit account info", edit_user_registration_path, :class => "btn btn-primary edit-profile" %>
+					 
 					<% if @user.reviewer? || @user.admin? %>
 						<%= link_to "Add New Restaurant", new_restaurant_path, :class => "btn btn-success edit-profile" %>
 							<%= link_to "Create New Article", new_article_path, :class => "btn btn-success edit-profile" %>
 					<% end %>
+					</p>
+					<p>
+						<%= render partial: "users/invite", locals: { new_user: @new_user, profile: @profile } %>	
 					</p>
 				<% end %>
 
