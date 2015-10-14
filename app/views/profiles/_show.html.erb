@@ -1,4 +1,8 @@
 <% if profile.full_name %> <h4>Name: <%= profile.full_name %></h4> <% end %>
 <% if profile.affiliation %> <h4>Affiliation: <%= profile.affiliation %></h4> <% end %>
-<% if user.reviewer? %><h4>Reputation: <%= user.reviewer_reputation %>.  <%= user.english_reviewer_repuation %></h4> <% end %>
+<% if user.reviewer? %>
+  <h4>Reputation: <%= user.reviewer_reputation %>.  <%= user.english_reviewer_repuation %></h4>
+<% elsif user.user? %>
+  <h4>Reputation: <%= user.user_reputation %>.  <%= user.english_user_reputation %></h4>
+<% end %>
 <% if profile.bio %> <p>Bio: <%= profile.bio %></p> <% end %>
