@@ -51,11 +51,7 @@ class Restaurant < ActiveRecord::Base
     when "neighborhood"
       return restaurants.sort_by(&:neighborhood)
     when "score"
-      restaurants.each do |restaurant|
-        p restaurant.score
-      end
-      b = restaurants.sort_by{|restaurant| -restaurant.score}
-      return b
+      return restaurants.sort_by{|restaurant| -restaurant.score}
     end
 
   end
