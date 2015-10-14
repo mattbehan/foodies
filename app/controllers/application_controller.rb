@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def owner? resource_users_id
-		user_signed_in? && resource_users_id == current_user.id
+		user_signed_in? && resource_users_id.to_i == current_user.id
 	end
 
 
@@ -56,11 +56,14 @@ class ApplicationController < ActionController::Base
   	root_path
   end
 
+  def after_invite_path_for resource
+  	users_path
+  end
+
 
 	protected
 
 	def configure_permitted_parameters
-	  # # Only add some parameters
 	  # devise_parameter_sanitizer.for(:accept_invitation).concat [:first_name, :last_name, :phone]
 	  # Override accepted parameters
 	  devise_parameter_sanitizer.for(:accept_invitation) do |u|
