@@ -172,6 +172,8 @@ ActiveRecord::Schema.define(version: 20151013205534) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email"
     t.string   "encrypted_password",     default: ""

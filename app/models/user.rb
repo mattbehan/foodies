@@ -1,8 +1,10 @@
-require 'gravatar-ultimate'
+# require 'gravatar_image_tag'
 
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+
+  include ApplicationHelper
 
   attr_writer :invitation_instructions
 
@@ -138,6 +140,36 @@ class User < ActiveRecord::Base
 	 self.invite!(attributes, current_user)
 	end
 
+<<<<<<< HEAD
+=======
+  def already_quick_took?(restaurant)
+    self.quick_takes.any? { |qt| qt.restaurant_id == restaurant.id }
+  end
+
+  def random_avatar
+    food_photos = [
+      "/app/assets/images/apples_and_bananas.jpg",
+      "/app/assets/images/bento_box.jpg",
+      "/app/assets/images/breakfast_croissants.jpg",
+      "/app/assets/images/chocolate_doughnut.jpg",
+      "/app/assets/images/dessert.jpg",
+      "/app/assets/images/fast_food_meal.jpg",
+      "/app/assets/images/fried_breakfast.jpg",
+      "/app/assets/images/pizza.jpg",
+      "/app/assets/images/ramen.jpg",
+      "/app/assets/images/strawberries_halved.jpg"
+    ]
+    food_photos.sample
+  end
+
+
+# private
+
+#   def welcome_message
+#     UserMailer.welcome_message(self).deliver
+#   end
+
+>>>>>>> master
 end
 
 # display for users

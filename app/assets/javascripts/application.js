@@ -47,15 +47,20 @@ $(function() {
     $(this).next().toggle();
   })
 
-$(".specialties-container").on("click",".specialties-toggle", function(event){
-  console.log("lskdjf");
-  event.preventDefault();
-  console.log(this);
-  // $(this).parent().toggle();
 
+<<<<<<< HEAD
   $(".specialties-list").remove();
   $("#all-specialties").show();
   $(this).hide();
   $(".specialties-form-area").show();
 })
+=======
+  // Specialties
+  $(".specialties-container").on("click",".specialties-toggle", function(event){
+    event.preventDefault();
+    $(this).hide();
+    $("#rest-of-specialties").show();
+    $("#new-specialties-form").show();
+  })
+>>>>>>> master
 });

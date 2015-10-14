@@ -1,0 +1,126 @@
+<%= form_for @restaurant do |f| %>
+
+  <div class="restaurant-form-group">
+    <div class="restaurant-form-pair">
+      <%= f.label :name %>
+      <%= f.text_field :name %> *
+    </div>
+
+    <div class="restaurant-form-pair">
+      <%= f.label :cuisine %>
+      <%= f.text_field :cuisine %> *
+    </div>
+  </div>
+
+  <div class="restaurant-form-group">
+    <div class="restaurant-form-pair">
+      <%= f.label :street_address %>
+      <%= f.text_field :street_address %> *
+    </div>
+  </div>
+
+  <div class="restaurant-form-group">
+    <div class="restaurant-form-pair">
+      <%= f.label :city %>
+      <%= f.text_field :city %> *
+    </div>
+
+    <div class="restaurant-form-pair">
+      <%= f.label :state %>
+      <%= f.text_field :state %> *
+    </div>
+
+    <div class="restaurant-form-pair">
+      <%= f.label :zip %>
+      <%= f.text_field :zip %> *
+    </div>
+  </div>
+
+  <div class="restaurant-form-group">
+    <div class="restaurant-form-pair">
+      <%= f.label :neighborhood %>
+      <%= f.text_field :neighborhood %>
+    </div>
+
+    <div class="restaurant-form-pair">
+      <label for="restaurant_nearest_l">Nearest L Station</label>
+      <%= f.text_field :nearest_l %>
+    </div>
+
+    <div class="restaurant-form-pair">
+      <%= f.label :phone_number %>
+      <%= f.text_field :phone_number %>
+    </div>
+  </div>
+
+  <div class="restaurant-form-group">
+    <div class="restaurant-form-pair">
+      <%= f.label :website %>
+      <%= f.text_field :website %>
+    </div>
+
+    <div class="restaurant-form-pair">
+      <%= f.label :menu_url %>
+      <%= f.text_field :menu_url %>
+    </div>
+  </div>
+
+  <div class="restaurant-form-group">
+    <div class="restaurant-form-pair">
+      <%= f.label :price_scale %>
+      <%= f.select :price_scale, (1..5).to_a  %> *
+    </div>
+
+    <div class="restaurant-form-pair">
+      <%= f.label :vegan_friendliness %>
+      <%= f.select :vegan_friendliness, (1..5).to_a %>
+    </div>
+  </div>
+
+  <div class="restaurant-form-group">
+    <div class="restaurant-form-pair">
+      <%= f.label :atmosphere %>
+      <%= f.text_field :atmosphere %>
+    </div>
+
+    <div class="restaurant-form-pair">
+      <%= f.label :dress_code %>
+      <%= f.text_field :dress_code %>
+    </div>
+  </div>
+
+  <div class="restaurant-form-group">
+
+    <div class="restaurant-form-pair">
+      <label for="first_tag">Tag #1</label>
+      <input type="text" name="restaurant[first_tag]" id="restaurant_first_tag" value="<%= @restaurant.tags[0].name if @restaurant.tags.length > 0 %>" />
+    </div>
+
+    <div class="restaurant-form-pair">
+      <label for="second_tag">Tag #2</label>
+      <input type="text" name="restaurant[second_tag]" id="restaurant_second_tag" value="<%= @restaurant.tags[1].name if @restaurant.tags.length > 1 %>" />
+    </div>
+
+    <div class="restaurant-form-pair">
+      <label for="third_tag">Tag #3</label>
+      <input type="text" name="restaurant[third_tag]" id="restaurant_third_tag" value="<%= @restaurant.tags[2].name if @restaurant.tags.length > 2 %>" />
+    </div>
+  </div>
+
+  <div class="restaurant-form-group">
+    <%= f.label :delivery %>
+    <%= f.check_box :delivery %>
+
+    <%= f.label :reservations %>
+    <%= f.check_box :reservations %>
+
+    <label for="restaurant_patios">Has Patio?</label>
+    <%= f.check_box :patios %>
+  </div>
+
+  <div class="restaurant-form-indented">
+    <p><%= f.submit %></p>
+
+    <p>* - Indicates required field</p>
+  </div>
+<% end %>

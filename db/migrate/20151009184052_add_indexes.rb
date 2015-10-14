@@ -25,5 +25,7 @@ class AddIndexes < ActiveRecord::Migration
     add_index(:bookmarks, :bookmarked_restaurant_id)
     add_index(:followings, :followed_user_id)
     add_index(:followings, :follower_id)
+    add_index :dishes, :name, unique: true
+    add_index :tags, :name, unique: true
   end
 end

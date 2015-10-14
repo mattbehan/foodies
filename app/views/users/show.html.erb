@@ -1,7 +1,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-xs-2 col-md-1">
-			<img src="<%= @user.show_gravatar %>" alt="<%= @user.username %>" class="img-responsive">
+			<%= image_tag avatar_url(@user), class: "img-responsive" %>
 		</div>
 		<div class="col-xs-9 col-md-9">
 			<p class="h2 profile-header"><%= @user.username %></p>
@@ -23,6 +23,7 @@
 					<p><%= link_to "Edit profile", edit_user_profile_path(@user, @user.profile), :class => "btn btn-primary edit-profile" %>
 					 
 					<% if @user.reviewer? || @user.admin? %>
+						<%= link_to "Add New Restaurant", new_restaurant_path, :class => "btn btn-success edit-profile" %>
 							<%= link_to "Create New Article", new_article_path, :class => "btn btn-success edit-profile" %>
 					<% end %>
 					</p>
@@ -37,7 +38,7 @@
 
 			<% if @profile %>
 				<%= render partial: "profiles/show", layout: false, locals: {profile: @profile } %>
-			<% elsif current_user.id == params[:id].to_i %>
+			<% elsif current_user && (current_user.id == params[:id].to_i) %>
 				<li>
 				  <%= link_to'Create profile', new_user_profile_path(current_user), :class => "btn btn-primary " %>
 			  </li>
@@ -52,8 +53,8 @@
 					<h3>Reviews:</h3>
 						<ul>
 						<% @user.reviews.each do |review| %>
-							<li><%= link_to "#{review.title}", restaurant_review_path(review.restaurant, review) %>
-								<% if current_user.id == params[:id].to_i %>
+							<li><%= link_to "#{review.title}", restaurant_review_path(review.restaurant, review), :class => "text-capitalize" %>
+								<% if current_user && (current_user.id == params[:id].to_i) %>
 									<%= link_to "Edit review", edit_restaurant_review_path(review.restaurant, review), :class => "btn btn-primary btn-xs" %>
 								<% end %>
 							</li>
@@ -69,8 +70,8 @@
 					<h3>Articles:</h3>
 						<ul>
 						<% @user.articles.each do |article| %>
-							<li><%= link_to "#{article.title}", article_path(article) %>
-								<% if current_user.id == params[:id].to_i %>
+							<li><%= link_to "#{article.title}", article_path(article), :class => "text-capitalize" %>
+								<% if current_user && (current_user.id == params[:id].to_i) %>
 									<%= link_to "Edit article", edit_article_path(article), :class => "btn btn-primary btn-xs" %>
 								<% end %>
 							</li>
@@ -86,7 +87,7 @@
 					<h3>Followed By:</h3>
 						<% @user.followers.each do |follower| %>
 							<div class="col-xs-2 col-sm-1">
-							<a href="<%= user_path(follower) %>"><img src="<%= follower.show_gravatar %>" alt="<%= follower.username %>" class="img-responsive gravatar-row" title="<%= follower.username %>"></a>
+							<%= link_to image_tag(avatar_url(follower), alt: follower.username, class: "img-responsive"), user_path(follower) %>
 							</div>
 						<% end %>
 				<% end %>
@@ -101,7 +102,8 @@
 				<h3>Followed Users:</h3>
 					<% @user.followed_users.each do |followed_user| %>
 						<div class="col-xs-2 col-sm-1">
-						<a href="<%= user_path(followed_user) %>"><img src="<%= followed_user.show_gravatar %>" alt="<%= followed_user.username %>" class="img-responsive gravatar-row" title="<%= followed_user.username %>"></a>
+							<%= link_to image_tag(avatar_url(followed_user), alt: followed_user.username, class: "img-responsive"), user_path(followed_user) %>
+
 						</div>
 					<% end %>
 			<% end %>

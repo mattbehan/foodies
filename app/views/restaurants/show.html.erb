@@ -18,25 +18,19 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12">
+      <% if current_user && current_user.already_quick_took?(@restaurant) %>
+        <% user_quick_take = QuickTake.find_by(rater_id: current_user.id, restaurant_id: @restaurant.id) %>
+        <p>
+          You rated <%= @restaurant.name %> on <%= user_quick_take.created_at.strftime("%A, %B %d, %Y") %>.
+          Thanks for contributing!
+        </p>
+      <% end %>
+
     <h1><%= @restaurant.name %></h1>
-
-    <p id="bookmark-flash" style="color:red"><%= flash[:bookmark] %></p>
-    <% if user_signed_in? && current_user.has_bookmarked?(@restaurant.id) %>
-      <%= render partial: "bookmarks/unbookmark", locals: { restaurant: @restaurant }%>
-    <% elsif user_signed_in? %>
-      <%= render partial: "bookmarks/bookmark", locals: { restaurant: @restaurant }%>
-    <% end %>
-
-
-    <p id="visit-flash" style="color:red"><%= flash[:visit] %></p>
-    <% if user_signed_in? && current_user.has_visited?(@restaurant.id) %>
-      <%= render partial: "visits/visited", locals: { restaurant: @restaurant }%>
-    <% elsif user_signed_in? %>
-      <%= render partial: "visits/visit", locals: { restaurant: @restaurant }%>
-    <% end %>
 
     <div class="restaurant-info">
       <h4>Restaurant Info</h4>
+
       <ul style="list-style: none">
         <li>Cuisine: <%= @restaurant.cuisine %></li>
         <li>Address:
@@ -48,30 +42,42 @@
         <li>Phone Number: <%= @restaurant.phone_number %></li>
         <li>Neighborhood: <%= @restaurant.neighborhood %></li>
         <li>Price Scale: <%= @restaurant.price_scale %></li>
-
       </ul>
-      <p><%= @restaurant.name %> has an aggregated score of <strong><%= @restaurant.aggregate_score %></strong></p>
-      <div class="specialties-container">
-        <h4> Specialties </h4>
-        <div class="specialties-list"> <%= render partial: @specialties %> </div>
 
-        <!-- when ajaxing for show all, just listen for a click and then change display to show all.  -->
-        <div id="all-specialties" style="display:none"><%= render partial: "specialties/all_specialties", locals: {specialties: @all_specialties} %> </div>
-        <hr>  
-        <p><%= flash[:alert] %> </p>
-          <%= link_to "Show all specialties/ add a dish", root_path, remote: true, :class => "btn btn-default specialties-toggle" %>
-          <!-- restaurant_specialties_path(@restaurant, @specialties) -->
-        <%= render partial: "specialties/form", id:"specialties-form", locals: {specialty: @new_specialty, restaurant: @restaurant} %>
-        <hr>
-        <!-- when ajaxing for show all, just listen for a click and then change display to show all.  -->
-        <div id="all-specialties" style="display:none"><%= render partial: "specialties/all_specialties", locals: {specialties: @all_specialties} %> </div>
+
+      <% if current_user && !current_user.already_quick_took?(@restaurant) %>
+        <h3 class="rate-invitation">Been to <%= @restaurant.name %>?</h3>
+        <h4><%= link_to "Rate it.", new_restaurant_quick_take_path(@restaurant), class: "quick-take-link", method: "get", remote: true %></h4>
+      <% end %>
+
+      <div class="quick-take-form" style="display:none;">
       </div>
 
+      <p><%= @restaurant.name %> has an aggergated score of <strong><%= @restaurant.aggregate_score %></strong></p>
 
+      <% unless @restaurant.specialties.empty? %>
+        <div class="specialties-container">
+          <h4>Specialties</h4>
+            <div class="top-specialties-list">
+              <%= render partial: @specialties %>
+            </div>
 
-      <h1>Reviews for <%= @restaurant.name %></h1>
-      <hr>
-      <%= render @reviews %>
+            <%= link_to "Show all specialties/add a dish", root_path, remote: true, :class => "btn btn-default specialties-toggle" %>
+
+            <div id="rest-of-specialties" style="display:none"><%= render partial: "specialties/all_specialties", locals: {specialties: @rest_of_specialties} %> </div>
+            <hr>
+            <p><%= flash[:alert] %> </p>
+            <!-- restaurant_specialties_path(@restaurant, @specialties) -->
+            <%= render partial: "specialties/form", locals: {specialty: @new_specialty, restaurant: @restaurant} %>
+            <hr>
+        </div>
+      <% end %>
+
+      <% unless @reviews.empty? %>
+        <h1>Reviews for <%= @restaurant.name %></h1>
+        <hr>
+        <%= render @reviews %>
+      <% end %>
 
 
     </div>
