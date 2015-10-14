@@ -124,25 +124,14 @@ class User < ActiveRecord::Base
 	 end
 	end
 
-  # devise_invitable accept_invitation! method overriden
-  def accept_invitation!
-    self.confirm!
-    super
-  end
-
   # class method that calls the other, main class method. This and the following method overlay the default invite! by allowing two different methods to be called
 	def self.invite_user!(attributes={role: "user"}, invited_by=nil)
-	 self.invite!(attributes, invited_by) do |invitable|
-    invitable.invitation_instructions = :user_invitation_instructions
-    end
-
+	 self.invite!(attributes, invited_by)
 	end
 
   #replaces just the invite method
 	def self.invite_reviewer!(attributes={role: "admin"}, invited_by=nil)
-	 self.invite!(attributes, invited_by) do |invitable|
-    invitable.invitation_instructions = :user_invitation_instructions
-    end
+	 self.invite!(attributes, invited_by)
 	end
 
   def already_quick_took?(restaurant)

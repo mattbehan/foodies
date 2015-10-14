@@ -47,20 +47,10 @@ $(function() {
     $(this).next().toggle();
   })
 
-
-<<<<<<< HEAD
-  $(".specialties-list").remove();
-  $("#all-specialties").show();
-  $(this).hide();
-  $(".specialties-form-area").show();
-})
-=======
-  // Specialties
   $(".specialties-container").on("click",".specialties-toggle", function(event){
     event.preventDefault();
     $(this).hide();
     $("#rest-of-specialties").show();
     $("#new-specialties-form").show();
   })
->>>>>>> master
 });
