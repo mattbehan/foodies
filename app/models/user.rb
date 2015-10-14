@@ -152,7 +152,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def english_reviewer_repuation
+  def english_reviewer_reputation
     if reviewer_reputation.between?(0, 5)
       "Poor."
     elsif reviewer_reputation.between?(6, 10)
