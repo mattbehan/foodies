@@ -144,8 +144,14 @@
         <p><span class="restaurant-boolean">Delivery?</span><strong><%= humanize_boolean(@restaurant.delivery) %></strong></p>
       <% end %>
     </div>
-  </div>
 
+    <div class="col-xs-12">
+      <% unless @restaurant.tags.empty? %>
+        <p><strong>Tagged with:</strong></p>
+        <p><%= @restaurant.tags_for_display %></p>
+      <% end %>
+    </div>
+  </div>
 
   <% unless @reviews.empty? %>
   <div class="row">
