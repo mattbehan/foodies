@@ -51,7 +51,7 @@ class Restaurant < ActiveRecord::Base
     when "neighborhood"
       return restaurants.sort_by(&:neighborhood)
     when "score"
-      return restaurants.sort_by{|restaurant| -restaurant.score}
+      return restaurants.select {|restaurant| restaurant.score != "N/A" }.sort_by{|restaurant| -restaurant.score}
     end
 
   end
@@ -75,7 +75,7 @@ class Restaurant < ActiveRecord::Base
         mean(self.reviews.map { |review| review.rating })
       end
     else
-      0
+      "N/A"
     end
   end
 
