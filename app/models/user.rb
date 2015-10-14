@@ -278,6 +278,10 @@ class User < ActiveRecord::Base
     self.user? && self.comments_count > 0 
   end
 
+  def user_has_comments?
+
+  end
+
 #   def welcome_message
 #     UserMailer.welcome_message(self).deliver
 #   end
