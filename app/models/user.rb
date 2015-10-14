@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
     inclusion: {in: ROLES, message: "Invalid role" }
   validates :username, presence: true, uniqueness: true
 
-  # create a new user 
+  # create a new user
   def self.from_omniauth auth
     raise auth.info.inspect
     where( provider: auth.provider, uid: auth.uid ).first_or_create do |user|
@@ -235,7 +235,7 @@ class User < ActiveRecord::Base
 
   def reviewer_reputation
     points = 0
-    points += (self.number_of_reviews * 5)
+    points += (self.number_of_reviews * 10)
     points += self.reviews_near_aggregate
     points += self.downvoted_more_than_upvoted
     points += self.review_points / 2 unless self.review_points <= 0
@@ -263,11 +263,88 @@ class User < ActiveRecord::Base
     end
   end
 
+  def comment_count
+    self.comments.count
+  end
+
+  def self.average_comment_count
+    raw_comments = User.all.map { |u| u.comments.count }.inject(:+)
+    raw_comments / User.all.count
+  end
+
+  def comment_often?
+    self.comment_count >= User.average_comment_count
+  end
+
+  def upvote_downvote_ratio_points
+    upvotes = 0
+    downvotes = 0
+    self.comments.each { |comment| upvotes += comment.votes.where(value: 1).count }
+    self.comments.each { |comment| downvotes += comment.votes.where(value: -1).count }
+    if user_has_comments? && upvotes >= downvotes
+      upvotes - downvotes
+    else
+      0
+    end
+  end
+
+  def times_voted
+    self.votes.count
+  end
+
+  def times_upvoted
+    self.votes.where(value: 1).count
+  end
+
+  def times_downvoted
+    self.votes.where(value: -1).count
+  end
+
+  def user_reputation
+    points = 0
+    1.upto(self.comment_count) { points += (upvote_downvote_ratio_points * 1.5) }
+    if self.comment_often?
+      points += self.comment_points * (self.comment_count / 2)
+    else
+      points += self.comment_points * (self.comment_count / 4)
+    end
+
+    if self.times_upvoted >= self.times_downvoted
+      points += self.times_voted
+    else
+      points += (self.times_voted / 2)
+    end
+    points
+  end
+
+  def english_user_reputation
+    if self.user_reputation.between?(0, 15)
+      "Poor."
+    elsif self.user_reputation.between?(16, 30)
+      "Decent."
+    elsif self.user_reputation.between?(31, 45)
+      "Good."
+    elsif self.user_reputation.between?(46, 60)
+      "Great!"
+    elsif self.user_reputation.between?(61, 75)
+      "Superb!"
+    elsif self.user_reputation.between?(76, 100)
+      "Super Excellent."
+    elsif self.user_reputation >= 101
+      "Off the charts!"
+    else
+      "Aybsmal."
+    end
+  end
 
   private
 
   def reviewer_has_reviews?
     self.reviewer? && self.reviews.count > 0
+  end
+
+  def user_has_comments?
+    self.user? && self.comment_count > 0
   end
 
 #   def welcome_message
