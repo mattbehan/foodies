@@ -1,5 +1,13 @@
 #map {
-  width: 500px;
-  height: 400px;
-  margin-top: 10px;
+  width: 96%;
+  height: 150px;
+  margin: 15px 2%;
+}
+
+@media screen and (min-width: 768px) {
+
+  #map {
+    width: 500px;
+    height: 400px;
+  }
 }
