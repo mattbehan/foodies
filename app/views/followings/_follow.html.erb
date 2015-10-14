@@ -1,6 +1,5 @@
-<!-- pass in resource as a local -->
-	<%= form_tag "/followings", :class => "follow-button" do %>
-	  <%= hidden_field_tag "resource", "#{resource.class.to_s}" %>
-	  <%= hidden_field_tag "resource_id", "#{resource.id}" %>
-	  <%= submit_tag "Follow", :class => "btn btn-primary" %>
-	<% end %>
+<%= form_tag "/followings", :class => "follow-button", remote: true do %>
+  <%= hidden_field_tag "resource", "#{@profile.class.to_s}" %>
+  <%= hidden_field_tag "resource_id", "#{@profile.id}" %>
+  <%= submit_tag "Follow", :class => "btn btn-social btn-follow" %>
+<% end %>

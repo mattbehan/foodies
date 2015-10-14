@@ -87,9 +87,9 @@ ActiveRecord::Schema.define(version: 20151013205534) do
     t.integer  "user_id"
     t.string   "full_name"
     t.string   "affiliation"
-    t.text     "bio",         default: "Lover of food"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.text     "bio"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "quick_takes", force: :cascade do |t|
@@ -172,13 +172,11 @@ ActiveRecord::Schema.define(version: 20151013205534) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
-
   create_table "users", force: :cascade do |t|
-    t.string   "email"
+    t.string   "email",                  default: "",     null: false
     t.string   "encrypted_password",     default: ""
     t.string   "role",                   default: "user"
-    t.string   "username"
+    t.string   "username",                                null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

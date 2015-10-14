@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   end
 
 
-  match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
+  # match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
 
   post "/followings" => "followings#create"
   delete "/followings" => "followings#destroy"

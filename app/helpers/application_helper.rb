@@ -18,19 +18,19 @@
 
   def avatar_url(user)
     food_photos = [
-      "http://cdn1.medicalnewstoday.com/content/images/articles/271157-bananas.jpg",
-      "http://www.freefoodphotos.com/imagelibrary/breakfast/slides/egg_and_bacon.jpg",
-      "http://www.freefoodphotos.com/imagelibrary/breakfast/slides/croissants.jpg",
-      "http://www.freefoodphotos.com/imagelibrary/meals/slides/pizza.jpg",
-      "https://images.unsplash.com/photo-1426869981800-95ebf51ce900?q=80&fm=jpg&s=2c89e023814a3fdb98edc129cf1357c2",
-      "https://images.unsplash.com/photo-1426869884541-df7117556757?q=80&fm=jpg&s=a96e2a65771dd939883420703a0bb928",
-      "https://images.unsplash.com/photo-1432752641289-a25fc853fceb?q=80&fm=jpg&s=845db824014f34ca56b05451725e9270"
+      "http://38.media.tumblr.com/avatar_f947f46a1351_128.gif",
+      "http://33.media.tumblr.com/avatar_bfee0d75c453_128.png",
+      "https://38.media.tumblr.com/avatar_afd27060913e_128.png",
+      "https://djuf8khon03er.cloudfront.net/wp-content/uploads/2012/09/carrot_rosemary_soup_2_from_Kitchen_Counter_by_Kathleen_Flinn-128x128.jpg"
     ]
     default_url = food_photos.sample
     gravatar_id = Digest::MD5::hexdigest(user.email).downcase
-    "http://gravatar.com/avatar/#{gravatar_id}.png?s=150&d=#{CGI.escape(default_url)}"
+    "http://gravatar.com/avatar/#{gravatar_id}.png?s=128&d=#{CGI.escape(default_url)}"
   end
 
+  def humanize_boolean(boolean)
+    boolean ? "Yes" : "No"
+  end
 
 end
 

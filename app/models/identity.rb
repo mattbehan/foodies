@@ -18,6 +18,7 @@ class Identity < ActiveRecord::Base
     identity
   end
 
+
   # def name_from_provider provider, auth
   # 	case provider
   # 	when "twitter"

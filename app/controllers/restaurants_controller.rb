@@ -7,22 +7,21 @@ class RestaurantsController < ApplicationController
 
   def search
     # Search path
-    if params[:search] == ""
-      @restaurants = Restaurant.order("name").page(params[:page]).per(5)
-      calculate_aggregate_score
+    if params[:search] == "" # Return list of top 5 restaurants by score
+      filter
     elsif params[:search]
-      @restaurants = Restaurant.search(params[:search]).order("name").page(params[:page]).per(5)
+      @restaurants = Kaminari.paginate_array(Restaurant.search(params[:search])).page(params[:page]).per(5)
       calculate_aggregate_score
-    # Normal Render path
+    # Normal Render path (handle the unexpected)
     else
-      @restaurants = Restaurant.order("name").page(params[:page]).per(5)
-      calculate_aggregate_score
+      filter
     end
   end
 
   def filter
-    @filter_option = params[:type]
-    @restaurants = Kaminari.paginate_array(Restaurant.filter(@filter_option)).page(params[:page]).per(5)
+    search_query = params[:search]
+    @filter_option = params[:type] || "score"
+    @restaurants = Kaminari.paginate_array(Restaurant.filter(@filter_option,search_query)).page(params[:page]).per(5)
 
     respond_to do |format|
       format.js {render 'filter'}

@@ -3,59 +3,73 @@
 		<div class="col-xs-2 col-md-1">
 			<%= image_tag avatar_url(@user), class: "img-responsive" %>
 		</div>
-		<div class="col-xs-9 col-md-9">
-			<p class="h2 profile-header"><%= @user.username %></p>
-			<% if @profile %>
-				<!-- Follow/Unfollow Button for Logged-In Users -->
-				<% if user_signed_in?  && !owner?(@profile.user_id) && !current_user.follows?(@profile.user_id) %>
-					<%= render partial: "followings/follow", layout: false, locals: { resource: @profile } %>
-				<% elsif user_signed_in? && !owner?(@profile.user_id) %>
-	        <%= render partial: "followings/unfollow", layout: false, locals: { resource: @profile } %>
-				<% end %>
+		<div class="col-xs-10 col-md-11">
+			<p class="h2 profile-header"><%= @user.username %>
+				<span><%= render partial: "reputation", locals: { user: @user } %>
 
+
+				<% if @profile %>
+					<!-- Follow/Unfollow Button for Logged-In Users -->
+					<% if user_signed_in?  && !owner?(@profile.user_id) && !current_user.follows?(@profile.user_id) %>
+						<%= render partial: "followings/follow", layout: false, locals: { resource: @profile } %>
+					<% elsif user_signed_in? && !owner?(@profile.user_id) %>
+		        <%= render partial: "followings/unfollow", layout: false, locals: { resource: @profile } %>
+					<% end %>
+				<% end %>
+			</span>
+			</p>
+		</div>
+	</div> <!-- ends first row -->
+
+	<div class="row">
+		<div class="col-xs-10 col-md-11 col-xs-offset-2 col-md-offset-1">
+			<% if @profile %>
 				<!-- if user is on their page but has not created a profile -->
 				<% if owner?(params[:id]) %>
-					<%= link_to "Edit account info", edit_user_registration_path, :class => "btn btn-primary edit-profile" %>
+					<%= link_to "Edit account info", edit_user_registration_path, :class => "btn btn-default edit-profile" %>
 			 <% end%>
 
 				<!-- Profile Editing Buttons -->
 			  <% if owner?(@profile.user_id) %>
-					<p><%= link_to "Edit profile", edit_user_profile_path(@user, @user.profile), :class => "btn btn-primary edit-profile" %>
-					 
+					<%= link_to "Edit profile", edit_user_profile_path(@user, @user.profile), :class => "btn btn-default edit-profile" %>
+
 					<% if @user.reviewer? || @user.admin? %>
-						<%= link_to "Add New Restaurant", new_restaurant_path, :class => "btn btn-success edit-profile" %>
+						<%= link_to "Add Restaurant", new_restaurant_path, :class => "btn btn-success edit-profile" %>
 							<%= link_to "Create New Article", new_article_path, :class => "btn btn-success edit-profile" %>
 					<% end %>
-					</p>
-					<p>
-						<%= render partial: "users/invite", locals: { new_user: @new_user, profile: @profile } %>	
-					</p>
+
 				<% end %>
-
-				<!-- Article creation button for reviewers -->
 			<% end %>
-
 
 			<% if @profile %>
 				<%= render partial: "profiles/show", layout: false, locals: {profile: @profile, user: @user } %>
 			<% elsif current_user && (current_user.id == params[:id].to_i) %>
-				<li>
-				  <%= link_to'Create profile', new_user_profile_path(current_user), :class => "btn btn-primary " %>
-			  </li>
+				 <%= link_to'Create profile', new_user_profile_path(current_user), :class => "btn btn-default" %>
 			<% end %>
 		</div>
 	</div>
 
+	<!-- Invite Forms -->
+	<% if owner?(params[:id]) %>
+		<div class="row">
+			<div class="col-xs-10 col-md-11 col-xs-offset-2 col-md-offset-1">
+					<hr />
+					<%= render partial: "users/invite", locals: { new_user: @new_user, profile: @profile } %>
+					<hr />
+			</div>
+		</div>
+	<% end %>
+
 	<% if @user.reviewer? || @user.admin? %>
 		<div class="row">
-			<div class="col-xs-12">
+			<div class="col-xs-10 col-md-11 col-xs-offset-2 col-md-offset-1">
 				<% unless @user.reviews.empty? %>
 					<h3>Reviews:</h3>
-						<ul>
+						<ul class="writings-list">
 						<% @user.reviews.each do |review| %>
 							<li><%= link_to "#{review.title}", restaurant_review_path(review.restaurant, review), :class => "text-capitalize" %>
 								<% if current_user && (current_user.id == params[:id].to_i) %>
-									<%= link_to "Edit review", edit_restaurant_review_path(review.restaurant, review), :class => "btn btn-primary btn-xs" %>
+									<%= link_to "Edit review", edit_restaurant_review_path(review.restaurant, review), :class => "btn btn-default btn-xs" %>
 								<% end %>
 							</li>
 						<% end %>
@@ -65,14 +79,14 @@
 		</div>
 
 		<div class="row">
-			<div class="col-xs-12">
+			<div class="col-xs-10 col-md-11 col-xs-offset-2 col-md-offset-1">
 				<% unless @user.articles.empty? %>
 					<h3>Articles:</h3>
-						<ul>
+						<ul class="writings-list">
 						<% @user.articles.each do |article| %>
 							<li><%= link_to "#{article.title}", article_path(article), :class => "text-capitalize" %>
 								<% if current_user && (current_user.id == params[:id].to_i) %>
-									<%= link_to "Edit article", edit_article_path(article), :class => "btn btn-primary btn-xs" %>
+									<%= link_to "Edit article", edit_article_path(article), :class => "btn btn-default btn-xs" %>
 								<% end %>
 							</li>
 						<% end %>
@@ -82,12 +96,13 @@
 		</div>
 
 		<div class="row">
-			<div class="col-xs-12">
+			<div class="col-xs-10 col-med-11 col-xs-offset-2 col-md-offset-1">
 				<% unless @user.followers.empty? %>
 					<h3>Followed By:</h3>
 						<% @user.followers.each do |follower| %>
-							<div class="col-xs-2 col-sm-1">
-							<%= link_to image_tag(avatar_url(follower), alt: follower.username, class: "img-responsive"), user_path(follower) %>
+							<div class="gravatar-img">
+							<%= link_to image_tag(avatar_url(follower), alt: follower.username, class: "gravatar-img"), user_path(follower) %>
+							<p class="social-usernames hidden-xs"><%= follower.username %></p>
 							</div>
 						<% end %>
 				<% end %>
@@ -97,13 +112,13 @@
 	<% end %>
 
 	<div class="row">
-		<div class="col-xs-12">
+		<div class="col-xs-10 col-md-11 col-xs-offset-2 col-md-offset-1">
 			<% unless @user.followed_users.empty? %>
 				<h3>Followed Users:</h3>
 					<% @user.followed_users.each do |followed_user| %>
-						<div class="col-xs-2 col-sm-1">
-							<%= link_to image_tag(avatar_url(followed_user), alt: followed_user.username, class: "img-responsive"), user_path(followed_user) %>
-
+						<div class="gravatar-img">
+							<%= link_to image_tag(avatar_url(followed_user), alt: followed_user.username, class: "gravatar-img"), user_path(followed_user) %>
+						<p class="social-usernames hidden-xs"><%= followed_user.username %></p>
 						</div>
 					<% end %>
 			<% end %>
@@ -111,7 +126,7 @@
 	</div>
 
 	<div class="row">
-		<div class="col-xs-12">
+		<div class="col-xs-10 col-md-11 col-xs-offset-2 col-md-offset-1">
 			<% unless @user.visited_restaurants.empty? %>
 				<h3>Visited Restaurants:</h3>
 					<ul>
@@ -124,7 +139,7 @@
 	</div>
 
 		<div class="row">
-		<div class="col-xs-12">
+		<div class="col-xs-10 col-md-11 col-xs-offset-2 col-md-offset-1">
 			<% unless @user.bookmarked_restaurants.empty? %>
 				<h3>Bookmarked Restaurants:</h3>
 					<ul>

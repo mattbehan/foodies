@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-xs-12 col-lg-10 col-lg-offset-1">
       <h2 class="header-link text-capitalize"><%= link_to "#{review.title}", restaurant_review_path(review.restaurant, review) %></h2>
-      <h4 class="review-byline"><%= link_to "#{review.reviewer.profile.full_name}, #{review.reviewer.profile.affiliation}", user_path(review.reviewer) %></h4>
+      <h4 class="review-byline text-capitalize"><%= link_to "#{review.reviewer.profile.full_name}, #{review.reviewer.profile.affiliation}", user_path(review.reviewer) %></h4>
       <h6 class="plain">Rating: <%= review.rating %></h6>
       <p><%= review.content %></p>
       <p><span class="vote-review-total-<%= review.id %> total">Vote total: <%= review.vote_count %></span>

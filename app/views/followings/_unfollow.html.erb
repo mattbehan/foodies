@@ -1,6 +1,5 @@
-<!-- pass in following as a local -->
-<%= form_tag "/followings", method: :delete, :class => "unfollow-button" do %>
-  <%= hidden_field_tag "resource", "#{resource.class.to_s}" %>
-  <%= hidden_field_tag "resource_id", "#{resource.id}" %>
-  <%= submit_tag "Unfollow", :class => "btn btn-primary"%>
+<%= form_tag "/followings", method: :delete, :class => "unfollow-button", remote: true do %>
+  <%= hidden_field_tag "resource", "#{@profile.class.to_s}" %>
+  <%= hidden_field_tag "resource_id", "#{@profile.id}" %>
+  <%= submit_tag "Unfollow", :class => "btn btn-social"%>
 <% end %>
