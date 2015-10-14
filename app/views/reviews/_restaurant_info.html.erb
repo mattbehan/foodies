@@ -1,13 +1,40 @@
+<%= javascript_include_tag "googlemaps" %>
+<%= stylesheet_link_tag 'googlemaps' %>
+
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-xs-12 col-lg-10 col-lg-offset-1">
-			<h1><%= @restaurant.name %></h1>
-			<ul class="">
-				<li>Cuisine: <%= @restaurant.cuisine %></li>
-				<li>Neighborhood: <%= @restaurant.neighborhood %></li>
-				<li>Vegan Friendliness: <%= @restaurant.vegan_friendliness %> out of 5</li>
-			</ul>
+		<div class="col-xs-12 col-md-5 col-lg-4 col-lg-offset-1">
+			<h1 class="profile-header"><%= @restaurant.name %><div class="restaurant-score btn"><strong><%= @restaurant.aggregate_score %></strong></h1>
+			<p>Cuisine: <%= @restaurant.cuisine %><p>
+			<p>Address: <span id="street-address"><%= @restaurant.street_address %></span><br/>
+      <span id="csz-address"><%= @restaurant.city %>, <%= @restaurant.state %> <%= @restaurant.zip %></span></p>
+			<p><% if @restaurant.neighborhood %>Neighborhood: <%= @restaurant.neighborhood %><% end %></p>
+			<% unless @specialties.empty? %>
+				<h4>Specialties</h4>
+				<ul>
+					<% @specialties.each do |specialty| %>
+						<li><%= specialty.dish.name %></li>
+					<% end %>
+				</ul>
+			<% end %>
+		</div>
+		<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&callback=initMap" async defer></script>
+    	<!-- map -->
+    <div id="map" class="col-md-7 hidden-xs hidden-sm review-page-map"></div>
+	</div>
+
+	<div class="row review-page-map-directions">
+		<div class="col-xs-12 col-md-5 col-lg-4 col-lg-offset-1">
 			<%= link_to "Back to Restaurant Page", restaurant_path(@restaurant) %>
+		</div>
+		<div class="col-md-7 hidden-xs hidden-sm">
+		    <form id="calculate-route" name="calculate-route" action="#" method="get">
+		            <label for="from">From: </label>
+		            <input type="text" id="from" name="from" required="required" placeholder="Address..." size="20" />
+		            or <a id="from-link" href="#">Get my position</a>
+		            <input type="submit" />
+		          </form>
+		    <p id="error"></p>
 		</div>
 	</div>
 	<hr />
