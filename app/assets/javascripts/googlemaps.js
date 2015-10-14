@@ -29,6 +29,26 @@
         return;
       }
 
+      $("#get-directions").click(function(event) {
+        event.preventDefault();
+        var latitude, longitude;
+        navigator.geolocation.getCurrentPosition(success, fail);
+
+        function success(position) {
+          latitude = position.coords.latitude;
+          longitude = position.coords.longitude;
+          $("#get-directions").attr("href", "https://www.google.com/maps/dir/"
+            + latitude + "," + longitude + "/" +
+            $('#street-address').html().concat($('#csz-address').html()));
+          window.location.href = $("#get-directions").attr("href");
+        }
+
+        function fail(msg) {
+          console.log("It failed");
+        }
+
+      })
+
       $("#from-link").click(function(event) {
         event.preventDefault();
         var addressId = this.id.substring(0, this.id.indexOf("-"));
