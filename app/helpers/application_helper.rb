@@ -31,6 +31,9 @@
     "http://gravatar.com/avatar/#{gravatar_id}.png?s=150&d=#{CGI.escape(default_url)}"
   end
 
+  def humanize_boolean(boolean)
+    boolean ? "Yes" : "No"
+  end
 
 end
 
