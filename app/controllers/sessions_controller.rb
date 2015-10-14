@@ -1,6 +1,7 @@
 class SessionsController < Devise::SessionsController
 
   before_filter :wipe_provider, only: [:destroy]
+  before_filter :wipe_session, only: [:destroy]
 
   def new
     @user = User.new

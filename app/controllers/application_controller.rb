@@ -6,7 +6,11 @@ class ApplicationController < ActionController::Base
 	before_filter :configure_permitted_parameters, if: :devise_controller?
 
 
-	helper_method :must_be_admin, :admin?, :must_be_logged_in, :find_user, :find_profile, :must_be_owner, :owner?, :find_owner, :wipe_provider, :current_identity, :virtual_sign_in?
+	helper_method :must_be_admin, :admin?, :must_be_logged_in, :find_user, :find_profile, :must_be_owner, :owner?, :find_owner, :wipe_provider, :current_identity, :virtual_sign_in?, :wipe_session
+
+	def wipe_session
+		session.destroy
+	end
 
 	def virtual_sign_in?
 		session[:provider] != nil
