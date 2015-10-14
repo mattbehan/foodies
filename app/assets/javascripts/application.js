@@ -117,4 +117,9 @@ $(function() {
 //         x.innerHTML = "Geolocation is not supported by this browser.";
 //     }
 // }
+
+  // SVG Hover
+  $("path").on("mouseover", function(){
+    $("#neighborhood").html($(this).attr("id"));
+  })
 });

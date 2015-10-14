@@ -31,7 +31,6 @@ gem 'jbuilder', '~> 2.0'
 
 gem 'devise'
 gem 'devise_invitable'
-gem "omniauth-twitter"
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-instagram'

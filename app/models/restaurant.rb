@@ -129,6 +129,14 @@ class Restaurant < ActiveRecord::Base
     end
   end
 
+  def tags_for_display
+    tag_names = []
+    tags.each do |tag|
+      tag_names << tag.name.capitalize
+    end
+    tag_names.join(", ")
+  end
+
   private
 
   def mean(numbers)
@@ -169,13 +177,17 @@ class Restaurant < ActiveRecord::Base
   def self.find_fuzzy_matches(query)
     query_length = query.split.length
 
-    query_input =
-    [([(['lower(name) LIKE ?'] * query_length).join(' AND ')] +
-      [(['lower(cuisine) LIKE ?'] * query_length).join(' AND ')] +
-      [(['lower(neighborhood) LIKE ?'] * query_length).join(' AND ')]).join(' OR ')] +
-      query.split.map { |name| "%#{name.downcase}%" }*3
-
-    where(query_input)
+    if query_length != 0
+      query_input =
+      [([(['lower(name) LIKE ?'] * query_length).join(' AND ')] +
+        [(['lower(cuisine) LIKE ?'] * query_length).join(' AND ')] +
+        [(['lower(neighborhood) LIKE ?'] * query_length).join(' AND ')]).join(' OR ')] +
+        query.split.map { |name| "%#{name.downcase}%" }*3
+        p query_input
+      where(query_input)
+    else
+      Array.new
+    end
   end
 
 end

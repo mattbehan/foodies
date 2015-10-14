@@ -7,9 +7,9 @@
 <% @restaurants.each do |restaurant|%>
   <div class="restaurant">
     <h1 class="restaurant-name"><%= link_to restaurant.name, restaurant %></h1>
-    <p class="restaurant-cusine">Cuisine: <%= restaurant.cuisine %></p>
-    <p class="restaurant-cusine">Neighborhood: <%= restaurant.neighborhood %></p>
-    <p class="restaurant-cusine">Score: <%= restaurant.score %></p>
+    <p class="restaurant-cuisine">Cuisine: <%= restaurant.cuisine %></p>
+    <p class="restaurant-neighborhood">Neighborhood: <%= restaurant.neighborhood %></p>
+    <p class="restaurant-score">Score: <%= restaurant.score %></p>
   </div>
 <% end %>
 

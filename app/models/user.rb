@@ -151,92 +151,67 @@ class User < ActiveRecord::Base
 
   # Returns the aggregate number of comments across a reviewers reviews
   def review_comment_count
-    if reviewer_has_reviews?
-      self.reviews.map { |review| review.comments.count }.inject(:+)
-    else
-      0
-    end
+    self.reviews.map { |review| review.comments.count }.inject(:+)
   end
 
   # Returns the aggergate score of all comments for all of the users reviews
   def score_of_review_comments
-    if reviewer_has_reviews?
-      votes = 0
-      self.reviews.each do |review|
-        review.comments.each do |comment|
-          votes += comment.vote_count
-        end
+    votes = 0
+    self.reviews.each do |review|
+      review.comments.each do |comment|
+        votes += comment.vote_count
       end
-      votes
-    else
-      0
     end
+    votes
   end
 
   # Returns the total amount of votes for all comments across all reviews, regardless of SCORE
   def review_comment_vote_count
-    if reviewer_has_reviews?
-      number_of_votes = 0
-      self.reviews.each do |review|
-        review.comments.each do |comment|
-          number_of_votes += comment.votes.count
-        end
+    number_of_votes = 0
+    self.reviews.each do |review|
+      review.comments.each do |comment|
+        number_of_votes += comment.votes.count
       end
-      number_of_votes
-    else
-      0
     end
+    number_of_votes
   end
 
   # Returns the number of reviews authored by a user
   def number_of_reviews
-    reviewer_has_reviews? ? self.reviews.count : 0
+    self.reviews.count
   end
 
 
   # Returns the total number of downvotes of all reviews
   def review_comment_downvote_count
-    if reviewer_has_reviews?
-      number_of_downvotes = 0
-      self.reviews.each do |review|
-        number_of_downvotes += Vote.where(votable_type: "Review",
-                                          votable_id: review.id, value: -1).count
-      end
-      number_of_downvotes
-    else
-      0
+    number_of_downvotes = 0
+    self.reviews.each do |review|
+      number_of_downvotes += Vote.where(votable_type: "Review", votable_id: review.id, value: -1).count
     end
+    number_of_downvotes
   end
 
   # Returns the vote-based score across all reviews for a reviewer
   def review_points
-    if reviewer_has_reviews?
-      self.reviews.map { |review| review.vote_count }.inject(:+)
-    else
-      0
-    end
+    self.reviews.map { |review| review.vote_count }.inject(:+)
   end
 
   def reviews_near_aggregate
-    if reviewer_has_reviews?
-      points = 0
-      self.reviews.each do |review|
-        restaurant = Restaurant.find(review.restaurant_id)
-        acceptable_range_high = restaurant.aggregate_score + 1
-        acceptable_range_low = restaurant.aggregate_score - 1
-        points += 1 if review.rating.between?(acceptable_range_low, acceptable_range_high)
-      end
-      points
+    points = 0
+    self.reviews.each do |review|
+      restaurant = Restaurant.find(review.restaurant_id)
+      acceptable_range_high = restaurant.aggregate_score + 1
+      acceptable_range_low = restaurant.aggregate_score - 1
+      points += 1 if review.rating.between?(acceptable_range_low, acceptable_range_high)
     end
+    points
   end
 
   def downvoted_more_than_upvoted
-    if reviewer_has_reviews?
-      points = 0
-      self.reviews.each do |review|
-        if review.votes.where(value: -1).count > review.votes.where(value: 1).count
-          points -= 2
-        end
+    points = 0
+    self.reviews.each do |review|
+      if review.votes.where(value: -1).count > review.votes.where(value: 1).count
+        points -= 2
       end
     end
     points
@@ -248,15 +223,19 @@ class User < ActiveRecord::Base
   end
 
   def reviewer_reputation
-    points = 0
-    points += (self.number_of_reviews * 5)
-    points += self.reviews_near_aggregate
-    points += self.downvoted_more_than_upvoted
-    points += self.review_points / 2 unless self.review_points <= 0
-    points -= self.review_comment_downvote_count / 2 unless self.review_comment_downvote_count <= 0
-    points += self.review_comment_count
-    points += self.comment_points
-    points
+    if reviewer_has_reviews?
+      points = 0
+      points += (self.number_of_reviews * 10)
+      points += self.reviews_near_aggregate
+      points += self.downvoted_more_than_upvoted
+      points += self.review_points / 2 unless self.review_points <= 0
+      points -= self.review_comment_downvote_count / 2 unless self.review_comment_downvote_count <= 0
+      points += self.review_comment_count
+      points += self.comment_points
+      points
+    else
+      0
+    end
   end
 
   def english_reviewer_repuation
@@ -268,7 +247,7 @@ class User < ActiveRecord::Base
       "Good."
     elsif self.reviewer_reputation.between?(16, 20)
       "Great!"
-    elsif self.reviewer_reputation.between?(21..25)
+    elsif self.reviewer_reputation.between?(21, 25)
       "Most Excellent."
     elsif self.reviewer_reputation >= 26
       "Off the Charts!"
@@ -277,11 +256,88 @@ class User < ActiveRecord::Base
     end
   end
 
+  def comment_count
+    self.comments.count
+  end
+
+  def self.average_comment_count
+    raw_comments = User.all.map { |u| u.comments.count }.inject(:+)
+    raw_comments / User.all.count
+  end
+
+  def comment_often?
+    self.comment_count >= User.average_comment_count
+  end
+
+  def upvote_downvote_ratio_points
+    upvotes = 0
+    downvotes = 0
+    self.comments.each { |comment| upvotes += comment.votes.where(value: 1).count }
+    self.comments.each { |comment| downvotes += comment.votes.where(value: -1).count }
+    if user_has_comments? && upvotes >= downvotes
+      upvotes - downvotes
+    else
+      0
+    end
+  end
+
+  def times_voted
+    self.votes.count
+  end
+
+  def times_upvoted
+    self.votes.where(value: 1).count
+  end
+
+  def times_downvoted
+    self.votes.where(value: -1).count
+  end
+
+  def user_reputation
+    points = 0
+    1.upto(self.comment_count) { points += (upvote_downvote_ratio_points * 1.5) }
+    if self.comment_often?
+      points += self.comment_points * (self.comment_count / 2)
+    else
+      points += self.comment_points * (self.comment_count / 4)
+    end
+
+    if self.times_upvoted >= self.times_downvoted
+      points += self.times_voted
+    else
+      points += (self.times_voted / 2)
+    end
+    points
+  end
+
+  def english_user_reputation
+    if self.user_reputation.between?(0, 15)
+      "Poor."
+    elsif self.user_reputation.between?(16, 30)
+      "Decent."
+    elsif self.user_reputation.between?(31, 45)
+      "Good."
+    elsif self.user_reputation.between?(46, 60)
+      "Great!"
+    elsif self.user_reputation.between?(61, 75)
+      "Superb!"
+    elsif self.user_reputation.between?(76, 100)
+      "Super Excellent."
+    elsif self.user_reputation >= 101
+      "Off the charts!"
+    else
+      "Abysmal."
+    end
+  end
 
   private
 
   def reviewer_has_reviews?
     self.reviewer? && self.reviews.count > 0
+  end
+
+  def user_has_comments?
+    self.user? && self.comment_count > 0
   end
 
 #   def welcome_message
