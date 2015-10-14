@@ -333,7 +333,7 @@ class User < ActiveRecord::Base
     elsif self.user_reputation >= 101
       "Off the charts!"
     else
-      "Aybsmal."
+      "Abysmal."
     end
   end
 

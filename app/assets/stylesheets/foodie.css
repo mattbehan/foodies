@@ -176,6 +176,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .gravatar-img {
   width: 60px;
+  height: 40px;
   display: inline-block;
 }
 
@@ -349,6 +350,7 @@ footer p {
 
   .gravatar-img {
     width: 120px;
+    height: 80px;
     display: inline-block;
   }
 

@@ -101,7 +101,7 @@
 					<h3>Followed By:</h3>
 						<% @user.followers.each do |follower| %>
 							<div class="gravatar-img">
-							<%= link_to image_tag(avatar_url(follower), alt: follower.username, class: "img-responsive"), user_path(follower) %>
+							<%= link_to image_tag(avatar_url(follower), alt: follower.username, class: "gravatar-img"), user_path(follower) %>
 							<p class="social-usernames hidden-xs"><%= follower.username %></p>
 							</div>
 						<% end %>
@@ -117,7 +117,7 @@
 				<h3>Followed Users:</h3>
 					<% @user.followed_users.each do |followed_user| %>
 						<div class="gravatar-img">
-							<%= link_to image_tag(avatar_url(followed_user), alt: followed_user.username, class: "img-responsive"), user_path(followed_user) %>
+							<%= link_to image_tag(avatar_url(followed_user), alt: followed_user.username, class: "gravatar-img"), user_path(followed_user) %>
 						<p class="social-usernames hidden-xs"><%= followed_user.username %></p>
 						</div>
 					<% end %>
