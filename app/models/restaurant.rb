@@ -23,22 +23,15 @@ class Restaurant < ActiveRecord::Base
   def self.search(query)
 
     if query
-      query_length = query.split.length
-      # query_old_input = [(['lower(name) LIKE ?'] * query_length).join(' AND ')] + query.split.map { |name| "%#{name.downcase}%" }
-      query_input =
-      [([(['lower(name) LIKE ?'] * query_length).join(' AND ')] +
-        [(['lower(cuisine) LIKE ?'] * query_length).join(' AND ')] +
-        [(['lower(neighborhood) LIKE ?'] * query_length).join(' AND ')]).join(' OR ')] +
-        query.split.map { |name| "%#{name.downcase}%" }*3
-
-      where(query_input)
+      all_results = find_exact_matches(query) + find_keyword_matches(query) + find_fuzzy_matches(query)
+      all_results.uniq
     else
       where(:all)
     end
   end
 
-  def self.filter(type)
-    restaurants = Restaurant.all
+  def self.filter(type,query)
+    restaurants = Restaurant.search(query)
     restaurants.each do |restaurant|
       restaurant.score = restaurant.aggregate_score
     end
@@ -87,6 +80,45 @@ class Restaurant < ActiveRecord::Base
 
   def weighted_mean(number, decimal)
     number * decimal
+  end
+
+  def self.find_exact_matches(full_query_string)
+    query_input =
+    [(
+      [('lower(name) LIKE ?')] +
+      [('lower(cuisine) LIKE ?')] +
+      [('lower(neighborhood) LIKE ?')] +
+      [('lower(atmosphere) LIKE ?')]
+    ).join(' OR ')] +
+    ["#{full_query_string.downcase}"]*4
+
+    where(query_input)
+  end
+
+  def self.find_keyword_matches(query)
+    query_keywords = query.split.select do |word|
+      word.downcase == "cheap" || word.downcase == "vegan" || word.downcase == "vegetarian"
+    end
+
+    if query_keywords.include?("vegan") || query_keywords.include?("vegetarian")
+      where('vegan_friendliness >= 4')
+    elsif query_keywords.include? "cheap"
+      where('price_scale <= 2')
+    else
+      Array.new
+    end
+  end
+
+  def self.find_fuzzy_matches(query)
+    query_length = query.split.length
+
+    query_input =
+    [([(['lower(name) LIKE ?'] * query_length).join(' AND ')] +
+      [(['lower(cuisine) LIKE ?'] * query_length).join(' AND ')] +
+      [(['lower(neighborhood) LIKE ?'] * query_length).join(' AND ')]).join(' OR ')] +
+      query.split.map { |name| "%#{name.downcase}%" }*3
+
+    where(query_input)
   end
 
 end

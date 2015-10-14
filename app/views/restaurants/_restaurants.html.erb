@@ -13,6 +13,6 @@
   </div>
 <% end %>
 
-<%= "No results" if @restaurants.empty? %>
+<%= "No results found." if @restaurants.empty? %>
 
 <%= paginate(@restaurants) %>
