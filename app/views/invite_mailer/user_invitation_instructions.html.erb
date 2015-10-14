@@ -1,8 +1,8 @@
-<p><%= t("devise.mailer.invitation_instructions.hello", email: @resource.email) %></p>
+<p><%= t("devise.mailer.invitation_instructions.hello", email: @resource.email) %>,</p>
 
 <p>
-	<%= resource.invited_by %> has invited you to 
-	<% if resource.reviewer?%>
+	<%= @resource.invited_by.username || @resource.email || "Someone" %> has invited you to 
+	<% if @resource.reviewer?%>
 		be a reviewer on Foodie!!
 	<% else %>
 		Foodie!

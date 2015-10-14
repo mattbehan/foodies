@@ -13,12 +13,12 @@ class UsersController < ApplicationController
   end
 
   def user_invite
-    User.invite_user!(email: params[:user][:email])
+    User.invite_user!({email: params[:user][:email]}, current_user)
     redirect_to root_path
   end
 
   def reviewer_invite
-    User.invite_reviewer!(email: params[:user][:email], role: "reviewer")
+    User.invite_reviewer!({email: params[:user][:email], role: "reviewer"}, current_user)
     redirect_to root_path
   end
 

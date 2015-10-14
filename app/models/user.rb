@@ -132,16 +132,19 @@ class User < ActiveRecord::Base
 
   # class method that calls the other, main class method. This and the following method overlay the default invite! by allowing two different methods to be called
 	def self.invite_user!(attributes={role: "user"}, invited_by=nil)
-	 self.invite!(attributes, current_user)
+	 self.invite!(attributes, invited_by) do |invitable|
+    invitable.invitation_instructions = :user_invitation_instructions
+    end
+
 	end
 
   #replaces just the invite method
 	def self.invite_reviewer!(attributes={role: "admin"}, invited_by=nil)
-	 self.invite!(attributes, current_user)
+	 self.invite!(attributes, invited_by) do |invitable|
+    invitable.invitation_instructions = :user_invitation_instructions
+    end
 	end
 
-<<<<<<< HEAD
-=======
   def already_quick_took?(restaurant)
     self.quick_takes.any? { |qt| qt.restaurant_id == restaurant.id }
   end
@@ -169,7 +172,6 @@ class User < ActiveRecord::Base
 #     UserMailer.welcome_message(self).deliver
 #   end
 
->>>>>>> master
 end
 
 # display for users
