@@ -16,7 +16,7 @@ class Restaurant < ActiveRecord::Base
   validates_inclusion_of :price_scale, :in => 1..5
   validates_inclusion_of :vegan_friendliness, :in => 1..5
   validates_format_of :zip, with: /\d{5}/
-  validates_format_of :state, with: /[A-Z]{2}/
+  # validates_format_of :state, with: /[A-Z]{2}/
 
   attr_accessor   :score
 
@@ -57,11 +57,11 @@ class Restaurant < ActiveRecord::Base
   end
 
   def top_three_dishes
-    self.specialties.sort_by { |dish| dish.vote_count }.reverse[0..2]
+    self.specialties.sort_by { |dish| dish.vote_count }.reverse[0..2] || []
   end
 
   def rest_of_dishes
-    specialties.sort_by { |dish| dish.vote_count }.reverse[3..-1]
+    specialties.sort_by { |dish| dish.vote_count }.reverse[3..-1] || []
   end
 
 

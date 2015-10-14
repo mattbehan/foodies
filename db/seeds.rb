@@ -6,7 +6,7 @@ neighborhoods = ["Albany Park","Andersonville","Archer Heights","Ashburn","Aubru
   Restaurant.create!(name: FFaker::Company.name, cuisine: FFaker::Food.meat,
                       street_address: FFaker::AddressUS.street_address,
                       city: FFaker::AddressUS.city, state: FFaker::AddressUS.state,
-                      zip: FFaker::AddressUS.zip_code, phone_number: FFaker::PhoneNumber.short_phone_number,
+                      zip: FFaker::AddressUS.zip_code[0..4], phone_number: FFaker::PhoneNumber.short_phone_number,
                       neighborhood: neighborhoods.sample, nearest_l: FFaker::AddressUS.neighborhood,
                       website: FFaker::Internet.http_url, menu_url: FFaker::Internet.http_url,
                       price_scale: rand(1..5), atmosphere: FFaker::HipsterIpsum.word, delivery: true,
@@ -17,7 +17,8 @@ end
 # Create users
 while User.all.length <= 100
   user = User.new(email: FFaker::Internet.email + ".ru", username: FFaker::Internet.user_name + rand(1000).to_s, password: "p@ssw0rd")
-  user.confirm!
+  # user.save
+  user.confirm! # use for Heroku
   profile = Profile.create(bio: FFaker::BaconIpsum.words(50), affiliation: FFaker::Company.bs, full_name: FFaker::Name.name, user_id: user.id )
 end
 

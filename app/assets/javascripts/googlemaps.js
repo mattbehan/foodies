@@ -12,7 +12,7 @@
         new google.maps.Point(0,0),
         new google.maps.Point(10, 34));
       var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 8,
+        zoom: 12,
         styles: styleArray
       });
       var geocoder = new google.maps.Geocoder();
@@ -28,6 +28,26 @@
         $("#error").text("Your browser doesn't support the Geolocation API");
         return;
       }
+
+      $("#get-directions").click(function(event) {
+        event.preventDefault();
+        var latitude, longitude;
+        navigator.geolocation.getCurrentPosition(success, fail);
+
+        function success(position) {
+          latitude = position.coords.latitude;
+          longitude = position.coords.longitude;
+          $("#get-directions").attr("href", "https://www.google.com/maps/dir/"
+            + latitude + "," + longitude + "/" +
+            $('#street-address').html().concat($('#csz-address').html()));
+          window.location.href = $("#get-directions").attr("href");
+        }
+
+        function fail(msg) {
+          console.log("It failed");
+        }
+
+      })
 
       $("#from-link").click(function(event) {
         event.preventDefault();

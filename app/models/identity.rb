@@ -23,6 +23,7 @@ class Identity < ActiveRecord::Base
   # 	when "twitter"
   # 		return auth.nickname
 
+
   # 	end
   # end
 
