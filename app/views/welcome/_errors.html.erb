@@ -1,9 +1,11 @@
 <div>
-
-	<% if resource.errors %>
-		<% resource.errors.full_messages do |error_message| %>
-			<p> <%= error_message %>	</p>
-		<% end %>
-	<% end %>
+  <% if flash[:errors] %>
+    <h3>Sorry, the following errors occurred.</h3>
+    <ol>
+    <% flash[:errors].each do |error| %>
+      <li><%= error %></li>
+    <% end %>
+    </ol>
+  <% end %>
 
 </div>

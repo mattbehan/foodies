@@ -18,9 +18,10 @@ class ReviewsController < ApplicationController
   def create
     @review = Review.new(review_params)
     @review.restaurant = @restaurant
-    if @review.save!
+    if @review.save
       redirect_to restaurant_review_path(@restaurant, @review)
     else
+      flash[:errors] = @review.errors.full_messages
       redirect_to new_restaurant_review_path
     end
   end
