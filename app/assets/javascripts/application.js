@@ -53,4 +53,9 @@ $(function() {
     $("#rest-of-specialties").show();
     $("#new-specialties-form").show();
   })
+
+  // SVG Hover
+  $("path").on("mouseover", function(){
+    $("#neighborhood").html($(this).attr("id"));
+  })
 });

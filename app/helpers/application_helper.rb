@@ -18,7 +18,7 @@
 
   def avatar_url(user)
     food_photos = [
-      "http://cdn1.medicalnewstoday.com/content/images/articles/271157-bananas.jpg",
+      "http://38.media.tumblr.com/avatar_f947f46a1351_128.gif",
       "http://www.freefoodphotos.com/imagelibrary/breakfast/slides/egg_and_bacon.jpg",
       "http://www.freefoodphotos.com/imagelibrary/breakfast/slides/croissants.jpg",
       "http://www.freefoodphotos.com/imagelibrary/meals/slides/pizza.jpg",
