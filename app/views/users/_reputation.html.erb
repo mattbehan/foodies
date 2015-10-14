@@ -1,0 +1,16 @@
+<% unless user.admin? %>
+  <div class="user-score btn">
+    <strong>
+      <% if user.reviewer? %>
+        <%= user.reviewer_reputation %>
+      <% else %>
+        <%= user.user_reputation %>
+      <% end %>
+    </strong>
+  </div>
+  <% if current_user && current_user == user && user.reviewer? %>
+    <span class="hidden-xs"> (<%= user.english_reviewer_repuation %>)</span>
+  <% elsif current_user && current_user == user %>
+    <span class="hidden-xs"> (<%= user.english_user_reputation %>)</span>
+  <% end %>
+<% end %>
