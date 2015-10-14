@@ -90,6 +90,24 @@
   </div>
 
   <div class="restaurant-form-group">
+
+    <div class="restaurant-form-pair">
+      <label for="first_tag">Tag #1</label>
+      <input type="text" name="restaurant[first_tag]" id="restaurant_first_tag" value="<%= @restaurant.tags[0].name if @restaurant.tags.length > 0 %>" />
+    </div>
+
+    <div class="restaurant-form-pair">
+      <label for="second_tag">Tag #2</label>
+      <input type="text" name="restaurant[second_tag]" id="restaurant_second_tag" value="<%= @restaurant.tags[1].name if @restaurant.tags.length > 1 %>" />
+    </div>
+
+    <div class="restaurant-form-pair">
+      <label for="third_tag">Tag #3</label>
+      <input type="text" name="restaurant[third_tag]" id="restaurant_third_tag" value="<%= @restaurant.tags[2].name if @restaurant.tags.length > 2 %>" />
+    </div>
+  </div>
+
+  <div class="restaurant-form-group">
     <%= f.label :delivery %>
     <%= f.check_box :delivery %>
 
