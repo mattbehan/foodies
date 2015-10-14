@@ -1,3 +1,5 @@
+require 'net/http'
+
 class Restaurant < ActiveRecord::Base
   has_many :taggings
   has_many :tags, through: :taggings
@@ -20,14 +22,69 @@ class Restaurant < ActiveRecord::Base
 
   attr_accessor   :score
 
-  def self.search(query)
+  def self.search(query, lat_data, long_data)
 
     if query
       all_results = find_exact_matches(query) + find_keyword_matches(query) + find_fuzzy_matches(query)
-      all_results.uniq
+      p "WITHIN search ___________"
+      all_results = all_results.uniq
+      p lat_data
+      p long_data
+      if lat_data && long_data
+        add_distance_to_collection( lat_data, long_data, all_results )
+      else
+        all_results
+      end
     else
       where(:all)
     end
+  end
+
+  def self.create_url_request lat, long, restaurant
+    request = "https://maps.googleapis.com/maps/distancematrix/json?origins="
+    request += "#{lat},#{long}"
+    request += "&destinations="
+    request += "#{restaurant.street_address}"
+    request += "+#{restaurant.city}" 
+    request += "+#{restaurant.state}"
+    request += "+#{restaurant.zip}"
+    request += "&mode=walking/"
+    request.gsub(/\s/, "+")
+
+  end
+
+  def self.add_distance_to_collection lat, long, results
+    results.map {|result| result.add_distance_to_result(lat, long, result)}
+  end
+
+  def add_distance_to_result lat, long, result
+    # result = Net::HTTP.get(URI.parse(Restaurant.create_url_request(lat, long, result)))
+    # p result
+    p "                                                                                          "
+
+
+    url = Restaurant.create_url_request(lat, long, result)
+    uri = URI.parse(url)
+    request = Net::HTTP::Get.new(uri.request_uri)
+    response = Net::HTTP.start(uri.host, uri.port) {|http|
+      http.request(request)
+    }
+    p response
+
+
+    # Get.new 
+    # start takes the host, the port, and an optional block. the block will actually make the request which returns a response and can then be read
+
+    # req = Net::HTTP::Get.new(url.to_s)
+    # response = Net::HTTP.start(url.host, url.port) {|http|
+    #   http.request(req)
+    # }
+    # p "RESPONSE"
+    # p response
+    # response = JSON.parse(response)
+    # puts "response: #{response}"
+    puts "_____________________________" 
+    # return [result, response]
   end
 
   def self.filter(type,query)

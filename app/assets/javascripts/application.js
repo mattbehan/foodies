@@ -53,4 +53,68 @@ $(function() {
     $("#rest-of-specialties").show();
     $("#new-specialties-form").show();
   })
+  // SearchBar geolocation
+  $("#search").click(function(event) {
+    event.preventDefault();
+    // Method 1
+    var latitude, longitude;
+    navigator.geolocation.getCurrentPosition(success, fail,
+    {
+      enableHighAccuracy: true,
+      timeout: 10 * 1000 // 10 seconds
+    });
+
+    function success(position) {
+      latitude = position.coords.latitude;
+      longitude = position.coords.longitude;
+      $("#lat-data").val(latitude);
+      $("#long-data").val(longitude);
+      // $("#get-directions").attr("href", "https://www.google.com/maps/dir/"
+      //   + latitude + "," + longitude + "/" +
+      //   $('#street-address').html().concat($('#csz-address').html()));
+      // window.location.href = $("#get-directions").attr("href");
+    }
+
+    function fail(msg) {
+      alert("Please enable your geolocation service in order to find directions.");
+    }
+    // Method 2
+    // navigator.geolocation.getCurrentPosition(function(position) {
+    //   var geocoder = new google.maps.Geocoder();
+    //   geocoder.geocode(
+    //     {
+    //       "location": new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+    //     },
+    //     function(results, status) {
+    //       if (status == google.maps.GeocoderStatus.OK) {
+
+    //         console.log("in");
+    //         console.log(results[0].formatted_address);
+    //         // $("#" + addressId).val(results[0].formatted_address);
+    //       } else {
+    //         console.log("else")
+    //         // $("#error").append("Unable to retrieve your address<br />");
+    //       }
+    //     }
+    //   );
+    // },
+    // function(positionError){
+    //   $("#error").append("Error: " + positionError.message + "<br />");
+    // },
+    // {
+    //   enableHighAccuracy: true,
+    //   timeout: 10 * 1000 // 10 seconds
+    // });
+  })  
+
+
+//   var x = document.getElementById("demo");
+
+//   $("location-submitter").on("click", )
+//     if (navigator.geolocation) {
+//         return navigator.geolocation.getCurrentPosition();
+//     } else { 
+//         x.innerHTML = "Geolocation is not supported by this browser.";
+//     }
+// }
 });

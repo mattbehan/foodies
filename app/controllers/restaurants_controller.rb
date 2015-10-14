@@ -1,3 +1,5 @@
+require "net/http"
+
 class RestaurantsController < ApplicationController
 
   include ApplicationHelper
@@ -7,10 +9,12 @@ class RestaurantsController < ApplicationController
 
   def search
     # Search path
+    lat_data = params["lat-data"]
+    long_data = params["long-data"]
     if params[:search] == "" # Return list of top 5 restaurants by score
       filter
     elsif params[:search]
-      @restaurants = Kaminari.paginate_array(Restaurant.search(params[:search])).page(params[:page]).per(5)
+      @restaurants = Kaminari.paginate_array(Restaurant.search(params[:search], lat_data, long_data)).page(params[:page]).per(5)
       calculate_aggregate_score
     # Normal Render path (handle the unexpected)
     else
