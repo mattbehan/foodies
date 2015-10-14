@@ -18,6 +18,7 @@ class ArticlesController < ApplicationController
     if @article.save
       redirect_to @article
     else
+      flash[:errors] = @article.errors.full_messages
       redirect_to new_article_path
     end
   end
