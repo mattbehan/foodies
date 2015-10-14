@@ -145,8 +145,8 @@
       <% end %>
     </div>
 
+    <% unless @restaurant.tags.empty? %>
     <div class="col-xs-12">
-      <% unless @restaurant.tags.empty? %>
         <p><strong>Tagged with:</strong></p>
         <p><%= @restaurant.tags_for_display %></p>
       <% end %>

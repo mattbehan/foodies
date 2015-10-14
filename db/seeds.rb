@@ -38,7 +38,8 @@ reviewers = User.where(role: "reviewer")
 end
 
 20.times do
-  Article.create!(title: FFaker::Company.bs, content: FFaker::HipsterIpsum.paragraphs.join(" "),
+  Article.create!(title: FFaker::Company.bs,
+                  content: FFaker::HipsterIpsum.paragraphs.join(" ") + FFaker::HipsterIpsum.paragraphs.join(" ") + FFaker::HipsterIpsum.paragraphs.join(" "),
                   author_id: reviewers.sample.id)
 end
 
