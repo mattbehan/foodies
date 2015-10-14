@@ -12,3 +12,4 @@
 !/log/.keep
 /tmp
 /coverage/.resultset.json
+config/secrets.yml

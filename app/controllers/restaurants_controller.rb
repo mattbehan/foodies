@@ -9,17 +9,20 @@ class RestaurantsController < ApplicationController
     # Search path
     if params[:search] == ""
       @restaurants = Restaurant.order("name").page(params[:page]).per(5)
+      calculate_aggregate_score
     elsif params[:search]
       @restaurants = Restaurant.search(params[:search]).order("name").page(params[:page]).per(5)
+      calculate_aggregate_score
     # Normal Render path
     else
       @restaurants = Restaurant.order("name").page(params[:page]).per(5)
+      calculate_aggregate_score
     end
   end
 
   def filter
-    @restaurants = Restaurant.page(params[:page]).per(5)
     @filter_option = params[:type]
+    @restaurants = Kaminari.paginate_array(Restaurant.filter(@filter_option)).page(params[:page]).per(5)
 
     respond_to do |format|
       format.js {render 'filter'}
@@ -88,6 +91,12 @@ class RestaurantsController < ApplicationController
                                         :nearest_l, :website, :menu_url, :price_scale,
                                         :atmosphere, :delivery, :reservations,
                                         :vegan_friendliness, :patios, :dress_code)
+  end
+
+  def calculate_aggregate_score
+    @restaurants.each do |restaurant|
+      restaurant.score = restaurant.aggregate_score
+    end
   end
 
   def grab_tags

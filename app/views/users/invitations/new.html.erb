@@ -1,13 +1,15 @@
-<h2><%= t "devise.invitations.new.header" %></h2>
+<p><%= t("devise.mailer.invitation_instructions.hello", email: @resource.email) %></p>
 
-<%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
-  <%= devise_error_messages! %>
+<p>
+	<%= @resource.invited_by %> has invited you to 
+	<% if @resource.reviewer?%>
+		be a reviewer on Foodie!!
+	<% else %>
+		Foodie!
+	<% end %>
+</p>
 
-<% resource.class.invite_key_fields.each do |field| -%>
-  <p><%= f.label field %>
-  <%= f.text_field field %></p>
-<% end -%>
-<%= f.text_field :role %>
 
-  <p><%= f.submit t("devise.invitations.new.submit_button") %></p>
-<% end %>
+<p><%= link_to t("devise.mailer.invitation_instructions.accept"), accept_invitation_url(@resource, :invitation_token => @token) %></p>
+
+<p><%= t("devise.mailer.invitation_instructions.ignore").html_safe %></p>

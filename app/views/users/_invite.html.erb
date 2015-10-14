@@ -1,0 +1,18 @@
+<h4><%= t "devise.invitations.new.header" %></h4>
+
+<%= form_for new_user, :url => "/users/invite", :html => {:method => :post} do |f| %>
+
+	<% new_user.class.invite_key_fields.each do |field| -%>
+	  <p><%= f.label field %><br />
+	  <%= f.text_field field %></p>
+
+	<% end %>
+
+	
+
+	<button type="submit" formaction="/users/invite"> Invite user </button>
+	<% if admin? %>
+  	<button type="submit" formaction="/admins/invite"> Invite as reviewer </button>
+	<% end %>
+  </p>
+<% end %>
