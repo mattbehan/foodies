@@ -8,9 +8,12 @@ class RestaurantsController < ApplicationController
   before_action :admin_or_reviewer?, only: [:new, :create, :edit, :update]
 
   def search
+    p "in search"
     # Search path
-    lat_data = params["lat-data"]
-    long_data = params["long-data"]
+    lat_data = params["lat_data"]
+    long_data = params["long_data"]
+    p long_data
+    p lat_data
     if params[:search] == "" # Return list of top 5 restaurants by score
       filter
     elsif params[:search]
@@ -23,9 +26,11 @@ class RestaurantsController < ApplicationController
   end
 
   def filter
+    latitude = params[:lat_data]
+    longitude = params[:long_data]
     search_query = params[:search]
     @filter_option = params[:type] || "score"
-    @restaurants = Kaminari.paginate_array(Restaurant.filter(@filter_option,search_query)).page(params[:page]).per(5)
+    @restaurants = Kaminari.paginate_array(Restaurant.filter(@filter_option,search_query,latitude,longitude)).page(params[:page]).per(5)
 
     respond_to do |format|
       format.js {render 'filter'}

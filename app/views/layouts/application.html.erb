@@ -47,8 +47,7 @@
             <div class="input-append form-group">
               <%= text_field_tag :search, params[:search],
               class: "search-bar", placeholder: "Search for anything..." %>
-              <%= hidden_field_tag "lat-data", nil, id: "lat-data" %>
-              <%= hidden_field_tag "long-data", nil, id: "long-data" %>
+              <!-- hidden fields -->
               <button class="btn" type="submit"><i class="icon-search"></i></button>
             </div>
           <% end %>
