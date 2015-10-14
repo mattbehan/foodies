@@ -1,2 +1,9 @@
 <%= render "reviews/restaurant_info" %>
 <%= render @review %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-11 col-md-offset-1 col-xs-12">
+      <p class="end-link"><%= link_to "See Foodie.com's top reviewers", top_reviewers_path %></p>
+    </div>
+  </div>
+</div>
