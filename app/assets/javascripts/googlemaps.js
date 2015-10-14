@@ -44,7 +44,7 @@
         }
 
         function fail(msg) {
-          console.log("It failed");
+          alert("Please enable your geolocation service in order to find directions.");
         }
 
       })
