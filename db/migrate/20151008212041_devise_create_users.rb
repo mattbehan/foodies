@@ -7,7 +7,6 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :role, default: "user"
       t.string :username
 
-
       ## Recoverable
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at

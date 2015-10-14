@@ -1,7 +1,8 @@
 class SessionsController < Devise::SessionsController
 
+  before_filter :wipe_provider, only: [:destroy]
+
   def new
-  	puts "here__________"
     @user = User.new
     render :"users/sessions/new"
   end

@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   end
 
 
+  match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
+
   post "/followings" => "followings#create"
   delete "/followings" => "followings#destroy"
 
@@ -31,7 +33,7 @@ Rails.application.routes.draw do
     resources :specialties, only: [:create]
   end
 
-  devise_for :users, :controllers => {:registrations => "registrations", omniauth_callbacks: "omniauth_callbacks"}
+  devise_for :users, :controllers => {:registrations => "registrations", omniauth_callbacks: "omniauth_callbacks", sessions: "sessions"}
   get "/users/invite" => 'users#invite'
   post "/admins/invite" => 'users#reviewer_invite'
   post "/users/invite" => "users#user_invite"

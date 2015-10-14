@@ -202,7 +202,6 @@ ActiveRecord::Schema.define(version: 20151013205534) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.string   "provider"
-    t.string   "uid"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
@@ -233,5 +232,4 @@ ActiveRecord::Schema.define(version: 20151013205534) do
   add_index "votes", ["user_id"], name: "index_votes_on_user_id", using: :btree
   add_index "votes", ["votable_id"], name: "index_votes_on_votable_id", using: :btree
 
-  add_foreign_key "identities", "users"
 end
