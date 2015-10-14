@@ -113,6 +113,10 @@ class User < ActiveRecord::Base
  		User.all.select {|user| user.role == "reviewer"}
  	end
 
+  def self.top_ten_reviewers
+    all_reviewers.sort_by {|reviewer| reviewer.reviewer_reputation}.reverse[0..9]
+  end
+
 	def deliver_invitation
 	 if @invitation_instructions.present?
 	   ::Devise.mailer.send(@invitation_instructions, self).deliver

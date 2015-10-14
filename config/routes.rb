@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     resources :specialties, only: [:create]
   end
 
+  get "/users/top-reviewers" => 'users#top_reviewers', as: :top_reviewers
   devise_for :users, :controllers => {:registrations => "registrations", omniauth_callbacks: "omniauth_callbacks"}
   get "/users/invite" => 'users#invite'
   post "/admins/invite" => 'users#reviewer_invite'
