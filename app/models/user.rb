@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
     inclusion: {in: ROLES, message: "Invalid role" }
   validates :username, presence: true, uniqueness: true
 
-  # create a new user 
+  # create a new user
   def self.from_omniauth auth
     raise auth.info.inspect
     where( provider: auth.provider, uid: auth.uid ).first_or_create do |user|
@@ -268,6 +268,10 @@ class User < ActiveRecord::Base
 
   def reviewer_has_reviews?
     self.role == "reviewer" && self.reviews.count > 0
+  end
+
+  def user_has_comments?
+
   end
 
 #   def welcome_message
