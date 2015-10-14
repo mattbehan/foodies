@@ -24,7 +24,7 @@ class Identity < ActiveRecord::Base
   	case provider
   	when "twitter"
   		return auth.nickname
-  	when
+  	else
 
   	end
   end
