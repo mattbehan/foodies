@@ -72,6 +72,14 @@ class Restaurant < ActiveRecord::Base
     end
   end
 
+  def tags_for_display
+    tag_names = []
+    tags.each do |tag|
+      tag_names << tag.name.capitalize
+    end
+    tag_names.join(", ")
+  end
+
   private
 
   def mean(numbers)

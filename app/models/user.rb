@@ -329,6 +329,7 @@ class User < ActiveRecord::Base
     self.votes.where(value: -1).count
   end
 
+
 #   def welcome_message
 #     UserMailer.welcome_message(self).deliver
 #   end
