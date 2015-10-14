@@ -43,3 +43,44 @@ Created custom views in views/invite_mailer/reviewer_invitation_instructions and
 copied in notification mailer in order to create absolutely custom messages... e.g. the user would be able to say "hey! whats up remember when I met you five days ago! This is actually a personalized message!" ... doesn't look like this was actually necessary
 
 I think this all would have been a lot easier if I had just passed in the params for the user to be a certain type of admin in attributes... then all I would have to do is say invite!({attributes})
+
+
+
+___________
+OMNIAUTH
+
+will have to change the callback url when in production
+
+config/initializers/devise.rb
+	add in keys for for config.omniauth
+add in omniauthable in devise model
+
+set up omniauth callbacks controller that inherits from devise::omniauthcallbacks
+
+specify in routes that :omniauth_callbacks will handle "omniauth_callbacks"
+
+alias method all and point the providers as methods
+
+omniauth.auth is a hash of information
+
+find or create a user from the information in the hash
+
+
+add uid to users -- an alternative would be to create an alternative model and store the identity assocations in there
+
+create a method that is a class method on the user model that takes the auth hash, looks through it and grabs the provider and the uid.
+	then it looks for User where the credentials match 
+
+
+get the users credentials from User.from_omniauth(), then sign the user in on that login form
+	to do so we need to override a devise class method called new_with_session
+		in this method, we look to see if session["devise.user_attributes"] has been set, and if so we create a new user and set that users attributes to the params. since we trust the hash we do not need to set protection
+		if there is nothing in session["devise.user_attributes"], then we just call the super method
+
+only display password fields on the signup form if the provider is not present if the validations fail (e.g. email is not present)
+
+similarly, if the encrypted password is blank, we should remove the current_password field from the edit form
+
+____________________________
+ISSUES
+when invitation is accepted, user is not redirected to update their information

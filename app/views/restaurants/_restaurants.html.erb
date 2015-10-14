@@ -1,9 +1,10 @@
-<%= paginate @restaurants, :window => 10 %>
 
 <% type = @filter_option %>
 <% type = "name" if @filter_option == nil %>
 
-<% sort_restaurants(@restaurants,type).each do |restaurant|%>
+<%= paginate(@restaurants) %>
+
+<% @restaurants.each do |restaurant|%>
   <div class="restaurant">
     <h1 class="restaurant-name"><%= link_to restaurant.name, restaurant %></h1>
     <p class="restaurant-cusine">Cuisine: <%= restaurant.cuisine %></p>
@@ -14,4 +15,4 @@
 
 <%= "No results" if @restaurants.empty? %>
 
-<%= paginate @restaurants %>
+<%= paginate(@restaurants) %>

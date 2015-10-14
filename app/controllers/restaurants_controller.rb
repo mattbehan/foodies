@@ -9,17 +9,20 @@ class RestaurantsController < ApplicationController
     # Search path
     if params[:search] == ""
       @restaurants = Restaurant.order("name").page(params[:page]).per(5)
+      calculate_aggregate_score
     elsif params[:search]
       @restaurants = Restaurant.search(params[:search]).order("name").page(params[:page]).per(5)
+      calculate_aggregate_score
     # Normal Render path
     else
       @restaurants = Restaurant.order("name").page(params[:page]).per(5)
+      calculate_aggregate_score
     end
   end
 
   def filter
-    @restaurants = Restaurant.page(params[:page]).per(5)
     @filter_option = params[:type]
+    @restaurants = Kaminari.paginate_array(Restaurant.filter(@filter_option)).page(params[:page]).per(5)
 
     respond_to do |format|
       format.js {render 'filter'}
@@ -33,7 +36,14 @@ class RestaurantsController < ApplicationController
 
   def create
     @restaurant = Restaurant.new(restaurant_params)
+    tag_names = grab_tags
     if @restaurant.save
+      tag_names.each do |tag_name|
+        unless tag_name == ""
+          tag_to_add = Tag.find_or_create_by(name: tag_name)
+          @restaurant.tags << tag_to_add
+        end
+      end
       redirect_to @restaurant
     else
       redirect_to new_restaurant_path
@@ -51,8 +61,19 @@ class RestaurantsController < ApplicationController
   end
 
   def update
+    tag_names = grab_tags
     if @restaurant.update_attributes(restaurant_params)
-      redirect_to @restaurant
+
+      # Delete existing restaurant tags from database (in order to enforce limit
+      # of three tags per restaurant and make sure the right tags are deleted)
+      @restaurant.tags = []
+      tag_names.each do |tag_name|
+        unless tag_name == ""
+          tag_to_add = Tag.find_or_create_by(name: tag_name)
+          @restaurant.tags << tag_to_add
+        end
+      end
+      redirect_to restaurant_path
     else
       redirect_to edit_restaurant_path
     end
@@ -70,6 +91,18 @@ class RestaurantsController < ApplicationController
                                         :nearest_l, :website, :menu_url, :price_scale,
                                         :atmosphere, :delivery, :reservations,
                                         :vegan_friendliness, :patios, :dress_code)
+  end
+
+  def calculate_aggregate_score
+    @restaurants.each do |restaurant|
+      restaurant.score = restaurant.aggregate_score
+    end
+  end
+
+  def grab_tags
+    [params[:restaurant].delete(:first_tag),
+     params[:restaurant].delete(:second_tag),
+     params[:restaurant].delete(:third_tag)]
   end
 
 end

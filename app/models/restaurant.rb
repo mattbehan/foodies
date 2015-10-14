@@ -16,6 +16,7 @@ class Restaurant < ActiveRecord::Base
   validates_inclusion_of :price_scale, :in => 1..5
   validates_inclusion_of :vegan_friendliness, :in => 1..5
   validates_format_of :zip, with: /\d{5}/
+  validates_format_of :state, with: /[A-Z]{2}/
 
   attr_accessor   :score
 
@@ -34,6 +35,25 @@ class Restaurant < ActiveRecord::Base
     else
       where(:all)
     end
+  end
+
+  def self.filter(type)
+    restaurants = Restaurant.all
+    restaurants.each do |restaurant|
+      restaurant.score = restaurant.aggregate_score
+    end
+
+    case type
+    when "cuisine"
+      return restaurants.sort_by(&:cuisine)
+    when "name"
+      return restaurants.sort_by(&:name)
+    when "neighborhood"
+      return restaurants.sort_by(&:neighborhood)
+    when "score"
+      return restaurants.select {|restaurant| restaurant.score != "N/A" }.sort_by{|restaurant| -restaurant.score}
+    end
+
   end
 
   def top_three_dishes

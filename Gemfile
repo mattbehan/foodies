@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.4'
 # Use postgresql as the database for Active Record
 gem 'pg'
+gem 'pry'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -31,6 +32,13 @@ gem 'jbuilder', '~> 2.0'
 gem 'devise'
 gem 'devise_invitable'
 gem "omniauth-twitter"
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem 'omniauth-instagram'
+gem 'twitter'
+gem 'instagram'
+gem 'omniauth-google-oauth2'
+gem 'google-api-client', require: 'google/api_client'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 

@@ -125,7 +125,7 @@ Devise.setup do |config|
 
   # Flag that force a record to be valid before being actually invited
   # Default: false
-  # config.validate_on_invite = true
+  config.validate_on_invite = false
 
   # Resend invitation if user with invited status is invited again
   # Default: true
@@ -134,7 +134,7 @@ Devise.setup do |config|
   # The class name of the inviting model. If this is nil,
   # the #invited_by association is declared to be polymorphic.
   # Default: nil
-  # config.invited_by_class_name = 'User'
+  config.invited_by_class_name = 'User'
 
   # The foreign key to the inviting model (if invited_by_class_name is set)
   # Default: :invited_by_id
@@ -286,6 +286,10 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth :twitter, ENV["TWITTER_CONSUMER_KEY"], ENV["TWITTER_CONSUMER_SECRET"]
+    config.omniauth :instagram, ENV['INSTAGRAM_APP_ID'], ENV['INSTAGRAM_APP_SECRET']
+    config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET']
+
+  # config.omniauth :twitter, twitter_api_key, twitter_api_secret
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

@@ -30,3 +30,6 @@ vote_score(resource)
 	resource.votes.sum(:value)
 end
 
+
+admin buttons second priority
+on that users profile page, provide the buttons for invite
