@@ -281,8 +281,6 @@ class User < ActiveRecord::Base
     downvotes = 0
     self.comments.each { |comment| upvotes += comment.votes.where(value: 1).count }
     self.comments.each { |comment| downvotes += comment.votes.where(value: -1).count }
-    upvotes
-    downvotes
     if user_has_comments? && upvotes >= downvotes
       upvotes - downvotes
     else
