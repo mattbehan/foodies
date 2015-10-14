@@ -39,7 +39,7 @@ end
 
 20.times do
   Article.create!(title: FFaker::Company.bs,
-                  content: FFaker::HipsterIpsum.paragraphs.join(" ") + FFaker::HipsterIpsum.paragraphs.join(" ") + FFaker::HipsterIpsum.paragraphs.join(" "),
+                  content: FFaker::HipsterIpsum.paragraphs.join(" ") * 10,
                   author_id: reviewers.sample.id)
 end
 
@@ -60,7 +60,7 @@ possible_tags = ["Date spot", "Farm to Table", "Globally Conscious", "Multiethni
                  "Extensive Wine List", "Paleo / Neo-Paleo", "Trendy", "Hipstery"]
 
 possible_tags.each do |tag|
-  Tag.create!(name: tag)
+  Tag.find_or_create_by(name: tag)
 end
 
 tags = Tag.all

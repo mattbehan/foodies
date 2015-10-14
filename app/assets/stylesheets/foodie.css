@@ -271,6 +271,10 @@ span.restaurant-boolean {
   margin-left: 140px;
 }
 
+.end-link {
+  padding: 20px 0;
+}
+
 /* Sticky Footer */
 
 .footer {
@@ -310,5 +314,10 @@ footer p {
   .restaurant-form-pair {
     width: 380px;
     display: inline-block;
+  }
+
+  .article-text {
+    font-size: 18px;
+    max-width: 1000px;
   }
 }
