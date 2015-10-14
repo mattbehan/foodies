@@ -12,7 +12,7 @@
         new google.maps.Point(0,0),
         new google.maps.Point(10, 34));
       var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 8,
+        zoom: 12,
         styles: styleArray
       });
       var geocoder = new google.maps.Geocoder();

@@ -240,6 +240,26 @@ footer p {
   margin-bottom: 0;
 }
 
+.restaurant-score {
+  background-color: #c75204;
+  display: inline-block;
+  color: #eee;
+  width: 50px;
+  text-align: center;
+  vertical-align: middle;
+  margin-left: 15px;
+  margin-bottom: 10px;
+}
+
+#bookmark-icon-area {
+  display: inline-block;
+}
+
+.user-interaction-buttons form {
+  display: inline-block;
+  margin: 10px;
+}
+
 /* Desktop Second */
 @media screen and (min-width: 768px) {
 
