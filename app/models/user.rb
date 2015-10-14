@@ -254,7 +254,7 @@ class User < ActiveRecord::Base
       "Good."
     elsif self.reviewer_reputation.between?(16, 20)
       "Great!"
-    elsif self.reviewer_reputation.between?(21..25)
+    elsif self.reviewer_reputation.between?(21, 25)
       "Most Excellent."
     elsif self.reviewer_reputation >= 26
       "Off the Charts!"
@@ -281,8 +281,6 @@ class User < ActiveRecord::Base
     downvotes = 0
     self.comments.each { |comment| upvotes += comment.votes.where(value: 1).count }
     self.comments.each { |comment| downvotes += comment.votes.where(value: -1).count }
-    upvotes
-    downvotes
     if user_has_comments? && upvotes >= downvotes
       upvotes - downvotes
     else
