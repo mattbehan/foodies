@@ -57,6 +57,7 @@ $(function() {
 
   $("#search-form").on("submit", function(event){
     event.preventDefault();
+    $('#search').addClass('loadinggif');
 
     var latitude, longitude;
     navigator.geolocation.getCurrentPosition(success, fail,
@@ -86,28 +87,6 @@ $(function() {
       alert("Please enable your geolocation service in order to find directions.");
     }
   })
-
-  // $("#search").click(function(event) {
-  //   event.preventDefault();
-
-  //   var latitude, longitude;
-  //   navigator.geolocation.getCurrentPosition(success, fail,
-  //   {
-  //     enableHighAccuracy: true,
-  //     timeout: 10 * 1000 // 10 seconds
-  //   });
-
-  //   function success(position) {
-  //     latitude = position.coords.latitude;
-  //     longitude = position.coords.longitude;
-  //     $("#lat_data").val(latitude);
-  //     $("#long_data").val(longitude);
-  //   }
-
-  //   function fail(msg) {
-  //     alert("Please enable your geolocation service in order to find directions.");
-  //   }
-  // })
 
   // SVG Hover
   $("path").on("mouseover", function(){
