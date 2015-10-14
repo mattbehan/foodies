@@ -21,7 +21,7 @@ a, a:hover {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: #810541
+  color: #810541;
 }
 
 .plain {
@@ -34,6 +34,22 @@ h1, h2, h3, h4, h5, h6 {
 
 .header-link a {
   color: #999;
+}
+
+.btn-social {
+  background: #659EC7;
+  color: white;
+}
+
+.btn-social:hover {
+  background: #ccc;
+  color: #333;
+  border: 1px solid black;
+}
+
+.btn-success {
+  background: #005600;
+  border: 1px solid black;
 }
 
 /* Navbar */
@@ -145,8 +161,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .follow-button, .unfollow-button, .edit-profile {
   display: inline-block;
-  margin: 5px 5px 10px 5px;
+  margin: 0px 10px 10px 10px;
   vertical-align: middle;
+}
+
+.writings-list li {
+  margin: 7px 0;
 }
 
 .gravatar-row {
@@ -154,9 +174,19 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 2px;
 }
 
+.gravatar-img {
+  width: 60px;
+  display: inline-block;
+}
+
+.social-usernames {
+  font-size: 9px;
+  text-align: center;
+}
+
 /* Restaurant Show Page */
 
-.restaurant-score {
+.restaurant-score, .user-score {
   background-color: #c75204;
   display: inline-block;
   color: #eee;
@@ -164,6 +194,7 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
   vertical-align: middle;
   margin-left: 15px;
+  margin-left: 10px;
   margin-bottom: 10px;
 }
 
@@ -313,6 +344,11 @@ footer p {
 
   .restaurant-form-pair {
     width: 380px;
+    display: inline-block;
+  }
+
+  .gravatar-img {
+    width: 120px;
     display: inline-block;
   }
 

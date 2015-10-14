@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
     inclusion: {in: ROLES, message: "Invalid role" }
   validates :username, presence: true, uniqueness: true
 
-  # create a new user 
+  # create a new user
   def self.from_omniauth auth
     raise auth.info.inspect
     where( provider: auth.provider, uid: auth.uid ).first_or_create do |user|
@@ -254,7 +254,7 @@ class User < ActiveRecord::Base
       "Good."
     elsif self.reviewer_reputation.between?(16, 20)
       "Great!"
-    elsif self.reviewer_reputation.between?(21..25)
+    elsif self.reviewer_reputation.between?(21, 25)
       "Most Excellent."
     elsif self.reviewer_reputation >= 26
       "Off the Charts!"

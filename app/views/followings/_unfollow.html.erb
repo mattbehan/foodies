@@ -2,5 +2,5 @@
 <%= form_tag "/followings", method: :delete, :class => "unfollow-button" do %>
   <%= hidden_field_tag "resource", "#{resource.class.to_s}" %>
   <%= hidden_field_tag "resource_id", "#{resource.id}" %>
-  <%= submit_tag "Unfollow", :class => "btn btn-primary"%>
+  <%= submit_tag "Unfollow", :class => "btn btn-social"%>
 <% end %>
