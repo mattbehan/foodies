@@ -28,6 +28,7 @@ class ReviewsController < ApplicationController
 
   def show
     @comments = @review.comments
+    @specialties = @review.restaurant.top_three_dishes
   end
 
   def edit
