@@ -37,6 +37,25 @@ class Restaurant < ActiveRecord::Base
     end
   end
 
+  def self.filter(type)
+    restaurants = Restaurant.all
+    restaurants.each do |restaurant|
+      restaurant.score = restaurant.aggregate_score
+    end
+
+    case type
+    when "cuisine"
+      return restaurants.sort_by(&:cuisine)
+    when "name"
+      return restaurants.sort_by(&:name)
+    when "neighborhood"
+      return restaurants.sort_by(&:neighborhood)
+    when "score"
+      return restaurants.select {|restaurant| restaurant.score != "N/A" }.sort_by{|restaurant| -restaurant.score}
+    end
+
+  end
+
   def top_three_dishes
     self.specialties.sort_by { |dish| dish.vote_count }.reverse[0..2]
   end
