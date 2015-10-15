@@ -1,6 +1,9 @@
+
+
+
 <div class="enter-site">
 
-  <h2>s <%= resource_name.to_s.humanize %></h2>
+  <h2><%= resource_name.to_s.humanize %></h2>
 
   <%= form_for(resource, as: resource_name, url: "/users", html: { method: :put }) do |f| %>
     <%= devise_error_messages! %>
@@ -39,4 +42,4 @@
   <p><%= button_to "Close account", "/users", data: { confirm: "Are you sure?" }, method: :delete %></p>
 
   <%= link_to "Back", :back %>
-</div>
+</div
