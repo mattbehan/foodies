@@ -428,6 +428,7 @@ footer p {
   #neighborhood {
     position: absolute;
     top: 230px;
+    right: 0px;
     width: 150px;
   }
 }
