@@ -69,10 +69,6 @@ class Restaurant < ActiveRecord::Base
   end
 
   def self.filter(type,query,lat,long)
-    p "------------------"
-    p type
-    p query
-    p lat
     restaurants = Restaurant.search(query,lat,long)
     restaurants.each do |restaurant|
       restaurant.score = restaurant.aggregate_score

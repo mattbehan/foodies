@@ -26,7 +26,6 @@ class RestaurantsController < ApplicationController
     latitude = params[:lat_data]
     longitude = params[:long_data]
     search_query = params[:search]
-    p search_query
     @filter_option = params[:type]
     @restaurants = Kaminari.paginate_array(Restaurant.filter(@filter_option,search_query,latitude,longitude)).page(params[:page]).per(5)
 
