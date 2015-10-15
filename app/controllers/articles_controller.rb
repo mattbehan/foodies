@@ -1,3 +1,5 @@
+
+
 class ArticlesController < ApplicationController
 
   include ApplicationHelper
@@ -35,6 +37,7 @@ class ArticlesController < ApplicationController
     if @article.update_attributes(article_params)
       redirect_to @article
     else
+      flash[:errors] = @article.errors.full_messages
       redirect_to edit_article_path
     end
   end

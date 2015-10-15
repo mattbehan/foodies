@@ -1,5 +1,7 @@
 class CommentsController < ApplicationController
   before_action :must_be_logged_in
+  before_action :current_user, only: :create
+  # before_action :current_user, only: [:create, :upvote, :downvote]
   respond_to :html, :js, :json
 
   def create
