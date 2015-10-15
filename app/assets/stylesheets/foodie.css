@@ -419,6 +419,10 @@ footer p {
     display: inline-block;
   }
 
+  .restaurant-info-column {
+    min-height: 390px;
+  }
+
   .gravatar-img {
     width: 120px;
     height: 80px;
