@@ -140,7 +140,7 @@ class User < ActiveRecord::Base
   end
 
 
-  def raw_reviewer_reputation
+  def reviewer_reputation
     if reviewer_has_reviews?
       points = 0 || points
       points += (number_of_reviews * 10) || points
@@ -156,22 +156,18 @@ class User < ActiveRecord::Base
     end
   end
 
-  def reviewer_reputation
-    raw_reviewer_reputation.fdiv(User.find_normalization_ratio).round(1)
-  end
-
   def english_reviewer_reputation
-    if reviewer_reputation.between?(0, 10)
+    if reviewer_reputation.between?(0, 5)
       "Poor."
-    elsif reviewer_reputation.between?(11, 20)
+    elsif reviewer_reputation.between?(6, 10)
       "Fair."
-    elsif reviewer_reputation.between?(21, 30)
+    elsif reviewer_reputation.between?(11, 15)
       "Good."
-    elsif reviewer_reputation.between?(31, 40)
+    elsif reviewer_reputation.between?(16, 20)
       "Great!"
-    elsif reviewer_reputation.between?(41, 48)
+    elsif reviewer_reputation.between?(21, 25)
       "Most Excellent."
-    elsif reviewer_reputation >= 49
+    elsif reviewer_reputation >= 26
       "Off the Charts!"
     else
       "Awful"
@@ -206,14 +202,6 @@ class User < ActiveRecord::Base
     else
       0
     end
-  end
-
-  def self.find_highest_rated
-    User.all_reviewers.sort_by {|reviewer| reviewer.raw_reviewer_reputation }[-1].raw_reviewer_reputation
-  end
-
-  def self.find_normalization_ratio
-    User.find_highest_rated.fdiv(50)
   end
 
   def english_user_reputation
