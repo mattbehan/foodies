@@ -1,6 +1,9 @@
 <%= javascript_include_tag "googlemaps" %>
 <%= stylesheet_link_tag 'googlemaps' %>
 
+<!-- Mobile First Version of Restaurant Show -->
+<div class="hidden-md hidden-lg">
+
 <div class="container-fluid">
   <div class="row">
 
@@ -152,7 +155,167 @@
       <% end %>
     </div>
   </div>
+</div> <!-- end of fluid-container -->
+</div> <!-- end of mobile/tablet selector -->
 
+<!-- Desktop Second Styling -->
+<div class="hidden-xs hidden-sm">
+
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-xs-12">
+      <h1 class="profile-header"><strong><%= @restaurant.name %></strong></h1>
+    </div>
+
+    <div class="col-xs-12">
+      Foodie Score: <div class="restaurant-score btn"><strong><%= @restaurant.aggregate_score %></strong></div>
+    </div>
+
+    <div class="col-xs-12">
+      <div class="user-interaction-buttons">
+        <% if current_user && (current_user.reviewer? || current_user.admin?) %>
+          <% if current_user.reviewed_restaurants.include?(@restaurant) %>
+            <%= link_to "Update Review", edit_restaurant_review_path(@restaurant, current_user.reviews.find_by(restaurant_id: @restaurant.id)), class: "btn btn-default" %>
+          <% else %>
+            <%= link_to "Compose Review", new_restaurant_review_path(@restaurant), class: "btn btn-default" %>
+          <% end %>
+          <%= link_to "Edit Restaurant", edit_restaurant_path(@restaurant), class: "btn btn-default" %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-xs-12">
+      <% if current_user && current_user.user? && !current_user.already_quick_took?(@restaurant) %>
+        <span class="rate-invitation">Been to <%= @restaurant.name %>?</span>
+        <%= link_to "Rate it.", new_restaurant_quick_take_path(@restaurant), class: "quick-take-link", method: "get", remote: true %>
+      <% elsif current_user && current_user.user? == "user" && current_user.already_quick_took?(@restaurant) %>
+        <% user_quick_take = QuickTake.find_by(rater_id: current_user.id, restaurant_id: @restaurant.id) %>
+        <p>You gave this restaurant a <%= user_quick_take.rating %> out of 5 on <%= user_quick_take.created_at.strftime("%m/%d/%y") %>.</p>
+      <% end %>
+      <div class="quick-take-form" style="display:none">
+      </div>
+    </div>
+
+    <div class="col-xs-12">
+      <div class="user-interaction-buttons">
+        <% if user_signed_in? && current_user.has_bookmarked?(@restaurant.id) %>
+          <%= render partial: "bookmarks/unbookmark", locals: { restaurant: @restaurant }%>
+        <% elsif user_signed_in? %>
+          <%= render partial: "bookmarks/bookmark", locals: { restaurant: @restaurant }%>
+        <% end %>
+
+        <% if user_signed_in? && current_user.has_visited?(@restaurant.id) %>
+          <%= render partial: "visits/visited", locals: { restaurant: @restaurant }%>
+        <% elsif user_signed_in? %>
+          <%= render partial: "visits/visit", locals: { restaurant: @restaurant }%>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-xs-12">
+      <p>Cuisine: <%= @restaurant.cuisine %><p>
+    </div>
+
+    <div class="col-xs-12">
+      <p><span class="restaurant-small-data">Price range: <%= @restaurant.price_scale %></span><span class="restaurant-small-data">Vegan friendliness: <%= @restaurant.vegan_friendliness || "Unknown" %></span></p>
+    </div>
+
+    <div class="col-xs-12">
+      <% unless @restaurant.specialties.empty? %>
+        <div class="specialties-container">
+          <h4>Specialties</h4>
+            <div class="top-specialties-list">
+              <%= render partial: @specialties %>
+            </div>
+
+            <%= link_to "Show all specialties/add a dish", root_path, remote: true, :class => "btn btn-default specialties-toggle" %>
+
+            <div id="rest-of-specialties" style="display:none"><%= render partial: "specialties/all_specialties", locals: {specialties: @rest_of_specialties} %> </div>
+            <p><%= flash[:alert] %> </p>
+            <!-- restaurant_specialties_path(@restaurant, @specialties) -->
+            <%= render partial: "specialties/form", locals: {specialty: @new_specialty, restaurant: @restaurant} %>
+        </div>
+      <% end %>
+    </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&callback=initMap" async defer></script>
+    <!-- map -->
+    <div id="map" class="col-xs-12"></div>
+
+    <!-- two versions of directions -->
+    <div class="col-xs-12">
+      <div class="hidden-xs">
+      <h1>Calculate your route</h1>
+          <form id="calculate-route" name="calculate-route" action="#" method="get">
+            <label for="from">From address: </label>
+            <input type="text" id="from" name="from" required="required" placeholder="An address" size="30" />
+            or <a id="from-link" href="#">Get my position</a>
+            <br />
+            <input type="submit" />
+          </form>
+        <p id="error"></p>
+      </div>
+      <div class="col-xs-12 hidden-md">
+        <p><a href="" id="get-directions">Find directions</a></p>
+      </div>
+    </div>
+
+    <div class="col-xs-12">
+      <span id="street-address"><%= @restaurant.street_address %></span><br/>
+      <span id="csz-address"><%= @restaurant.city %>, <%= @restaurant.state %> <%= @restaurant.zip %></span>
+      <p><% if @restaurant.phone_number %><%= @restaurant.phone_number %><% end %></p>
+      <p><% if @restaurant.neighborhood %>Neighborhood: <%= @restaurant.neighborhood %><% end %></p>
+      <p>Nearest 'L': <% if @restaurant.nearest_l %><%= @restaurant.nearest_l %><% end %></p>
+    </div>
+
+    <div class="col-xs-12">
+        <% if @restaurant.website %>
+          <p>Website: <%= link_to "#{@restaurant.website}" %></p>
+        <% end %>
+
+        <% if @restaurant.menu_url %>
+          <p>Menu URL: <%= link_to "#{@restaurant.menu_url}" %></p>
+        <% end %>
+    </div>
+
+    <div class="col-xs-12">
+      <p>
+        <% if @restaurant.atmosphere %>
+          <span class="restaurant-small-data">Atmosphere: <%= @restaurant.atmosphere %></span>
+        <% end %>
+
+        <% if @restaurant.dress_code %>
+          <span class="restaurant-small-data">Dress Code: <%= @restaurant.dress_code %></span>
+        <% end %>
+      </p>
+    </div>
+
+    <div class="col-xs-12">
+      <% unless @restaurant.patios.nil? %>
+        <p><span class="restaurant-boolean">Has Patio?</span><strong><%= humanize_boolean(@restaurant.patios) %></strong></p>
+      <% end %>
+
+      <% unless @restaurant.reservations.nil? %>
+        <p><span class="restaurant-boolean">Reservations?</span><strong><%= humanize_boolean(@restaurant.reservations) %></strong></p>
+      <% end %>
+
+      <% unless @restaurant.delivery.nil? %>
+        <p><span class="restaurant-boolean">Delivery?</span><strong><%= humanize_boolean(@restaurant.delivery) %></strong></p>
+      <% end %>
+    </div>
+
+    <% unless @restaurant.tags.empty? %>
+    <div class="col-xs-12">
+        <p><strong>Tagged with:</strong></p>
+        <p><%= @restaurant.tags_for_display %></p>
+      <% end %>
+    </div>
+  </div>
+</div> <!-- end of fluid-container -->
+</div> <!-- end of desktop view -->
+
+<div class="container-fluid">
   <% unless @reviews.empty? %>
   <div class="row">
     <div class="col-xs-12">
@@ -160,7 +323,6 @@
       <hr>
     </div>
   </div>
-</div>
     <%= render @reviews %>
   <% end %>
 </div>
