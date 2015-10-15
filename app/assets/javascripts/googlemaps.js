@@ -12,12 +12,21 @@
         new google.maps.Point(0,0),
         new google.maps.Point(10, 34));
       var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 12,
+        zoom: 15,
         styles: styleArray
       });
       var geocoder = new google.maps.Geocoder();
       // Repositions map to restaurant
       geocodeAddress(geocoder, map);
+
+      // Mobile version
+      var mobileMap = new google.maps.Map(document.getElementById('mobile-map'), {
+        zoom: 15,
+        styles: styleArray
+      });
+      var geocoder = new google.maps.Geocoder();
+      // Repositions map to restaurant
+      geocodeAddress(geocoder, mobileMap);
     }
 
 // Jquery listener
