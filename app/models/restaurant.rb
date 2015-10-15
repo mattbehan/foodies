@@ -24,7 +24,6 @@ class Restaurant < ActiveRecord::Base
   attr_accessor   :distance
 
   def self.search(query, lat_data, long_data)
-
     if query == ""
       all_results = Restaurant.all
       (lat_data && long_data) ? add_distance_to_collection( lat_data, long_data, all_results ) : all_results
@@ -68,6 +67,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   def self.filter(type,query,lat,long)
+
     restaurants = Restaurant.search(query,lat,long)
     restaurants.each do |restaurant|
       restaurant.score = restaurant.aggregate_score
@@ -110,12 +110,20 @@ class Restaurant < ActiveRecord::Base
     end
   end
 
-  def tags_for_display
+  def tags_for_mobile
     tag_names = []
     tags.each do |tag|
       tag_names << tag.name.capitalize
     end
     tag_names.join(", ")
+  end
+
+  def tags_for_desktop
+    tag_names = []
+    tags.each do |tag|
+      tag_names << tag.name.capitalize
+    end
+    tag_names
   end
 
   private

@@ -1,4 +1,4 @@
-#map {
+#mobile-map {
   width: 96%;
   height: 150px;
   margin: 15px 2%;
@@ -6,9 +6,21 @@
 
 @media screen and (min-width: 768px) {
 
+  .map-box {
+    position: relative;
+  }
+
   #map {
-    width: 500px;
+    width: 100%;
     height: 400px;
+    margin: 0;
+    position: absolute;
+  }
+
+  #map-directions-form {
+    position: absolute;
+    top: 420px;
+    left: 10px;
   }
 
   .review-page-map#map {

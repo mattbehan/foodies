@@ -14,3 +14,4 @@ Rails.application.config.assets.precompile += %w( foodie.css )
 # Google maps
 Rails.application.config.assets.precompile += %w( googlemaps.css )
 Rails.application.config.assets.precompile += %w( googlemaps.js )
+Rails.application.config.assets.precompile += %w( splash.css )
