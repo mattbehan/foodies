@@ -84,3 +84,4 @@ similarly, if the encrypted password is blank, we should remove the current_pass
 ____________________________
 ISSUES
 
+user should be routed to finish_signup page regardless of whether or not their stuff is filled in

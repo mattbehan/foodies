@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def virtual_sign_in?
-		session[:provider] != nil
+		session["devise.user_attributes"] != nil
 	end
 
 	def current_identity

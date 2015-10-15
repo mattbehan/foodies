@@ -33,6 +33,7 @@ class User < ActiveRecord::Base
     inclusion: {in: ROLES, message: "Invalid role" }
   validates :username, presence: true, uniqueness: true 
 
+
   # create a new user 
   # def self.from_omniauth auth
   #   raise auth.info.inspect
@@ -43,18 +44,19 @@ class User < ActiveRecord::Base
   #   end
   # end
 
-  def self.new_with_session params, session
-    if session[:provider]
-      new(session["devise.user_attributes"], without_protection: true) do |user|
-        user.username = session[:username]
-        user.email = session[:email]
-        user.save
-        user.valid?
-      end
-    else
-      super
-    end
-  end
+  # perhaps leverage this so devise knows to skip validations since in the model it does not know of the session
+  # def self.new_with_session params, session
+  #   if session["devise.user_attributes"]
+  #     new(session["devise.user_attributes"], without_protection: true) do |user|
+  #       user.username = session["devise.user_attributes"]["username"]
+  #       user.email = session["devise.user_attributes"]["email"]
+  #       user.provider = session["devise.user_attributes"]["provider"]
+  #       user.valid?
+  #     end
+  #   else
+  #     super(params, session)
+  #   end
+  # end
 
   # # set the attributes on the user so that it can pass the method sign_up
   # def self.new_with_session params, session

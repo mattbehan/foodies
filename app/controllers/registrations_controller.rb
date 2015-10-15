@@ -1,17 +1,21 @@
 class RegistrationsController < Devise::RegistrationsController
 
+  # in controller it is just @user.new
+  # render "/users/registrations/new"
   def register
-    if session[:provider] = nil
+    if session["devise.user_attributes"] == nil
       @user = User.new
     else
-      @user = User.find_by(username: session[:username]) || @user = User.find_by(email: session[:email]) || @user = User.new
+      @user = User.new(email: session["devise.user_attributes"]["email"], provider: session["devise.user_attributes"]["provider"], username: session["devise.user_attributes"]["username"])
     end
     render "users/registrations/new"
   end
 
   def create
-    build_resource(sign_up_params)
-
+    if session["devise.user_attributes"]
+      provider = session["devise.user_attributes"]["provider"]
+    end
+    build_resource(sign_up_params.merge(provider: provider))
     resource.save
     yield resource if block_given?
     if resource.persisted?
@@ -89,6 +93,10 @@ class RegistrationsController < Devise::RegistrationsController
   def finish_params
     accessible = [ :username, :email, :password, :password_confirmation ]
     params.require(:user).permit(accessible)
+  end
+
+  def sign_up_params
+    params.require(:user).permit(:email, :username, :password, :password_confirmation)
   end
 
 

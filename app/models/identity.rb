@@ -7,22 +7,22 @@ class Identity < ActiveRecord::Base
   def self.find_for_oauth(auth)
   	# raise auth.info.inspect
     identity = find_by(provider: auth.provider, uid: auth.uid)
-    identity = create(uid: auth.uid, provider: auth.provider) if identity.nil?
+    identity = new(uid: auth.uid, provider: auth.provider) if identity.nil?
     identity.accesstoken = auth.credentials.token
     identity.name = auth.info.name
     identity.email = auth.info.email
     identity.nickname = auth.info.nickname
     identity.image = auth.info.image
     identity.phone = auth.info.phone
-    identity.save
+    # identity.save
     identity
   end
+
 
   # def name_from_provider provider, auth
   # 	case provider
   # 	when "twitter"
   # 		return auth.nickname
-
 
   # 	end
   # end
