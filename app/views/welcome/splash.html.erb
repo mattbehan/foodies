@@ -3,16 +3,16 @@
 <div class="overlay-menu">	
 	<%= image_tag "foodie_color.png", id: "foodie" %>
 	<table class="value-statement">
-		<tr><td> Foodies is, quite simply, a site for lovers of food. We provide curated restaurant reviews and articles about everything food-related written by experts such as local chefs, cookbook authors, and food critics. Our users of the site–those who are truly passionate and knowledgable about their local food scene–are invited to submit reviews after making a set number of valuable contributions to the site (as voted upon by other users). Ordinary users of the site can find reliable restaurant and even specific dish recommendations based on neighborhood, proximity, cuisine, and a myriad of other factors. </tr></td>
+		<tr><td> Foodies is, quite simply, a site for lovers of food. We provide curated restaurant reviews and articles about everything food-related written b </tr></td>
 	</table>
 
 	<div class="access-buttons">
-    <%= link_to("Enter Site", root_path, :class => "button-styling") %> 
+    <p><%= button_to("Enter Site", root_path, :class => "button-styling", :method => :get) %> </p>
 		<% if user_signed_in? %>
-     <%= link_to('Logout', destroy_user_session_path, :method => :delete, :class => "button-styling") %> 
+     <p><%= button_to('Logout', destroy_user_session_path, :method => :delete, :class => "button-styling") %> </p>
   <% else %>
-     <%= link_to('Register', new_user_registration_path, :class => "button-styling") %> 
-     <%= link_to('Login', new_user_session_path, :class => "button-styling") %> 
+     <p><%= button_to('Register', new_user_registration_path, :class => "button-styling", :method => :get) %> </p>
+     <p><%= button_to('Login', new_user_session_path, :class => "button-styling", :method => :get) %> </p>
   <% end %>
 	</div>
 </div>
