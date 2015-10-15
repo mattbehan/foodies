@@ -142,14 +142,14 @@ class User < ActiveRecord::Base
 
   def reviewer_reputation
     if reviewer_has_reviews?
-      points = 0
-      points += (number_of_reviews * 10)
-      points += reviews_near_aggregate
-      points += downvoted_more_than_upvoted
+      points = 0 || points
+      points += (number_of_reviews * 10) || points
+      points += reviews_near_aggregate || points
+      points += downvoted_more_than_upvoted || points
       points += review_points / 2 unless review_points <= 0
       points -= review_comment_downvote_count / 2 unless review_comment_downvote_count <= 0
-      points += review_comment_count
-      points += comment_points
+      points += review_comment_count || points
+      points += comment_points || points
       points
     else
       0
@@ -269,7 +269,8 @@ class User < ActiveRecord::Base
   def review_comment_downvote_count
     number_of_downvotes = 0
     self.reviews.each do |review|
-      number_of_downvotes += Vote.where(votable_type: "Review", votable_id: review.id, value: -1).count
+      votes = Vote.where(votable_type: "Review", votable_id: review.id, value: -1).count || 0
+      number_of_downvotes += votes
     end
     number_of_downvotes
   end
