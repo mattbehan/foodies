@@ -2,10 +2,10 @@
   <div class="row">
     <div class="col-xs-12 col-lg-offset-1 col-lg-10">
       <h1>Restaurant Results</h1>
-      <%= link_to 'Sort by Cuisine', {controller: 'restaurants', action: 'filter' ,remote: true, type: 'cuisine', search: params[:search]} %>
-      <%= link_to 'Sort by Name', {controller: 'restaurants', action: 'filter' ,remote: true, type: 'name', search: params[:search]} %>
-      <%= link_to 'Sort by Neighborhood', {controller: 'restaurants', action: 'filter' ,remote: true, type: 'neighborhood', search: params[:search]} %>
-      <%= link_to 'Sort by Score', {controller: 'restaurants', action: 'filter' ,remote: true, type: 'score', search: params[:search]} %>
+      <%= link_to 'Sort by Cuisine', {controller: 'restaurants', action: 'filter' ,remote: true, type: 'cuisine', search: params[:search]}, {class: "btn btn-default"} %>
+      <%= link_to 'Sort by Name', {controller: 'restaurants', action: 'filter' ,remote: true, type: 'name', search: params[:search]}, {class: "btn btn-default"} %>
+      <%= link_to 'Sort by Neighborhood', {controller: 'restaurants', action: 'filter' ,remote: true, type: 'neighborhood', search: params[:search]}, {class: "btn btn-default"} %>
+      <%= link_to 'Sort by Score', {controller: 'restaurants', action: 'filter' ,remote: true, type: 'score', search: params[:search]}, {class: "btn btn-default"} %>
     </div>
   </div>
       <div id="restaurants">
