@@ -140,34 +140,38 @@ class User < ActiveRecord::Base
   end
 
 
-  def reviewer_reputation
+  def raw_reviewer_reputation
     if reviewer_has_reviews?
-      points = 0
-      points += (number_of_reviews * 10)
-      points += reviews_near_aggregate
-      points += downvoted_more_than_upvoted
+      points = 0 || points
+      points += (number_of_reviews * 10) || points
+      points += reviews_near_aggregate || points
+      points += downvoted_more_than_upvoted || points
       points += review_points / 2 unless review_points <= 0
       points -= review_comment_downvote_count / 2 unless review_comment_downvote_count <= 0
-      points += review_comment_count
-      points += comment_points
+      points += review_comment_count || points
+      points += comment_points || points
       points
     else
       0
     end
   end
 
+  def reviewer_reputation
+    raw_reviewer_reputation.fdiv(User.find_normalization_ratio).round(1)
+  end
+
   def english_reviewer_reputation
-    if reviewer_reputation.between?(0, 5)
+    if reviewer_reputation.between?(0, 10)
       "Poor."
-    elsif reviewer_reputation.between?(6, 10)
+    elsif reviewer_reputation.between?(11, 20)
       "Fair."
-    elsif reviewer_reputation.between?(11, 15)
+    elsif reviewer_reputation.between?(21, 30)
       "Good."
-    elsif reviewer_reputation.between?(16, 20)
+    elsif reviewer_reputation.between?(31, 40)
       "Great!"
-    elsif reviewer_reputation.between?(21, 25)
+    elsif reviewer_reputation.between?(41, 48)
       "Most Excellent."
-    elsif reviewer_reputation >= 26
+    elsif reviewer_reputation >= 49
       "Off the Charts!"
     else
       "Awful"
@@ -202,6 +206,14 @@ class User < ActiveRecord::Base
     else
       0
     end
+  end
+
+  def self.find_highest_rated
+    User.all_reviewers.sort_by {|reviewer| reviewer.raw_reviewer_reputation }[-1].raw_reviewer_reputation
+  end
+
+  def self.find_normalization_ratio
+    User.find_highest_rated.fdiv(50)
   end
 
   def english_user_reputation
@@ -269,7 +281,8 @@ class User < ActiveRecord::Base
   def review_comment_downvote_count
     number_of_downvotes = 0
     self.reviews.each do |review|
-      number_of_downvotes += Vote.where(votable_type: "Review", votable_id: review.id, value: -1).count
+      votes = Vote.where(votable_type: "Review", votable_id: review.id, value: -1).count || 0
+      number_of_downvotes += votes
     end
     number_of_downvotes
   end
