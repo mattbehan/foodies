@@ -57,11 +57,16 @@ class Restaurant < ActiveRecord::Base
     url = Restaurant.create_url_request(lat, long, result)
     response = Net::HTTP.get(URI.parse(url))
     json_parsed_response = JSON.parse(response)
+    p "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-="
+    p lat
+    p long
+    p json_parsed_response
 
     if json_parsed_response["rows"][0]["elements"][0]["status"] == "NOT_FOUND"
       return "Unknown Location"
     else
       filtered_response = '%.2f' % (json_parsed_response["rows"][0]["elements"][0]["distance"]["text"].to_i*0.621371)
+      p filtered_response
       return filtered_response
     end
   end
