@@ -1,0 +1,16 @@
+name,cuisine,street_address,city,state,zip,phone_number,neighborhood,nearest_l,website,menu_url,price_scale,atmosphere,delivery,reservations,vegan_friendliness,patios,dress_code
+Strings,Ramen,2141 S Archer Ave,Chicago,Illinois,60616,312-374-3450,Chinatown,Cermak-Chinatown,ramenchicago.com,http://www.ramenchicago.com/#!strings-ramen-chicago/c19el,2,Casual,false,false,2,false,Casual
+"Table, Donkey and Stick",Modern European,2728 W Armitage Ave,Chicago,Illinois,60647,773-486-8525,Logan Square,California-O'hare,tabledonkeystick.com,tabledonkeystick.com,2,Trendy,false,false,1,true,Casual
+Hopleaf,Gastropubs,5148 N Clark St,Chicago,Illinois,60640,773-334-9851,Andersonville,,hopleafbar.com,http://www.hopleafbar.com/#our-menus,2,Casual,false,false,3,true,Casual
+Oiistar,Asian Fusion,1385 N Milwaukee Ave,Chicago,Illinois,60622,773-360-8791,West Town,Damen-O'hare,oiistar.com,http://www.oiistar.com/,2,Trendy,false,true,3,true,Casual
+Yuzu Sushi,Japanese,1751 W Chicago Ave,Chicago,Illinois,60622,312-666-4100,West Town,,yuzuchicago.com,http://www.yuzuchicago.com/menu/,2,Casual,true,true,2,false,Casual
+Argo Bakery,Georgian,2812 W Devon Ave,Chicago,Illinois,60659,773-764-6322,Rogers Park,,,,1,,true,false,1,false,Casual
+Cumin,Indian,1414 N Milwaukee Ave,Chicago,Illinois,60622,773-342-1414,West Town,Damen-O'hare,cumin-chicago.com,http://www.cumin-chicago.com/menu/index.html,2,Casual,true,true,3,false,Casual
+Crisp,Korean,2940 N Broadway Ave,Chicago,Illinois,60657,773-697-7610,Lakeview,Wellington,crisponline.com,http://www.crisponline.com/MainMenu.aspx,2,Casual,true,false,1,false,Casual
+Sapori Trattoria,Italian,2701 N Halsted St,Chicago,Illinois,60614,312-967-9358,Lincoln Park,Diversey,saporitrattoria.net,http://www.saporitrattoria.net/upload/pdfs/Sapori_Menu.pdf,2,Romantic,false,true,2,false,Casual
+Berghoff,German,17 W Adams St,Chicago,Illinois,60603,312-427-3170,Loop,Jackson-Red,http://www.theberghoff.com/berghoff-restaurant/,http://www.theberghoff.com/cuisine-menus-certified-gluten-free/berghoff-restaurant-menus/,2,Casual,false,true,2,false,Casual
+Handlebar,Bars,2311 W North Ave,Chicago,Illinois,60647,773-384-9546,West Town,Damen-O'hare,handlebarchicago.com,http://handlebarchicago.com/HB/,2,Hipster,false,false,5,true,Casual
+Mindy's Hot Chocolate,American,1747 N Damen Ave,Chicago,Illinois,60647,773489-1747,West Town,Damen-O'hare,hotchocolatechicago.com,http://hotchocolatechicago.com/menus,2,Trendy,false,true,2,false,Casual
+Mas Alla Del Sol,Mexican,5848 N Broadway St,Chicago,Illinois,60660,773-654-1900,Edgewater,Thorndale,masalladelsolrestaurant.com,http://www.masalladelsolrestaurant.com/#!menu/ch8j,2,Casual,false,true,2,true,Casual
+BGabs Goodies,American Soul,1450 E 57th St,Chicago,Illinois,60637,773-363-1505,Hyde Park,,bgabsgoodies.com,http://www.bgabsgoodies.com/menu.html,2,Casual,true,false,5,false,Casual
+Uru Swati,Indian,2629 W Devon Ave,Chicago,Illinois,60659,773-381-1010,Rogers Park,,http://www.uruswatichicago.com/,http://www.beyondmenu.com/27136/chicago/uru-swati-chicago-60659.aspx?r=27136,1,Casual,false,false,4,false,Casual
