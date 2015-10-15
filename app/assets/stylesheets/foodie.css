@@ -129,6 +129,17 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 16px;
 }
 
+#welcome-images {
+  padding-left: 10%;
+}
+
+#welcome-images img {
+  width: 25%;
+  height: auto;
+  display: inline-block;
+  margin: 2px 5px;
+}
+
 .faux-panel {
   margin-bottom: 20px;
 }
@@ -147,6 +158,13 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0 10px 10px 10px;
   border: 1px solid #ccc;
   border-radius: 0 0 2px 2px;
+}
+
+#restaurant-images img {
+  width: 40%;
+  height: auto;
+  display: inline-block;
+  margin: 2px 5px;
 }
 
 /* Login, Registration, etc. */
@@ -428,7 +446,7 @@ footer p {
   }
 
   .faux-panel-body {
-    min-height: 400px;
+    min-height: 450px;
   }
 
   .svg-intro-text {

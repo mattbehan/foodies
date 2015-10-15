@@ -1,11 +1,13 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-7 col-xs-12">
-      <img src="/assets/foodie_color.png" alt="Foodie Logo" class="img-responsive" id="site-logo" />
+      <%= image_tag("foodie_color.png", id: "site-logo", class: "img-responsive", alt: "Foodie Logo") %>
       <p class="main-welcome"><strong>Foodie</strong> is quite simply a site for lovers of food. Full of curated restaurant reviews and articles about every aspect of Chicago&rsquo;s food scene, it contains features written by local experts such as chefs, cookbook authors, and food critics.</p>
-      <%= image_tag("duffs.jpg", class: "welcome-image") %>
-      <%= image_tag("arm.jpg", class: "welcome-image") %>
-      <%= image_tag("thai.jpg", class: "welcome-image") %>
+      <div id="welcome-images">
+        <%= image_tag("arm.jpg", class: "img-responsive") %>
+        <%= image_tag("thai.jpg", class: "img-responsive") %>
+        <%= image_tag("duffs.jpg", class: "img-responsive") %>
+      </div>
       <p class="main-welcome">The most active users of the site&mdash;those who are truly passionate and knowledgable about Chicago&rsquo;s food&mdash;will be invited to submit reviews after making a set number of contributions. All users can find reliable restaurant recommendations (including specific dish recommendations) based on neighborhood, cuisine, vegetarian options, or proximity.</p>
 
       <p class="main-welcome">And, unlike other restaurant-search sites, <strong>Foodie</strong> delivers a rating that has not been tarnished by restaurant goers who gripe about inattentive waiters, lighting, or lack of child-changing facilities. The score algorithm on <strong>Foodie</strong> ensures that only people who love good food as much as you have the power to affect a restaurant&rsquo;s rating.</p>
@@ -42,6 +44,10 @@
             <p>This <%= @restaurant.cuisine %> eatery located in the trendy Chicago neighborhood <%= @restaurant.neighborhood %> offers delectable dishes and scores a <%= @restaurant.vegan_friendliness %> out of 5 on the vegan friendliness scale.</p>
 
             <p>Read foodie-approved reviews of <%= @restaurant.name %>, see recommended dishes, and much more by checking our <%= link_to "#{@restaurant.name} page", restaurant_path(@restaurant) %>.</p>
+          <div id="restaurant-images">
+            <%= image_tag("tds50.jpg", class: "img-responsive") %>
+            <%= image_tag("pie.jpg", class: "img-responsive") %>
+          </div>
           </div>
         </div>
       </div>
