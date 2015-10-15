@@ -173,7 +173,12 @@
             <div class="rest-of-specialties" style="display:none"><%= render partial: "specialties/all_specialties", locals: {specialties: @rest_of_specialties} %> </div>
             <p><%= flash[:alert] %> </p>
             <!-- restaurant_specialties_path(@restaurant, @specialties) -->
-            <%= render partial: "specialties/form", locals: {specialty: @new_specialty, restaurant: @restaurant} %>
+            <% if current_user %>
+              <%= render partial: "specialties/form", locals: {specialty: @new_specialty, restaurant: @restaurant} %>
+            <% else %>
+              <p>You're not logged in.  You'll have to <%= link_to "log in", new_user_session_path %> or <%= link_to "sign up", new_user_registration_path %>
+                if you want to add a dish.</p>
+            <% end %>
         </div>
       <% else %>
         <p>No dishes listed. Add the first!</p>
@@ -232,7 +237,3 @@
     <%= render @reviews %>
   <% end %>
 </div>
-
-
-
-
