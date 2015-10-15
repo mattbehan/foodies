@@ -16,7 +16,7 @@ html {
   min-height: 100%;
 }
 
-a, a:hover {
+a, a:hover, a:active {
   color: #c75204;
 }
 
@@ -237,6 +237,11 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 10px;
 }
 
+.restaurant-score.btn:hover, .user-score.btn:hover {
+  color: #eee;
+  cursor: default;
+}
+
 #bookmark-icon-area {
   display: inline-block;
 }
@@ -412,6 +417,10 @@ footer p {
   .restaurant-form-pair {
     width: 380px;
     display: inline-block;
+  }
+
+  .restaurant-info-column {
+    min-height: 390px;
   }
 
   .gravatar-img {

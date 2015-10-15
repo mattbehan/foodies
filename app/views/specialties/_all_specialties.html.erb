@@ -1,7 +1,7 @@
 <% unless specialties.empty? %>
   <% specialties.each do |specialty| %>
   	<p><%= specialty.dish.name %> <p>
-  	<p> <span id="vote-total-<%= specialty.id %>"> Score: <%= specialty.vote_count %> </span>
+  	<p> <span class="vote-total-<%= specialty.id %>"> Score: <%= specialty.vote_count %> </span>
   	<% if user_signed_in? %>
   	  <%= link_to image_tag("upvote.png"), upvote_specialty_path(specialty), class: "upvote-button", method: :post, remote: true %>
   	  <%= link_to image_tag("downvote.png"), downvote_specialty_path(specialty), class: "downvote-button", method: :post, remote: true %>

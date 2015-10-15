@@ -111,12 +111,20 @@ class Restaurant < ActiveRecord::Base
     end
   end
 
-  def tags_for_display
+  def tags_for_mobile
     tag_names = []
     tags.each do |tag|
       tag_names << tag.name.capitalize
     end
     tag_names.join(", ")
+  end
+
+  def tags_for_desktop
+    tag_names = []
+    tags.each do |tag|
+      tag_names << tag.name.capitalize
+    end
+    tag_names
   end
 
   private

@@ -50,8 +50,8 @@ $(function() {
   $(".specialties-container").on("click",".specialties-toggle", function(event){
     event.preventDefault();
     $(this).hide();
-    $("#rest-of-specialties").show();
-    $("#new-specialties-form").show();
+    $(".rest-of-specialties").show();
+    $(".new-specialties-form").show();
   })
   // SearchBar geolocation
 
