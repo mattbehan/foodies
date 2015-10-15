@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   resources :welcome, only: :index
   root 'welcome#index'
+  get "welcome/splash" => "welcome#splash"
 
   devise_scope :user do
     get "users/sign_up", to: "registrations#register", as: "new_user_registration_path"

@@ -7,4 +7,8 @@ class WelcomeController < ApplicationController
     @article = Article.all.sample
   end
 
+  def splash
+  	render :splash, layout: false
+  end
+
 end

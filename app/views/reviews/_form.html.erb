@@ -1,12 +1,16 @@
-<%= form_for [@restaurant, @review] do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title, size: 50 %>
+<% if current_user %>
+  <%= form_for [@restaurant, @review] do |f| %>
+    <%= f.label :title %>
+    <%= f.text_field :title, size: 50 %>
 
-  <%= f.label :content %>
-  <%= f.text_area :content, cols: "50", rows: "5" %>
+    <%= f.label :content %>
+    <%= f.text_area :content, cols: "50", rows: "5" %>
 
-  <%= f.label :rating %>
-  <%= f.select :rating, (1..5).to_a  %>
+    <%= f.label :rating %>
+    <%= f.select :rating, (1..5).to_a  %>
 
-  <p><%= f.submit %></p>
+    <p><%= f.submit %></p>
+  <% end %>
+<% else %>
+  <p>You're not logged in. You'll have to <%= link_to "log in", new_user_session_path %> if you want to comment.</p>
 <% end %>

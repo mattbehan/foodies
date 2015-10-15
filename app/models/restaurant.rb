@@ -47,7 +47,6 @@ class Restaurant < ActiveRecord::Base
   end
 
   def self.add_distance_to_collection lat, long, results
-    p "in add_distance_to_collection"
     results.map do |result|
       result.distance = result.add_distance_to_result(lat, long, result)
     end

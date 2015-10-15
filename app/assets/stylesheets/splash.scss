@@ -1,0 +1,231 @@
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background: image-url("splash.png") no-repeat center right fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+  z-index:1;
+}
+
+a, a:hover {
+  color: #c75204;
+}
+
+.overlay {
+	position: absolute;
+	z-index: 1;
+	height:100%;
+	width: 100%;
+
+}
+
+
+
+table {
+	table-layout: fixed;
+	text-overflow: ellipses;
+}
+
+td{
+	font-size: 1.2em;
+	font-family: Avenir;
+	text-overflow: ellipses;
+	max-height: 100%;
+}
+
+p {
+	width: 20em;
+}
+
+.button-styling {
+	text-decoration: none;
+	font-size: 1.4em;
+	font-style: bold;
+	font-family: "Open Sans", Open Sans;
+  text-decoration: none;
+  opacity: 1.0;
+  color: #ff5d00;
+  padding: 2px 6px 2px 6px;
+  border: 1px solid black;
+  width: 10em;
+  background-color: white;
+}
+
+
+
+.overlay-menu {
+	height: 100%;
+	min-width: 200px;
+	position: relative;
+	display: inline-block;
+	width: calc(100% /3);
+	top: 5%;
+	left: 10%;
+	z-index: 3;
+	opacity: 1.0 ;
+}
+
+#foodie {
+	max-width: 100%;
+	width: 50%;
+	text-align: center;
+	margin-right: auto;
+	margin-left: auto;
+	position: relative;
+	margin-left: 25%;
+	margin-top: 10%;
+	overflow: auto;
+}
+
+.value-statement {
+	width: 80%;
+	text-overflow: ellipsis;
+	position: relative;
+	margin: 0 10% 10% 10%;
+	padding:5px;
+	max-height: 600px;
+}
+span {
+	font-size: 20px;
+	width: 200px;
+	text-overflow: ellipses;
+	
+}
+
+.access-buttons {
+	position: relative;
+	margin: 10%;
+	padding:5px;
+	text-align: center;
+	display: block;
+}
+
+
+
+
+
+
+
+
+@media screen and (min-width: 768px) {
+
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background: image-url("splash.png") no-repeat center right fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+  z-index:1;
+}
+
+a, a:hover {
+  color: #c75204;
+}
+
+.overlay {
+	position: absolute;
+	z-index: 1;
+	height:100%;
+	width: 100%;
+
+}
+
+
+
+table {
+	table-layout: fixed;
+	text-overflow: ellipses;
+}
+
+td{
+	font-size: 1.2em;
+	font-family: Avenir;
+	text-overflow: ellipses;
+	max-height: 100%;
+}
+
+p {
+	width: 20em;
+}
+
+.button-styling {
+	text-decoration: none;
+	font-size: 1.4em;
+	font-style: bold;
+	font-family: "Open Sans", Open Sans;
+  text-decoration: none;
+  opacity: 1.0;
+  color: #ff5d00;
+  padding: 2px 6px 2px 6px;
+  border: 1px solid black;
+  width: 10em;
+  background-color: white;
+}
+
+
+
+.overlay-menu {
+	height: 100%;
+	min-width: 200px;
+	position: relative;
+	display: inline-block;
+	width: calc(100% /3);
+	top: 5%;
+	left: 10%;
+	z-index: 3;
+	opacity: 1.0 ;
+}
+
+#foodie {
+	max-width: 100%;
+	width: 50%;
+	text-align: center;
+	margin-right: auto;
+	margin-left: auto;
+	position: relative;
+	margin-left: 25%;
+	margin-top: 10%;
+	overflow: auto;
+}
+
+.value-statement {
+	width: 80%;
+	text-overflow: ellipsis;
+	position: relative;
+	margin: 0 10% 10% 10%;
+	padding:5px;
+	max-height: 600px;
+}
+span {
+	font-size: 20px;
+	width: 200px;
+	text-overflow: ellipses;
+	
+}
+
+.access-buttons {
+	position: relative;
+	margin: 10%;
+	padding:5px;
+	text-align: center;
+	display: block;
+}
+
+
+
+
+}

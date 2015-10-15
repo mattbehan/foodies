@@ -1,10 +1,12 @@
+
+
 require 'ffaker'
 require 'spec_helper'
 require 'rspec/rails'
 require 'capybara/rails'
 require 'shoulda-matchers'
 
-describe "Restaurant" do
+describe Restaurant do
   let(:restaurant) { Restaurant.first }
   let(:second_restaurant) { Restaurant.last }
   let(:review) { Review.create(title: "Test title", content: "Test content",
@@ -13,6 +15,24 @@ describe "Restaurant" do
   let(:third_restaurant) { Restaurant.second }
   let(:quick_take) { QuickTake.create(rater_id: 1, restaurant_id: third_restaurant.id,
                                        rating: 4)}
+
+  # Validators
+  it { should validate_presence_of :name }
+  it { should validate_presence_of :street_address }
+  it { should validate_presence_of :city }
+  it { should validate_presence_of :zip }
+  it { should validate_presence_of :price_scale }
+
+  # Associations
+  it { should have_many :taggings }
+  it { should have_many :reviews }
+  it { should have_many :bookmarks }
+  it { should have_many :quick_takes }
+  it { should have_many :raters }
+  it { should have_many :specialties }
+  it { should have_many :dishes }
+  it { should have_many :visits }
+  it { should have_many :visitors }
 
   context "initialization" do
     it "should exist" do
@@ -47,5 +67,15 @@ describe "Restaurant" do
       expect(restaurant.aggregate_score).to be_a_kind_of(Numeric)
     end
   end
+
+  describe "rest_of_dishes" do
+
+    it "returns the dishes that were not in the top three" do
+      expect((restaurant.rest_of_dishes.count + 3)).to eq(restaurant.dishes.count)
+    end
+    
+  end
+
+
 
 end
