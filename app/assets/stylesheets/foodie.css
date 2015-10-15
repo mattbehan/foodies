@@ -108,13 +108,21 @@ h1, h2, h3, h4, h5, h6 {
   width: 180px;
 }
 
-.loadinggif
-{
+.loadinggif {
   background:
     url('spinner.gif')
     no-repeat
     right center,
     white
+}
+
+.search-button {
+  background:
+    url('search_icon.png')
+    center center;
+  height: 26.4px;
+  width: 26.4px;
+
 }
 
 /* Welcome page */
