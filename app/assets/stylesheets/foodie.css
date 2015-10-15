@@ -68,6 +68,35 @@ h1, h2, h3, h4, h5, h6 {
   color: white;
 }
 
+#navbar-logo {
+  width: 65px;
+  height: auto;
+  margin-top: 1px;
+}
+
+.navbar-form {
+  margin-top: 9px;
+  border-top: 0;
+  border-bottom: 0;
+  box-shadow: none;
+}
+
+.navbar-default .navbar-toggle {
+  border-color: transparent;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #ddd;
+}
+
+.navbar-default .navbar-toggle:hover .icon-bar {
+  background-color: #555;
+}
+
+.mobile-nav-padding {
+  padding-top: 70px;
+}
+
 /* Search bar */
 
 #search-form {
@@ -355,6 +384,25 @@ footer p {
 
   body {
     font-size: 16px;
+  }
+
+  .navbar {
+    min-height: 65px;
+  }
+
+  #navbar-logo {
+    width: 75px;
+    height: auto;
+    margin-left: 20px;
+    margin-top: 3px;
+  }
+
+  .navbar-form {
+    margin-top: 12px;
+  }
+
+  .navbar-right {
+    margin-top: 5px;
   }
 
   #featured-restaurant-body {
