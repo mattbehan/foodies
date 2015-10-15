@@ -23,15 +23,7 @@ $(function() {
     $.get(this.href, null, null, "script")
     return false
   })
-  //SVG Redirect
-  $("path").on("click", function(){
-    var neighborhood = $(this).attr("id")
-    console.log(
-      $(this).attr("id")
-    );
-    window.location.href = '/search'+"?search="+neighborhood;
-  })
-
+  // Comments
   $(".bad-comment-warning a").on("click", function(){
     $(this).parent().toggle();
     $(this).parent().prev().show();
@@ -46,7 +38,7 @@ $(function() {
     $(this).hide();
     $(this).next().toggle();
   })
-
+  // Specialties
   $(".specialties-container").on("click",".specialties-toggle", function(event){
     event.preventDefault();
     $(this).hide();
@@ -54,44 +46,38 @@ $(function() {
     $(".new-specialties-form").show();
   })
   // SearchBar geolocation
-  $(".search-form").on("submit", function(event){
-    event.preventDefault();
-    $this = this;
-    $('.search-bar').addClass('loadinggif');
+  // $(".search-form").on("submit", function(event){
+  //   event.preventDefault();
+  //   $this = this;
+  //   $('.search-bar').addClass('loadinggif');
 
-    var latitude, longitude;
-    navigator.geolocation.getCurrentPosition(success, fail,
-    {
-      enableHighAccuracy: true,
-      timeout: 10 * 1000 // 10 seconds
-    });
+  //   var latitude, longitude;
+  //   navigator.geolocation.getCurrentPosition(success, fail,
+  //   {
+  //     enableHighAccuracy: true,
+  //     timeout: 10 * 1000 // 10 seconds
+  //   });
 
-    function success(position) {
-      latitude = position.coords.latitude;
-      longitude = position.coords.longitude;
+  //   function success(position) {
+  //     latitude = position.coords.latitude;
+  //     longitude = position.coords.longitude;
 
-      var input1 =  $("<input>")
-                    .attr("type", "hidden")
-                    .attr("name", "lat_data")
-                    .attr("value",latitude);
-      var input2 =  $("<input>")
-                    .attr("type", "hidden")
-                    .attr("name", "long_data")
-                    .attr("value",longitude);
-      $('.search-form').append((input1));
-      $('.search-form').append((input2));
+  //     var input1 =  $("<input>")
+  //                   .attr("type", "hidden")
+  //                   .attr("name", "lat_data")
+  //                   .attr("value",latitude);
+  //     var input2 =  $("<input>")
+  //                   .attr("type", "hidden")
+  //                   .attr("name", "long_data")
+  //                   .attr("value",longitude);
+  //     $('.search-form').append((input1));
+  //     $('.search-form').append((input2));
 
-      $this.submit();
-    }
+  //     $this.submit();
+  //   }
 
-    function fail(msg) {
-      alert("Please enable your geolocation service in order to find directions.");
-    }
-  })
-
-  // SVG Hover
-  $('path').tooltip({
-    'container': 'body',
-    'placement': 'top'
-  });
+  //   function fail(msg) {
+  //     alert("Please enable your geolocation service in order to find directions.");
+  //   }
+  // })
 });
