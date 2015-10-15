@@ -1,17 +1,21 @@
 require 'ffaker'
+require 'csv'
 
-# neighborhoods = ["Rogers Park","West Ridge","Uptown","Lincoln Square","Edison Park","Norwood Park","Jefferson Park","Forest Glen","North Park","Albany Park","O'Hare","Edgewater","North Center","Lakeview","Lincoln Park","Avondale","Logan Square","Portage Park","Irving Park","Dunning","Montclare","Belmont Cragin","Hermosa","Near North Side","Loop","Near South Side","Humboldt Park","West Town","Austin","West Garfield Park","East Garfield Park","Near West Side","North Lawndale","South Lawndale","Lower West Side","Garfield Ridge","Archer Heights","Brighton Park","McKinley Park","New City","West Elsdon","Gage Park","Clearing","West Lawn","Chicago Lawn","West Englewood","Englewood","Armour Square","Douglas","Oakland","Fuller Park","Grand Boulevard","Kenwood","Washington Park","Hyde Park","Woodlawn","South Shore","Bridgeport","Greater Grand Crossing","Ashburn","Auburn Gresham","Beverly","Washington Heights","Mount Greenwood","Morgan Park","Chatham","Avalon Park","South Chicago","Burnside","Calumet Heights","Roseland","Pullman","South Deering","East Side","West Pullman","Riverdale","Hegewisch"]
 neighborhoods = ["Albany Park","Andersonville","Archer Heights","Ashburn","Aubrun Gresham","Austin","Avalon Park","Avondale","Back of the Yards","Belmont Cragin","Beverly","Boystown","Bridgeport","Brighton Park","Bronzeville","Burnside","Calumet Heights","Chatham","Chicago Lawn","Chinatown","Dunning","East Side","Edgewater","Edison Park","Engelwood","Forest Glen","Fullerton Park","Gage Park","Galewood","Garfield Park","Gold Coast","Goose Island","Grand Crossing","Hegewisch","Hermosa","Humboldt Park","Hyde Park","Irving Park","Jefferson Park","Kenwood","Lakeview","Lincoln Park","Lincoln Sqaure","Little Italy and University Village","Little Village","Logan Square","Loop","Rush and Divison","McKinley Park","Midway, Garfiel Ridge and Clearing","Montclare","Morgan Park","Mount Greenwood","North Center","North Lawndale","North Park","Norwood Park","O'Hare","Old Town","Pilsen","Portage Park","Pullman","River North","Riverdale","Rogers Park","Roscoe Village","Roseland","South Chicago","South Deering","South Loop","South Shore","Streeterville","United Center","Uptown","Washington Heights","Washington Park","West Elsdon","West Lawn","West Loop","West Pullman","West Ridge","West Town","Bucktown","Woodlawn","Wrigleyville"]
-15.times do
-  Restaurant.create!(name: FFaker::Company.name, cuisine: FFaker::Food.meat,
-                      street_address: FFaker::AddressUS.street_address,
-                      city: FFaker::AddressUS.city, state: FFaker::AddressUS.state,
-                      zip: FFaker::AddressUS.zip_code[0..4], phone_number: FFaker::PhoneNumber.short_phone_number,
-                      neighborhood: neighborhoods.sample, nearest_l: FFaker::AddressUS.neighborhood,
-                      website: FFaker::Internet.http_url, menu_url: FFaker::Internet.http_url,
-                      price_scale: rand(1..5), atmosphere: FFaker::HipsterIpsum.word, delivery: true,
-                      reservations: false, vegan_friendliness: rand(1..5), patios: false,
-                      dress_code: "Hipster")
+# 15.times do
+#   Restaurant.create!(name: FFaker::Company.name, cuisine: FFaker::Food.meat,
+#                       street_address: FFaker::AddressUS.street_address,
+#                       city: FFaker::AddressUS.city, state: FFaker::AddressUS.state,
+#                       zip: FFaker::AddressUS.zip_code[0..4], phone_number: FFaker::PhoneNumber.short_phone_number,
+#                       neighborhood: neighborhoods.sample, nearest_l: FFaker::AddressUS.neighborhood,
+#                       website: FFaker::Internet.http_url, menu_url: FFaker::Internet.http_url,
+#                       price_scale: rand(1..5), atmosphere: FFaker::HipsterIpsum.word, delivery: true,
+#                       reservations: false, vegan_friendliness: rand(1..5), patios: false,
+#                       dress_code: "Hipster")
+# end
+
+CSV.foreach(Rails.root.join('db','restaurants.csv'),headers:true) do |restaurant|
+  Restaurant.create!(name:restaurant["name"],cuisine:restaurant["cuisine"],street_address:restaurant["street_address"],city:restaurant["city"],state:restaurant["state"],zip:restaurant["zip"].to_i,phone_number:restaurant["phone_number"],neighborhood:restaurant["neighborhood"],nearest_l:restaurant["nearest_l"],website:restaurant["website"],menu_url:restaurant["menu_url"],price_scale:restaurant["price_scale"].to_i,atmosphere:restaurant["atmosphere"],delivery:restaurant["delivery"],reservations:restaurant["reservations"],vegan_friendliness:restaurant["vegan_friendliness"].to_i,patios:restaurant["patios"],dress_code:restaurant["dress_code"])
 end
 
 # Create users
@@ -21,7 +25,6 @@ while User.all.length <= 100
   # user.confirm! # use for Heroku
   profile = Profile.create(bio: FFaker::BaconIpsum.words(50), affiliation: FFaker::Company.bs, full_name: FFaker::Name.name, user_id: user.id )
 end
-
 # Create reviewers, reviews, and articles
 User.all.sample(15).each do |user|
   user.update(role: "reviewer")
@@ -43,7 +46,6 @@ end
                   author_id: reviewers.sample.id)
 end
 
-
 # Dishes
 10.times do
   Dish.create!(name: FFaker::Education.school.concat(" "+FFaker::Food.meat))
@@ -53,7 +55,6 @@ end
 100.times do
   Specialty.create!(restaurant_id: rand(1..15),dish_id: rand(1..10))
 end
-
 # Tags
 possible_tags = ["Date spot", "Farm to Table", "Globally Conscious", "Multiethnic",
                  "Quinoa and Kale", "Molecular Gastronomy", "Locally Sourced",
@@ -72,7 +73,6 @@ restaurants.each do |restaurant|
     restaurant.tags << applied_tag
   end
 end
-
 # Votes
 comments = Comment.all
 600.times do
@@ -83,7 +83,6 @@ end
 
 users = User.all
 restaurants = Restaurant.all
-
 # User follows, visited restaurants, bookmarked restaurants, and quick takes
 users.each_with_index do |user, index|
   potential_followed = (1..100).to_a - [index+1]
