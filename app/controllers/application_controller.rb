@@ -6,10 +6,12 @@ class ApplicationController < ActionController::Base
 	before_filter :configure_permitted_parameters, if: :devise_controller?
 
 
-	helper_method :must_be_admin, :admin?, :must_be_logged_in, :find_user, :find_profile, :must_be_owner, :owner?, :find_owner, :wipe_provider, :current_identity, :virtual_sign_in?, :wipe_session, :unknown_user
+	helper_method :must_be_admin, :admin?, :must_be_logged_in, :find_user, :find_profile, :must_be_owner, :owner?, :find_owner, :wipe_provider, :current_identity, :virtual_sign_in?, :wipe_session, :user_exists?
 
-	def unknown_user
-		redirect_to "users#unknown_user" if @user == nil
+	def user_exists?
+		if @user == nil
+			redirect_to "/users/unknown_user" 
+		end
 	end
 
 	def wipe_session

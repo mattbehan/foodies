@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   root 'welcome#index'
   get "welcome/splash" => "welcome#splash"
 
+  get "users/unknown_user" => "users#unknown_user"
+
   devise_scope :user do
     get "users/sign_up", to: "registrations#register", as: "new_user_registration_path"
     post "users/sign_up", to: "registrations#create", as: "user_registration"

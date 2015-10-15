@@ -5,8 +5,7 @@ class UsersController < ApplicationController
   before_filter :must_be_logged_in, only: [:reviewer_invite, :user_invite, :invite]
   before_filter :must_be_admin, only: [:reviewer_invite]
   before_filter :find_user, only: [:show]
-  before_filter :unknown_user, only: [:show]
-
+  before_filter :user_exists?, only: [:show]
 
 
   def invite
