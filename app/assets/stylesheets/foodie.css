@@ -108,13 +108,21 @@ h1, h2, h3, h4, h5, h6 {
   width: 180px;
 }
 
-.loadinggif
-{
+.loadinggif {
   background:
     url('spinner.gif')
     no-repeat
     right center,
     white
+}
+
+.search-button {
+  background:
+    url('search_icon.png')
+    center center;
+  height: 26.4px;
+  width: 26.4px;
+
 }
 
 /* Welcome page */
@@ -127,6 +135,17 @@ h1, h2, h3, h4, h5, h6 {
 .main-welcome {
   padding: 15px 25px;
   font-size: 16px;
+}
+
+#welcome-images {
+  padding-left: 10%;
+}
+
+#welcome-images img {
+  width: 25%;
+  height: auto;
+  display: inline-block;
+  margin: 2px 5px;
 }
 
 .faux-panel {
@@ -147,6 +166,13 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0 10px 10px 10px;
   border: 1px solid #ccc;
   border-radius: 0 0 2px 2px;
+}
+
+#restaurant-images img {
+  width: 40%;
+  height: auto;
+  display: inline-block;
+  margin: 2px 5px;
 }
 
 /* Login, Registration, etc. */
@@ -428,7 +454,7 @@ footer p {
   }
 
   .faux-panel-body {
-    min-height: 400px;
+    min-height: 450px;
   }
 
   .svg-intro-text {

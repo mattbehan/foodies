@@ -1,3 +1,4 @@
+<%= stylesheet_link_tag "social-media-buttons" %>
 <div class="enter-site">
   <h2>Log in</h2>
 
@@ -26,6 +27,12 @@
       <%= f.submit "Log in" %>
     </div>
   <% end %>
+
+  <div class="social-media-buttons">
+    <%= link_to image_tag("facebook_login.png"), "/users/auth/facebook", :class => "social-media-button" %>
+    <%= link_to image_tag("instagram_login.png"), "/users/auth/instagram", :class => "social-media-button" %>
+    <%= link_to image_tag("twitter_login.png"), "/users/auth/twitter", :class => "social-media-button" %>
+  </div>
 
   <div class="links">
     <%= render "users/shared/links" %>
