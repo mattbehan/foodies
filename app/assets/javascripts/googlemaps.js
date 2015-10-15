@@ -44,7 +44,7 @@
         }
 
         function fail(msg) {
-          alert("Please enable your geolocation service in order to find directions.");
+          alert("Please enable your geolocation service in order to find directions."+msg);
         }
 
       })
