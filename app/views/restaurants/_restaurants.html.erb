@@ -1,19 +1,29 @@
-
 <% type = @filter_option %>
 <% type = "name" if @filter_option == nil %>
 
-<%= paginate(@restaurants) %>
+<div class="row">
+  <div class="col-xs-11 col-xs-offset-1">
+    <%= paginate(@restaurants) %>
+  </div>
+</div>
 
 <% @restaurants.each do |restaurant|%>
-  <div class="restaurant">
-    <h1 class="restaurant-name"><%= link_to restaurant.name, restaurant %></h1>
-    <p class="restaurant-cuisine">Cuisine: <%= restaurant.cuisine %></p>
-    <p class="restaurant-neighborhood">Neighborhood: <%= restaurant.neighborhood %></p>
-    <p class="restaurant-score">Score: <%= restaurant.score %></p>
-    <p class="restaurant-distance">Distance: <%= restaurant.distance %> mi</p>
+  <div class="row">
+    <div class="col-xs-11 col-xs-offset-1 restaurant">
+      <h1 class="profile-header header-link restaurant-name"><%= link_to "#{restaurant.name}", restaurant_path(restaurant) %><div class="restaurant-score btn"><strong><%= restaurant.aggregate_score %></strong></h1>
+      <p class="restaurant-cuisine">Cuisine: <%= restaurant.cuisine %><p>
+      <p class="restaurant-neighborhood"><% if restaurant.neighborhood %>Neighborhood: <%= restaurant.neighborhood %><% end %></p>
+      <p class="restaurant-distance">Distance: <%= restaurant.distance %> mi</p>
+      <hr />
+    </div>
   </div>
+
 <% end %>
 
 <%= "No results found." if @restaurants.empty? %>
 
-<%= paginate(@restaurants) %>
+<div class="row">
+  <div class="col-xs-11 col-xs-offset-1">
+    <%= paginate(@restaurants) %>
+  </div>
+</div>
