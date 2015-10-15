@@ -16,7 +16,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   	session[:provider]=provider
     @identity = Identity.find_for_oauth env["omniauth.auth"]
     # this is how we are going to identify users signing in through social media sites
-    @user = @identity.user || current_user
+    @user = @identity.user || current_user || User.find_by(email: @identity.email) || User.find_by(username: @identity.nickname)
     if @user.nil?
       @user = User.new( email: @identity.email || "" )
     end
@@ -32,15 +32,19 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     @user.provider = provider
 
+    # need to specify here what attributes from identity to add to the session hash. email, username and provider
     if @user.persisted?
       @identity.update_attribute( :user_id, @user.id )
       @user.save
       flash[:notice] = "Signed in"
       sign_in_and_redirect @user, event: :authentication
     else
-    	@user.save(validate: false)
-      @identity.update_attribute( :user_id, @user.id )
-      redirect_to finish_signup_path(@user)
+     #  @identity.update_attribute( :user_id, @user.id )
+      session["devise.user_attributes"]={"email" => @identity.email}
+      session["devise.user_attributes"]["provider"]=@identity.provider
+      session["devise.user_attributes"]["username"]=@identity.nickname
+      @user.provider = provider
+      redirect_to new_user_registration_path
     end
   end
 

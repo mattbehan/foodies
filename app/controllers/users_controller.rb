@@ -27,4 +27,14 @@ class UsersController < ApplicationController
     @new_user = User.new
   end
 
+  def show_finish_signup
+    @identity = Identity.new(session["whee"])
+    user = User.new(user_params)
+  end
+
+  def finish_signup
+    
+    
+  end
+
 end
