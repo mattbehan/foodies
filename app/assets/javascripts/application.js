@@ -54,10 +54,10 @@ $(function() {
     $(".new-specialties-form").show();
   })
   // SearchBar geolocation
-
-  $("#search-form").on("submit", function(event){
+  $(".search-form").on("submit", function(event){
     event.preventDefault();
-    $('#search').addClass('loadinggif');
+    $this = this;
+    $('.search-bar').addClass('loadinggif');
 
     var latitude, longitude;
     navigator.geolocation.getCurrentPosition(success, fail,
@@ -78,10 +78,10 @@ $(function() {
                     .attr("type", "hidden")
                     .attr("name", "long_data")
                     .attr("value",longitude);
-      $('#search-form').append((input1));
-      $('#search-form').append((input2));
+      $('.search-form').append((input1));
+      $('.search-form').append((input2));
 
-      document.getElementById("search-form").submit();
+      $this.submit();
     }
 
     function fail(msg) {
@@ -90,7 +90,7 @@ $(function() {
   })
 
   // SVG Hover
-$('path').tooltip({
+  $('path').tooltip({
     'container': 'body',
     'placement': 'top'
   });
