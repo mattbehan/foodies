@@ -1,5 +1,5 @@
 class SpecialtiesController < ApplicationController
-
+  before_action :current_user, only: :create
   respond_to :html, :js, :json
 
   def create
