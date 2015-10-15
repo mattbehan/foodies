@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :lockable, :confirmable, :invitable, :omniauthable
 
  	has_one :profile
+  has_many :identities
 
 
   has_many :followings, foreign_key: "follower_id"
@@ -30,34 +31,49 @@ class User < ActiveRecord::Base
 
   validates :role, presence: true,
     inclusion: {in: ROLES, message: "Invalid role" }
-  validates :username, presence: true, uniqueness: true
+  validates :username, presence: true, uniqueness: true 
 
-  # create a new user
-  def self.from_omniauth auth
-    raise auth.info.inspect
-    where( provider: auth.provider, uid: auth.uid ).first_or_create do |user|
-      user.provider = auth.provider
-      user.uid = auth.uid
-      user.username = auth.info.nickname
-    end
-  end
 
-  # set the attributes on the user so that it can pass the method sign_up
-  def self.new_with_session params, session
-    if session["devise.user_attributes"]
-      # create a new user record based on the attributes in the hash. since we trust the hash it does not need to have protection
-      new(session["devise.user_attributes"], without_protection: true) do |user|
-        user.attributes = params
-        user.valid?
-      end
-    else
-      super
-    end
-  end
+  # create a new user 
+  # def self.from_omniauth auth
+  #   raise auth.info.inspect
+  #   where( provider: auth.provider, uid: auth.uid ).first_or_create do |user|
+  #     user.provider = auth.provider
+  #     user.uid = auth.uid
+  #     user.username = auth.info.nickname
+  #   end
+  # end
 
-  def email_required?
-    super && provider.blank?
-  end
+  # perhaps leverage this so devise knows to skip validations since in the model it does not know of the session
+  # def self.new_with_session params, session
+  #   if session["devise.user_attributes"]
+  #     new(session["devise.user_attributes"], without_protection: true) do |user|
+  #       user.username = session["devise.user_attributes"]["username"]
+  #       user.email = session["devise.user_attributes"]["email"]
+  #       user.provider = session["devise.user_attributes"]["provider"]
+  #       user.valid?
+  #     end
+  #   else
+  #     super(params, session)
+  #   end
+  # end
+
+  # # set the attributes on the user so that it can pass the method sign_up
+  # def self.new_with_session params, session
+    # if session["devise.user_attributes"]
+    #   # create a new user record based on the attributes in the hash. since we trust the hash it does not need to have protection
+    #   new(session["devise.user_attributes"], without_protection: true) do |user|
+    #     user.attributes = params
+    #     user.valid?
+    #   end
+    # else
+    #   super
+    # end
+  # end
+
+  # def email_required?
+  #   super && provider.blank?
+  # end
 
   # need to override so user can pass through the form without a password, given that a provider is present
   def password_required?
@@ -142,14 +158,14 @@ class User < ActiveRecord::Base
 
   def reviewer_reputation
     if reviewer_has_reviews?
-      points = 0
-      points += (number_of_reviews * 10)
-      points += reviews_near_aggregate
-      points += downvoted_more_than_upvoted
+      points = 0 || points
+      points += (number_of_reviews * 10) || points
+      points += reviews_near_aggregate || points
+      points += downvoted_more_than_upvoted || points
       points += review_points / 2 unless review_points <= 0
       points -= review_comment_downvote_count / 2 unless review_comment_downvote_count <= 0
-      points += review_comment_count
-      points += comment_points
+      points += review_comment_count || points
+      points += comment_points || points
       points
     else
       0
@@ -269,7 +285,8 @@ class User < ActiveRecord::Base
   def review_comment_downvote_count
     number_of_downvotes = 0
     self.reviews.each do |review|
-      number_of_downvotes += Vote.where(votable_type: "Review", votable_id: review.id, value: -1).count
+      votes = Vote.where(votable_type: "Review", votable_id: review.id, value: -1).count || 0
+      number_of_downvotes += votes
     end
     number_of_downvotes
   end

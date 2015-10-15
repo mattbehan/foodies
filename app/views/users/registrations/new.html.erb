@@ -1,26 +1,27 @@
 <div class="enter-site">
   <h2>Sign up</h2>
-
   <%= form_for(@user, url: "/users/sign_up") do |f| %>
     <%= devise_error_messages! %>
-
     <div class="field">
-      <%= f.label :username %>
+      <%= f.label :username %> <%if virtual_sign_in?%> <i> Required for new accounts </i> <% end %>
       <%= f.text_field :username, autofocus: true %>
     </div>
 
     <div class="field">
-      <%= f.label :email %>
+      <%= f.label :email %> <%if virtual_sign_in?%> <i> Required for new accounts </i> <% end %>
       <%= f.email_field :email %>
     </div>
-
 
     <div class="field">
       <%= f.label :password %>
       <% if @minimum_password_length %>
       <em>(<%= @minimum_password_length %> characters minimum)</em>
       <% end %>
-      <%= f.password_field :password, autocomplete: "off" %>
+      <%if virtual_sign_in?%>
+        <%= f.password_field :password, autocomplete: "off", placeholder: "Optional for virtual sign in" %>
+      <% else %>
+        <%= f.password_field :password, autocomplete: "off" %>
+     <% end %>
     </div>
 
     <div class="field">

@@ -1,3 +1,5 @@
+require 'net/http'
+
 class Restaurant < ActiveRecord::Base
   has_many :taggings
   has_many :tags, through: :taggings
@@ -19,19 +21,58 @@ class Restaurant < ActiveRecord::Base
   # validates_format_of :state, with: /[A-Z]{2}/
 
   attr_accessor   :score
+  attr_accessor   :distance
 
-  def self.search(query)
+  def self.search(query, lat_data, long_data)
 
     if query
       all_results = find_exact_matches(query) + find_keyword_matches(query) + find_fuzzy_matches(query)
-      all_results.uniq
+      all_results = all_results.uniq
+      if lat_data && long_data
+        add_distance_to_collection( lat_data, long_data, all_results )
+      else
+        all_results
+      end
     else
       where(:all)
     end
   end
 
-  def self.filter(type,query)
-    restaurants = Restaurant.search(query)
+  def self.create_url_request lat, long, restaurant
+    request = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="
+    request += "#{lat},#{long}"
+    request += "&destinations="
+    request += "#{restaurant.street_address}"
+    request += "+#{restaurant.city}"
+    request += "+#{restaurant.state}"
+    request += "+#{restaurant.zip}"
+    request += "&mode=driving/"
+    request.gsub(/\s/, "+")
+  end
+
+  def self.add_distance_to_collection lat, long, results
+    p "in add_distance_to_collection"
+    results.map do |result|
+      result.distance = result.add_distance_to_result(lat, long, result)
+    end
+    results
+  end
+
+  def add_distance_to_result lat, long, result
+    url = Restaurant.create_url_request(lat, long, result)
+    response = Net::HTTP.get(URI.parse(url))
+    json_parsed_response = JSON.parse(response)
+
+    if json_parsed_response["rows"][0]["elements"][0]["status"] == "NOT_FOUND"
+      return "Unknown Location"
+    else
+      filtered_response = '%.2f' % (json_parsed_response["rows"][0]["elements"][0]["distance"]["text"].to_i*0.621371)
+      return filtered_response
+    end
+  end
+
+  def self.filter(type,query,lat,long)
+    restaurants = Restaurant.search(query,lat,long)
     restaurants.each do |restaurant|
       restaurant.score = restaurant.aggregate_score
     end
@@ -45,8 +86,9 @@ class Restaurant < ActiveRecord::Base
       return restaurants.sort_by(&:neighborhood)
     when "score"
       return restaurants.select {|restaurant| restaurant.score != "N/A" }.sort_by{|restaurant| -restaurant.score}
+    when "distance"
+      return restaurants.select {|restaurant| restaurant.distance != "Unknown Location" }.sort_by{|restaurant| restaurant.distance}
     end
-
   end
 
   def top_three_dishes
