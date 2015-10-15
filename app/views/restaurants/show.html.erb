@@ -79,6 +79,14 @@
       <h4 class="profile-header">Cuisine: </h4><span> <%= @restaurant.cuisine %></span><br/>
       <h4 class="profile-header">Price range: </h4><span> <%= @restaurant.price_scale %></span><br/>
       <h4 class="profile-header">Vegan friendliness: </h4><span> <%= @restaurant.vegan_friendliness || "Unknown" %></span><br/>
+
+      <% if @restaurant.website %>
+        <p>Website: <%= link_to "#{@restaurant.website}", @restaurant.website %></p>
+      <% end %>
+
+      <% if @restaurant.menu_url %>
+        <p>Menu URL: <%= link_to "#{@restaurant.menu_url}", @restaurant.menu_url %></p>
+      <% end %>
       <!-- end cuisine, price, vegan rating -->
 
       <!-- Mobile: Specialties -->
@@ -116,11 +124,11 @@
         <p><% if @restaurant.neighborhood %>Neighborhood: <%= @restaurant.neighborhood %><br /><% end %>
         <% if @restaurant.nearest_l %>Nearest 'L': <%= @restaurant.nearest_l %><% end %></p>
           <% if @restaurant.website %>
-            <p>Website: <%= link_to "#{@restaurant.website}" %></p>
+            <p>Website: <%= link_to "#{@restaurant.website}", @restaurant.website %></p>
           <% end %>
 
           <% if @restaurant.menu_url %>
-            <p>Menu URL: <%= link_to "#{@restaurant.menu_url}" %></p>
+            <p>Menu URL: <%= link_to "#{@restaurant.menu_url}", @restaurant.menu_url %></p>
           <% end %>
 
       <!-- Mobile: Atmosphere and Dress Code -->
