@@ -58,20 +58,11 @@ describe User do
     end
   end
 
-  context "all_reviewers" do
-    it "returns a collection of all reviewers" do
-      expect(User.all_reviewers.count).to eq(User.where(role: "reviewer").count)
+  context "top_ten_reviewers" do
+    it "returns a collection of reviewers" do
+      User.first(10).each { |r| r.role = "reviewer"; r.save }
+      expect(User.top_ten_reviewers.all? { |x| x.role == "reviewer" }).to be true
     end
   end
-
-  describe "#number_of_comments_on_reviews" do
-    it "returns 0 if the user is not a reviewer" do
-      user.role = "user"
-      user.save
-      expect(user.number_of_comments_on_reviews).to eq(0)
-    end
-    
-  end
-
 
 end

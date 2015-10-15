@@ -51,6 +51,8 @@ class RestaurantsController < ApplicationController
       end
       redirect_to @restaurant
     else
+      @errors = @restaurant.errors.full_messages
+      flash[:errors] = @errors
       redirect_to new_restaurant_path
     end
   end

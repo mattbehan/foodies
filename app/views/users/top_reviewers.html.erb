@@ -1,0 +1,33 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-11 col-xs-offset-1">
+      <h1>Top-Rated Foodie Reviewers</h1>
+    </div>
+  </div>
+
+  <% @top_reviewers.each_with_index do |top_reviewer, index| %>
+    <div class="row top-reviewer">
+      <div class="col-sm-1 col-sm-offset-1 col-xs-2">
+        <%= image_tag avatar_url(top_reviewer), class: "img-responsive reviewer-avatar" %>
+      </div>
+
+      <!-- Mobile display -->
+      <div class="col-xs-10 hidden-lg hidden-sm hidden-md">
+        <h4 class="header-link">
+          <%= "#{index + 1}. " %><%= link_to "#{top_reviewer.username}", user_path(top_reviewer) %>
+          <span><%= render partial: "reputation", locals: { user: top_reviewer } %></span>
+        </h4>
+        <p><%= top_reviewer.reviews.count %> total reviews. Visit their <%= link_to "profile", user_path(top_reviewer) %>.</p>
+      </div>
+
+      <!-- Desktop display -->
+      <div class="hidden-xs col-sm-10">
+        <h3 class="header-link">
+          <%= "#{index + 1}. " %><%= link_to "#{top_reviewer.username}", user_path(top_reviewer) %>
+          <span><%= render partial: "reputation", locals: { user: top_reviewer } %></span>
+        </h3>
+        <p><%= top_reviewer.reviews.count %> total reviews. Visit their <%= link_to "profile", user_path(top_reviewer) %>.</p>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -127,6 +127,10 @@ class User < ActiveRecord::Base
  		User.all.select {|user| user.role == "reviewer"}
  	end
 
+  def self.top_ten_reviewers
+    all_reviewers.sort_by {|reviewer| reviewer.reviewer_reputation}.reverse[0..9]
+  end
+
 	def deliver_invitation
 	 if @invitation_instructions.present?
 	   ::Devise.mailer.send(@invitation_instructions, self).deliver
@@ -149,7 +153,102 @@ class User < ActiveRecord::Base
     self.quick_takes.any? { |qt| qt.restaurant_id == restaurant.id }
   end
 
-  # Returns the aggregate number of comments across a reviewers reviews
+
+  def reviewer_reputation
+    if reviewer_has_reviews?
+      points = 0 || points
+      points += (number_of_reviews * 10) || points
+      points += reviews_near_aggregate || points
+      points += downvoted_more_than_upvoted || points
+      points += review_points / 2 unless review_points <= 0
+      points -= review_comment_downvote_count / 2 unless review_comment_downvote_count <= 0
+      points += review_comment_count || points
+      points += comment_points || points
+      points
+    else
+      0
+    end
+  end
+
+  def english_reviewer_reputation
+    if reviewer_reputation.between?(0, 5)
+      "Poor."
+    elsif reviewer_reputation.between?(6, 10)
+      "Fair."
+    elsif reviewer_reputation.between?(11, 15)
+      "Good."
+    elsif reviewer_reputation.between?(16, 20)
+      "Great!"
+    elsif reviewer_reputation.between?(21, 25)
+      "Most Excellent."
+    elsif reviewer_reputation >= 26
+      "Off the Charts!"
+    else
+      "Awful"
+    end
+  end
+
+  def comment_count
+    self.comments.count
+  end
+
+  def self.average_comment_count
+    raw_comments = User.all.map { |u| u.comments.count }.inject(:+)
+    raw_comments / User.all.count
+  end
+
+  def user_reputation
+    if user_has_comments?
+      points = 0
+      1.upto(comment_count) { points += (upvote_downvote_ratio_points * 1.5) }
+      if comment_often?
+        points += comment_points * (comment_count / 2)
+      else
+        points += comment_points * (comment_count / 4)
+      end
+
+      if times_upvoted >= times_downvoted
+        points += times_voted
+      else
+        points += (times_voted / 2)
+      end
+      points
+    else
+      0
+    end
+  end
+
+  def english_user_reputation
+    if user_reputation.between?(0, 30)
+      "Poor."
+    elsif user_reputation.between?(31, 60)
+      "Decent."
+    elsif user_reputation.between?(61, 90)
+      "Good."
+    elsif user_reputation.between?(91, 120)
+      "Great!"
+    elsif user_reputation.between?(121, 150)
+      "Superb!"
+    elsif user_reputation.between?(151, 180)
+      "Super Excellent."
+    elsif user_reputation >= 181
+      "Off the charts!"
+    else
+      "Abysmal."
+    end
+  end
+
+  private
+
+  def reviewer_has_reviews?
+    self.reviewer? && self.reviews.count > 0
+  end
+
+  def user_has_comments?
+    self.user? && self.comment_count > 0
+  end
+
+    # Returns the aggregate number of comments across a reviewers reviews
   def review_comment_count
     self.reviews.map { |review| review.comments.count }.inject(:+)
   end
@@ -158,9 +257,7 @@ class User < ActiveRecord::Base
   def score_of_review_comments
     votes = 0
     self.reviews.each do |review|
-      review.comments.each do |comment|
-        votes += comment.vote_count
-      end
+      review.comments.each { |comment| votes += comment.vote_count }
     end
     votes
   end
@@ -186,7 +283,8 @@ class User < ActiveRecord::Base
   def review_comment_downvote_count
     number_of_downvotes = 0
     self.reviews.each do |review|
-      number_of_downvotes += Vote.where(votable_type: "Review", votable_id: review.id, value: -1).count
+      votes = Vote.where(votable_type: "Review", votable_id: review.id, value: -1).count || 0
+      number_of_downvotes += votes
     end
     number_of_downvotes
   end
@@ -222,49 +320,6 @@ class User < ActiveRecord::Base
     self.comments.map { |comment| comment.vote_count }.inject(:+)
   end
 
-  def reviewer_reputation
-    if reviewer_has_reviews?
-      points = 0
-      points += (self.number_of_reviews * 10)
-      points += self.reviews_near_aggregate
-      points += self.downvoted_more_than_upvoted
-      points += self.review_points / 2 unless self.review_points <= 0
-      points -= self.review_comment_downvote_count / 2 unless self.review_comment_downvote_count <= 0
-      points += self.review_comment_count
-      points += self.comment_points
-      points
-    else
-      0
-    end
-  end
-
-  def english_reviewer_repuation
-    if self.reviewer_reputation.between?(0, 5)
-      "Poor."
-    elsif self.reviewer_reputation.between?(6, 10)
-      "Fair."
-    elsif self.reviewer_reputation.between?(11, 15)
-      "Good."
-    elsif self.reviewer_reputation.between?(16, 20)
-      "Great!"
-    elsif self.reviewer_reputation.between?(21, 25)
-      "Most Excellent."
-    elsif self.reviewer_reputation >= 26
-      "Off the Charts!"
-    else
-      "Awful"
-    end
-  end
-
-  def comment_count
-    self.comments.count
-  end
-
-  def self.average_comment_count
-    raw_comments = User.all.map { |u| u.comments.count }.inject(:+)
-    raw_comments / User.all.count
-  end
-
   def comment_often?
     self.comment_count >= User.average_comment_count
   end
@@ -293,52 +348,6 @@ class User < ActiveRecord::Base
     self.votes.where(value: -1).count
   end
 
-  def user_reputation
-    points = 0
-    1.upto(self.comment_count) { points += (upvote_downvote_ratio_points * 1.5) }
-    if self.comment_often?
-      points += self.comment_points * (self.comment_count / 2)
-    else
-      points += self.comment_points * (self.comment_count / 4)
-    end
-
-    if self.times_upvoted >= self.times_downvoted
-      points += self.times_voted
-    else
-      points += (self.times_voted / 2)
-    end
-    points
-  end
-
-  def english_user_reputation
-    if self.user_reputation.between?(0, 15)
-      "Poor."
-    elsif self.user_reputation.between?(16, 30)
-      "Decent."
-    elsif self.user_reputation.between?(31, 45)
-      "Good."
-    elsif self.user_reputation.between?(46, 60)
-      "Great!"
-    elsif self.user_reputation.between?(61, 75)
-      "Superb!"
-    elsif self.user_reputation.between?(76, 100)
-      "Super Excellent."
-    elsif self.user_reputation >= 101
-      "Off the charts!"
-    else
-      "Abysmal."
-    end
-  end
-
-  private
-
-  def reviewer_has_reviews?
-    self.reviewer? && self.reviews.count > 0
-  end
-
-  def user_has_comments?
-    self.user? && self.comment_count > 0
-  end
 
 #   def welcome_message
 #     UserMailer.welcome_message(self).deliver
