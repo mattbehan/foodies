@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_filter :must_be_logged_in, only: [:reviewer_invite, :user_invite, :invite]
   before_filter :must_be_admin, only: [:reviewer_invite]
   before_filter :find_user, only: [:show]
-
+  before_filter :user_exists?, only: [:show]
 
 
   def invite
@@ -25,6 +25,9 @@ class UsersController < ApplicationController
   def show
     @profile = Profile.find_by(user_id: params[:id])
     @new_user = User.new
+  end
+
+  def unknown_user
   end
 
     
