@@ -8,17 +8,17 @@ class RestaurantsController < ApplicationController
   before_action :admin_or_reviewer?, only: [:new, :create, :edit, :update]
 
   def search
-    # Search path
     lat_data = params["lat_data"]
     long_data = params["long_data"]
-    if params[:search] == "" # Return list of top 5 restaurants by score
-      filter
-    elsif params[:search]
+    if (params[:search] == "near") || (params[:search] == "nearby")
+      params[:search] = ""
+      @restaurants = Kaminari.paginate_array(Restaurant.filter("distance","",lat_data,long_data)).page(params[:page]).per(5)
+    elsif (params[:search] == "food") || (params[:search] == "restaurants")
+      params[:search] = ""
+      @restaurants = Kaminari.paginate_array(Restaurant.filter("score","",lat_data,long_data)).page(params[:page]).per(5)
+    else
       @restaurants = Kaminari.paginate_array(Restaurant.search(params[:search], lat_data, long_data)).page(params[:page]).per(5)
       calculate_aggregate_score
-    # Normal Render path (handle the unexpected)
-    else
-      filter
     end
   end
 
@@ -26,7 +26,8 @@ class RestaurantsController < ApplicationController
     latitude = params[:lat_data]
     longitude = params[:long_data]
     search_query = params[:search]
-    @filter_option = params[:type] || "score"
+    p search_query
+    @filter_option = params[:type]
     @restaurants = Kaminari.paginate_array(Restaurant.filter(@filter_option,search_query,latitude,longitude)).page(params[:page]).per(5)
 
     respond_to do |format|
