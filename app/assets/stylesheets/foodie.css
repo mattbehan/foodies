@@ -126,9 +126,11 @@ h1, h2, h3, h4, h5, h6 {
 .faux-panel h2 {
   padding: 10px;
   border: 1px solid #ccc;
-  border-bottom: 0px;
+  border-bottom: 1px solid #eee;
   border-radius: 6px 6px 0 0;
   margin-bottom: 0px;
+  color: #eee;
+  background-color: #810541;
 }
 
 .faux-panel-body {
@@ -410,8 +412,12 @@ footer p {
     margin-top: 5px;
   }
 
-  #featured-restaurant-body {
-    min-height: 440px;
+  .svg-intro-text {
+    color: #c75204;
+  }
+
+  .svg-map {
+    margin-left: 10%;
   }
 
   .restaurant-form-pair {

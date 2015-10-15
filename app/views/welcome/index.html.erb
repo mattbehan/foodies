@@ -1,6 +1,17 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-8 col-xs-12 faux-panel" id="featured-restaurant">
+    <div class="col-sm-7 col-xs-12">
+
+    </div>
+
+    <div class="col-sm-5 hidden-xs">
+      <p class="svg-intro-text">Click on a Chicago neighborhood to see its foodie-approved restaurants.</p>
+      <div class="svg-map"><%= inline_svg("neighborhoods.html.erb") %></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4 col-xs-12 faux-panel" id="featured-restaurant">
       <h2>Restaurant of the Day</h2>
       <div class="faux-panel-body">
         <h3 class="header-link"><%= link_to "#{@restaurant.name}", restaurant_path(@restaurant) %></h3>
@@ -14,14 +25,7 @@
       </div>
     </div>
 
-    <div class="col-sm-4 hidden-xs">
-      <p>Click on a Chicago neighborhood to see its foodie-approved restaurants.</p>
-      <%= inline_svg("neighborhoods.html.erb") %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-6 col-xs-12 faux-panel" id="featured-review">
+    <div class="col-sm-4 col-xs-12 faux-panel" id="featured-review">
       <h2>Featured Review</h2>
       <div class="faux-panel-body">
         <h3 class="header-link text-capitalize"><%= link_to "#{@review.title}", restaurant_review_path(@review.restaurant, @review) %></h3>
@@ -31,7 +35,7 @@
       </div>
     </div>
 
-    <div class="col-sm-6 col-xs-12 faux-panel" id="featured-article">
+    <div class="col-sm-4 col-xs-12 faux-panel" id="featured-article">
       <h2>Featured Article</h2>
       <div class="faux-panel-body">
         <h3 class="header-link text-capitalize"><%= link_to "#{@article.title}", article_path(@article) %></h3>
