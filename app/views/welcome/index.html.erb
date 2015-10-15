@@ -2,11 +2,13 @@
   <div class="row">
     <div class="col-sm-7 col-xs-12">
       <img src="/assets/foodie_color.png" alt="Foodie Logo" class="img-responsive" id="site-logo" />
-      <p class="main-welcome"><strong>Foodie</strong> is quite simply a site for lovers of food. Full of curated restaurant reviews and articles about every aspect of Chicago's food scene, it features contributions by local experts such as chefs, cookbook authors, and food critics.</p>
+      <p class="main-welcome"><strong>Foodie</strong> is quite simply a site for lovers of food. Full of curated restaurant reviews and articles about every aspect of Chicago&rsquo;s food scene, it contains features written by local experts such as chefs, cookbook authors, and food critics.</p>
 
-      <p class="main-welcome">Power users of the site&mdash;those who are truly passionate and knowledgable about Chicago's food&mdash;are invited to submit reviews after  Everyday users of the site will find reliable restaurant and even specific dish recommendations based on neighborhood, cuisine, vegetarian options, or proximity.</p>
+      <p class="main-welcome">The most active users of the site&mdash;those who are truly passionate and knowledgable about Chicago&rsquo;s food&mdash;will be invited to submit reviews after making a set number of contributions. All users can find reliable restaurant recommendations (including specific dish recommendations) based on neighborhood, cuisine, vegetarian options, or proximity.</p>
 
-      <p class="main-welcome">Unlike other restaurant-search sites, Foodie delivers a rating that hasn't been affected by restaurants goers who gripe about inattentive waiters, lighting, or lack of child-changing facilities&mdash;the restaurant score on Foodie is based entirely on food quality and algorithmically determined from a weighed combination of data from experts, power users, and everyday users alike. So, if you're looking to find your next favorite restaurant or just want to know what foodie-approved options are down the street from you, explore our site!</p>
+      <p class="main-welcome">And, unlike other restaurant-search sites, <strong>Foodie</strong> delivers a rating that has not been tarnished by restaurant goers who gripe about inattentive waiters, lighting, or lack of child-changing facilities. The score algorithm on <strong>Foodie</strong> ensures that only people who love good food as much as you have the power to affect a restaurant&rsquo;s rating.</p>
+
+      <p class="main-welcome">Welcome and bon appetit!</p>
     </div>
 
     <div class="col-sm-5 hidden-xs">
@@ -16,19 +18,6 @@
   </div>
 
   <div class="row">
-    <div class="col-sm-4 col-xs-12 faux-panel" id="featured-restaurant">
-      <h2>Restaurant of the Day</h2>
-      <div class="faux-panel-body">
-        <h3 class="header-link"><%= link_to "#{@restaurant.name}", restaurant_path(@restaurant) %></h3>
-        <div id="featured-restaurant-body">
-          <p>This <%= @restaurant.cuisine %> eatery located in the trendy Chicago neighborhood <%= @restaurant.neighborhood %> offers delectable dishes and scores a <%= @restaurant.vegan_friendliness %> out of 5 on the vegan friendliness scale.</p>
-
-          <p>Read foodie reviews of <%= @restaurant.name %>, see recommended dishes, and much more by checking our <%= link_to "#{@restaurant.name} page", restaurant_path(@restaurant) %>.</p>
-
-          <p>Bon appetit!</p>
-        </div>
-      </div>
-    </div>
 
     <div class="col-sm-4 col-xs-12 faux-panel" id="featured-review">
       <h2>Featured Review</h2>
@@ -37,6 +26,22 @@
         <p><strong>Review of <%= link_to "#{@review.restaurant.name}", restaurant_path(@review.restaurant) %> composed by <%= link_to "#{@review.reviewer.username}", user_path(@review.reviewer) %></strong></p>
         <p><%= @review.get_preview %>
           <%= link_to "read more...", restaurant_review_path(@review.restaurant, @review) %></p>
+      <p>* * *</p>
+      <p>See more from Chicago&rsquo;s <%= link_to "best food writers", top_reviewers_path %> best food writers elsewhere on the <strong>Foodie</strong> site.</p>
+      </div>
+    </div>
+
+    <div class="col-sm-4 col-xs-12">
+      <div class="faux-panel" id="featured-restaurant">
+        <h2>Restaurant of the Day</h2>
+        <div class="faux-panel-body">
+          <h3 class="header-link"><%= link_to "#{@restaurant.name}", restaurant_path(@restaurant) %></h3>
+          <div id="featured-restaurant-body">
+            <p>This <%= @restaurant.cuisine %> eatery located in the trendy Chicago neighborhood <%= @restaurant.neighborhood %> offers delectable dishes and scores a <%= @restaurant.vegan_friendliness %> out of 5 on the vegan friendliness scale.</p>
+
+            <p>Read foodie-approved reviews of <%= @restaurant.name %>, see recommended dishes, and much more by checking our <%= link_to "#{@restaurant.name} page", restaurant_path(@restaurant) %>.</p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -49,5 +54,5 @@
           <%= link_to "read more...", article_path(@article) %></p>
       </div>
     </div>
-
+  </div>
 </div>

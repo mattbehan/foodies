@@ -427,6 +427,10 @@ footer p {
     font-size: 20px;
   }
 
+  .faux-panel-body {
+    min-height: 400px;
+  }
+
   .svg-intro-text {
     color: #c75204;
   }
