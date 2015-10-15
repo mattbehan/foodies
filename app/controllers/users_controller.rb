@@ -27,6 +27,9 @@ class UsersController < ApplicationController
     @new_user = User.new
   end
 
+    
+    
+
   def top_reviewers
     @top_reviewers = User.top_ten_reviewers
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151013205534) do
+ActiveRecord::Schema.define(version: 20151013024728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,31 +65,13 @@ ActiveRecord::Schema.define(version: 20151013205534) do
   add_index "followings", ["followed_user_id"], name: "index_followings_on_followed_user_id", using: :btree
   add_index "followings", ["follower_id"], name: "index_followings_on_follower_id", using: :btree
 
-  create_table "identities", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "provider"
-    t.string   "accesstoken"
-    t.string   "refreshtoken"
-    t.string   "uid"
-    t.string   "name"
-    t.string   "email"
-    t.string   "nickname"
-    t.string   "image"
-    t.string   "phone"
-    t.string   "urls"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
-
   create_table "profiles", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "full_name"
     t.string   "affiliation"
-    t.text     "bio"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.text     "bio",         default: "Lover of food"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   create_table "quick_takes", force: :cascade do |t|
@@ -172,11 +154,13 @@ ActiveRecord::Schema.define(version: 20151013205534) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "",     null: false
+    t.string   "email"
     t.string   "encrypted_password",     default: ""
     t.string   "role",                   default: "user"
-    t.string   "username",                                null: false
+    t.string   "username"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -200,7 +184,6 @@ ActiveRecord::Schema.define(version: 20151013205534) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.string   "provider"
-    t.string   "uid"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
@@ -231,5 +214,4 @@ ActiveRecord::Schema.define(version: 20151013205534) do
   add_index "votes", ["user_id"], name: "index_votes_on_user_id", using: :btree
   add_index "votes", ["votable_id"], name: "index_votes_on_votable_id", using: :btree
 
-  add_foreign_key "identities", "users"
 end

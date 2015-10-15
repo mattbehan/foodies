@@ -15,9 +15,9 @@
       <h1 class="profile-header header-link restaurant-name"><%= link_to "#{restaurant.name}", restaurant_path(restaurant) %><div class="restaurant-score btn"><strong><%= restaurant.aggregate_score %></strong></h1>
       <p class="restaurant-cuisine">Cuisine: <%= restaurant.cuisine %><p>
       <p class="restaurant-neighborhood"><% if restaurant.neighborhood %>Neighborhood: <%= restaurant.neighborhood %><% end %></p>
+      <p class="restaurant-distance">Distance: <%= restaurant.distance %> mi</p>
       <hr />
     </div>
-  </div>
 
 <% end %>
 
