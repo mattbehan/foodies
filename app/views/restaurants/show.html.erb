@@ -149,18 +149,74 @@
         <div class="hidden-md hidden-lg">
           <% unless @restaurant.tags.empty? %>
               <p><strong>Tagged with:</strong></p>
-              <p><%= @restaurant.tags_for_display %></p>
+              <p><%= @restaurant.tags_for_mobile %></p>
           <% end %> <!-- end mobile-only tags -->
         </div>
       </div> <!-- end mobile-only info -->
     </div> <!-- end container for part next to map on desktop -->
   </div>
 
+  <!-- Desktop area for Specialties, Tags, and Other Info -->
+<div class="container">
   <div class="row hidden-xs hidden-sm">
     <hr />
-    Hi!
-  </div> <!-- end of below the fold for desktop -->
+    <div class="col-md-4">
+      <h4>Specialties</h4>
+      <% unless @restaurant.specialties.empty? %>
+        <div class="specialties-container">
+            <div class="top-specialties-list">
+              <%= render partial: @specialties %>
+            </div>
 
+            <%= link_to "Show all specialties/add a dish", root_path, remote: true, :class => "btn btn-default specialties-toggle" %>
+
+            <div class="rest-of-specialties" style="display:none"><%= render partial: "specialties/all_specialties", locals: {specialties: @rest_of_specialties} %> </div>
+            <p><%= flash[:alert] %> </p>
+            <!-- restaurant_specialties_path(@restaurant, @specialties) -->
+            <%= render partial: "specialties/form", locals: {specialty: @new_specialty, restaurant: @restaurant} %>
+        </div>
+      <% else %>
+        <p>No dishes listed. Add the first!</p>
+      <% end %>
+    </div>
+
+    <div class="col-md-4">
+      <h4>Tagged with:</h4>
+      <% unless @restaurant.tags.empty? %>
+        <% @restaurant.tags_for_desktop.each do |tag| %>
+          <p><%= tag %></p>
+        <% end %>
+      <% else %>
+        <p>No tags currently applied.</p>
+      <% end %>
+    </div>
+
+    <div class="col-md-4">
+      <h4>Other information:</h4>
+      <% if @restaurant.atmosphere %>
+          <p>Atmosphere: <%= @restaurant.atmosphere %></p>
+        <% end %>
+
+        <% if @restaurant.dress_code %>
+          <p>Dress Code: <%= @restaurant.dress_code %></p>
+        <% end %>
+
+      <!-- Mobile: Boolean Values -->
+        <% unless @restaurant.patios.nil? %>
+          <p><span class="restaurant-boolean">Has Patio?</span><strong><%= humanize_boolean(@restaurant.patios) %></strong></p>
+        <% end %>
+
+        <% unless @restaurant.reservations.nil? %>
+          <p><span class="restaurant-boolean">Reservations?</span><strong><%= humanize_boolean(@restaurant.reservations) %></strong></p>
+        <% end %>
+
+        <% unless @restaurant.delivery.nil? %>
+          <p><span class="restaurant-boolean">Delivery?</span><strong><%= humanize_boolean(@restaurant.delivery) %></strong></p>
+        <% end %> <!-- end booleans -->
+    </div>
+
+  </div> <!-- end of row below the fold for desktop -->
+  <hr />
 
 </div> <!-- end of container for restaurant -->
 
