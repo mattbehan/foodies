@@ -23,8 +23,13 @@ class UsersController < ApplicationController
   end
 
   def show
+    redirect_to :unknown_user if @user = nil
     @profile = Profile.find_by(user_id: params[:id])
     @new_user = User.new
+  end
+
+  def unknown_user
+
   end
 
     
