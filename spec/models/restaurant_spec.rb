@@ -1,10 +1,12 @@
+
+
 require 'ffaker'
 require 'spec_helper'
 require 'rspec/rails'
 require 'capybara/rails'
 require 'shoulda-matchers'
 
-describe "Restaurant" do
+describe Restaurant do
   let(:restaurant) { Restaurant.first }
   let(:second_restaurant) { Restaurant.last }
   let(:review) { Review.create(title: "Test title", content: "Test content",
@@ -13,6 +15,13 @@ describe "Restaurant" do
   let(:third_restaurant) { Restaurant.second }
   let(:quick_take) { QuickTake.create(rater_id: 1, restaurant_id: third_restaurant.id,
                                        rating: 4)}
+
+  # Shoulda Matchers
+  it { should validate_presence_of :name }
+  it { should validate_presence_of :street_address }
+  it { should validate_presence_of :city }
+  it { should validate_presence_of :zip }
+  it { should validate_presence_of :price_scale }
 
   context "initialization" do
     it "should exist" do
