@@ -8,12 +8,9 @@ class RestaurantsController < ApplicationController
   before_action :admin_or_reviewer?, only: [:new, :create, :edit, :update]
 
   def search
-    p "in search"
     # Search path
     lat_data = params["lat_data"]
     long_data = params["long_data"]
-    p long_data
-    p lat_data
     if params[:search] == "" # Return list of top 5 restaurants by score
       filter
     elsif params[:search]

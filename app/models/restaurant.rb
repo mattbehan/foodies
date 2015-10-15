@@ -66,7 +66,7 @@ class Restaurant < ActiveRecord::Base
     if json_parsed_response["rows"][0]["elements"][0]["status"] == "NOT_FOUND"
       return "Unknown Location"
     else
-      filtered_response = json_parsed_response["rows"][0]["elements"][0]["distance"]["text"].to_i
+      filtered_response = '%.2f' % (json_parsed_response["rows"][0]["elements"][0]["distance"]["text"].to_i*0.621371)
       return filtered_response
     end
   end

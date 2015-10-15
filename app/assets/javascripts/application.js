@@ -69,16 +69,17 @@ $(function() {
     function success(position) {
       latitude = position.coords.latitude;
       longitude = position.coords.longitude;
-      var input1 = $("<input>")
+
+      var input1 =  $("<input>")
                     .attr("type", "hidden")
                     .attr("name", "lat_data")
-                    .attr("lat_data",latitude);
-      var input2 = $("<input>")
+                    .attr("value",latitude);
+      var input2 =  $("<input>")
                     .attr("type", "hidden")
                     .attr("name", "long_data")
-                    .attr("long_data",longitude);
-      $('#search-form').append($(input1));
-      $('#search-form').append($(input2));
+                    .attr("value",longitude);
+      $('#search-form').append((input1));
+      $('#search-form').append((input2));
 
       document.getElementById("search-form").submit();
     }
