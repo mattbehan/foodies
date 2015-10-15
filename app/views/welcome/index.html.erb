@@ -1,12 +1,17 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-7 col-xs-12">
+      <img src="/assets/foodie_color.png" alt="Foodie Logo" class="img-responsive" id="site-logo" />
+      <p class="main-welcome"><strong>Foodie</strong> is quite simply a site for lovers of food. Full of curated restaurant reviews and articles about every aspect of Chicago's food scene, it features contributions by local experts such as chefs, cookbook authors, and food critics.</p>
 
+      <p class="main-welcome">Power users of the site&mdash;those who are truly passionate and knowledgable about Chicago's food&mdash;are invited to submit reviews after  Everyday users of the site will find reliable restaurant and even specific dish recommendations based on neighborhood, cuisine, vegetarian options, or proximity.</p>
+
+      <p class="main-welcome">Unlike other restaurant-search sites, Foodie delivers a rating that hasn't been affected by restaurants goers who gripe about inattentive waiters, lighting, or lack of child-changing facilities&mdash;the restaurant score on Foodie is based entirely on food quality and algorithmically determined from a weighed combination of data from experts, power users, and everyday users alike. So, if you're looking to find your next favorite restaurant or just want to know what foodie-approved options are down the street from you, explore our site!</p>
     </div>
 
     <div class="col-sm-5 hidden-xs">
       <p class="svg-intro-text">Click on a Chicago neighborhood to see its foodie-approved restaurants.</p>
-      <div class="svg-map"><%= inline_svg("neighborhoods.html.erb") %></div>
+      <%= inline_svg("neighborhoods.html.erb") %>
     </div>
   </div>
 

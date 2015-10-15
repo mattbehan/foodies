@@ -119,6 +119,16 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Welcome page */
 
+#site-logo {
+ margin: 0 auto;
+ width: 30%;
+}
+
+.main-welcome {
+  padding: 15px 25px;
+  font-size: 16px;
+}
+
 .faux-panel {
   margin-bottom: 20px;
 }
@@ -410,6 +420,11 @@ footer p {
 
   .navbar-right {
     margin-top: 5px;
+  }
+
+  .main-welcome {
+    padding: 15px 30px 15px 25px;
+    font-size: 20px;
   }
 
   .svg-intro-text {
