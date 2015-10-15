@@ -90,7 +90,8 @@ $(function() {
   })
 
   // SVG Hover
-  $("path").on("mouseover", function(){
-    $("#neighborhood").html($(this).attr("id"));
-  })
+$('path').tooltip({
+    'container': 'body',
+    'placement': 'top'
+  });
 });

@@ -424,4 +424,11 @@ footer p {
     font-size: 18px;
     max-width: 1000px;
   }
+
+  #neighborhood {
+    position: absolute;
+    top: 230px;
+    right: 0px;
+    width: 150px;
+  }
 }
