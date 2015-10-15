@@ -83,4 +83,4 @@ similarly, if the encrypted password is blank, we should remove the current_pass
 
 ____________________________
 ISSUES
-when invitation is accepted, user is not redirected to update their information
+

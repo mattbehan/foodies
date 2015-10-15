@@ -79,6 +79,15 @@ h1, h2, h3, h4, h5, h6 {
   width: 180px;
 }
 
+.loadinggif
+{
+  background:
+    url('spinner.gif')
+    no-repeat
+    right center,
+    white
+}
+
 /* Welcome page */
 
 .faux-panel {

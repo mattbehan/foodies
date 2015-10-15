@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :lockable, :confirmable, :invitable, :omniauthable
 
  	has_one :profile
+  has_many :identities
 
 
   has_many :followings, foreign_key: "follower_id"
@@ -30,24 +31,24 @@ class User < ActiveRecord::Base
 
   validates :role, presence: true,
     inclusion: {in: ROLES, message: "Invalid role" }
-  validates :username, presence: true, uniqueness: true
+  validates :username, presence: true, uniqueness: true 
 
-  # create a new user
-  def self.from_omniauth auth
-    raise auth.info.inspect
-    where( provider: auth.provider, uid: auth.uid ).first_or_create do |user|
-      user.provider = auth.provider
-      user.uid = auth.uid
-      user.username = auth.info.nickname
-    end
-  end
+  # create a new user 
+  # def self.from_omniauth auth
+  #   raise auth.info.inspect
+  #   where( provider: auth.provider, uid: auth.uid ).first_or_create do |user|
+  #     user.provider = auth.provider
+  #     user.uid = auth.uid
+  #     user.username = auth.info.nickname
+  #   end
+  # end
 
-  # set the attributes on the user so that it can pass the method sign_up
   def self.new_with_session params, session
-    if session["devise.user_attributes"]
-      # create a new user record based on the attributes in the hash. since we trust the hash it does not need to have protection
+    if session[:provider]
       new(session["devise.user_attributes"], without_protection: true) do |user|
-        user.attributes = params
+        user.username = session[:username]
+        user.email = session[:email]
+        user.save
         user.valid?
       end
     else
@@ -55,9 +56,22 @@ class User < ActiveRecord::Base
     end
   end
 
-  def email_required?
-    super && provider.blank?
-  end
+  # # set the attributes on the user so that it can pass the method sign_up
+  # def self.new_with_session params, session
+    # if session["devise.user_attributes"]
+    #   # create a new user record based on the attributes in the hash. since we trust the hash it does not need to have protection
+    #   new(session["devise.user_attributes"], without_protection: true) do |user|
+    #     user.attributes = params
+    #     user.valid?
+    #   end
+    # else
+    #   super
+    # end
+  # end
+
+  # def email_required?
+  #   super && provider.blank?
+  # end
 
   # need to override so user can pass through the form without a password, given that a provider is present
   def password_required?
