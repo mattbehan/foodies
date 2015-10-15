@@ -25,16 +25,13 @@ class Restaurant < ActiveRecord::Base
 
   def self.search(query, lat_data, long_data)
 
-    if query
+    if query == ""
+      all_results = Restaurant.all
+      (lat_data && long_data) ? add_distance_to_collection( lat_data, long_data, all_results ) : all_results
+    else
       all_results = find_exact_matches(query) + find_keyword_matches(query) + find_fuzzy_matches(query)
       all_results = all_results.uniq
-      if lat_data && long_data
-        add_distance_to_collection( lat_data, long_data, all_results )
-      else
-        all_results
-      end
-    else
-      where(:all)
+      (lat_data && long_data) ? add_distance_to_collection( lat_data, long_data, all_results ) : all_results
     end
   end
 
