@@ -111,7 +111,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .loadinggif {
   background:
-    url('spinner.gif')
+    url('/images/spinner.gif')
     no-repeat
     right center,
     white
@@ -119,7 +119,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .search-button {
   background:
-    url('search_icon.png')
+    url('/images/search_icon.png')
     center center;
   height: 26.4px;
   width: 26.4px;
