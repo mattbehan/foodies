@@ -106,7 +106,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .search-bar {
-  width: 180px;
+  width: 150px;
 }
 
 .loadinggif {
@@ -432,6 +432,10 @@ footer p {
 
   .navbar {
     min-height: 65px;
+  }
+
+  .search-bar {
+    width: 200px;
   }
 
   #navbar-logo {
