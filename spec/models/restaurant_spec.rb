@@ -73,7 +73,23 @@ describe Restaurant do
     it "returns the dishes that were not in the top three" do
       expect((restaurant.rest_of_dishes.count + 3)).to eq(restaurant.dishes.count)
     end
-    
+
+  end
+
+  describe "httpify_website" do
+
+    it "returns a linkable version of a pages website" do
+      restaurant.website = "www.google.com"
+      expect(restaurant.httpify_website).to eq("http://www.google.com")
+    end
+  end
+
+  describe "httpify_menu_url" do
+
+    it "returns a linkable version of a pages menu url" do
+      restaurant.menu_url = "www.google.com"
+      expect(restaurant.httpify_menu_url).to eq("http://www.google.com")
+    end
   end
 
 

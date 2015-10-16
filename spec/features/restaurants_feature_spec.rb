@@ -55,15 +55,4 @@ describe "the log in process" do
     expect{page.has_content?('Logout')}
   end
   #
-  describe "doing a quick take" do
-    it "creates a quick take when logged in" do
-      login
-      visit "/restaurants/1"
-      click_link("Rate it.")
-      wait_for_ajax
-      click_button("Create Quick Take")
-      wait_for_ajax
-      expect{page.has_content?("Great! Thanks for rating.")}
-    end
-  end
 end
