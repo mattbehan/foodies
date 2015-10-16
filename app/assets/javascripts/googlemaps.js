@@ -1,3 +1,4 @@
+$(function() {
 // Initialization
     // map theme
 
@@ -147,4 +148,4 @@
         }
       );
     }
-
+});
