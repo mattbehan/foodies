@@ -23,3 +23,5 @@ Rails.application.config.assets.precompile += %w( geolocation.js )
 #
 Rails.application.config.assets.precompile += %w( social-media-buttons.css )
 
+Rails.application.config.assets.precompile += %w( comments_specialties.js )
+
