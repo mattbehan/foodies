@@ -1,9 +1,9 @@
 <%= javascript_include_tag "googlemaps" %>
 <%= stylesheet_link_tag 'googlemaps' %>
 
-<div class="container-fluid">
+<div class="container">
 	<div class="row">
-		<div class="col-xs-12 col-md-5 col-lg-4 col-lg-offset-1">
+		<div class="col-xs-12 col-md-5">
 			<h1 class="profile-header"><%= @restaurant.name %><div class="restaurant-score btn"><strong><%= @restaurant.aggregate_score %></strong></h1>
 			<p>Cuisine: <%= @restaurant.cuisine %><p>
 			<p>Address: <span id="street-address"><%= @restaurant.street_address %></span><br/>
@@ -18,9 +18,11 @@
 				</ul>
 			<% end %>
 		</div>
-		<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&callback=initMap" async defer></script>
-    	<!-- map -->
-    <div id="map" class="col-md-7 hidden-xs hidden-sm review-page-map"></div>
+		<div class="map-box col-md-7 hidden-xs hidden-sm">
+			<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&callback=initMap" async defer></script>
+	    	<!-- map -->
+	    <div id="map" class="hidden-xs hidden-sm review-page-map"></div>
+		</div>
 	</div>
 
 	<div class="row review-page-map-directions">
