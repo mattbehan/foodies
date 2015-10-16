@@ -1,6 +1,7 @@
 $(function() {
   $(".search-form").on("submit", function(event){
     event.preventDefault();
+    event.stopImmediatePropagation();
     $this = this;
     $('.search-bar').addClass('loadinggif');
 
@@ -9,7 +10,7 @@ $(function() {
     {
       enableHighAccuracy: true,
       timeout: 10 * 1000 // 10 seconds
-    });
+    })
 
     function success(position) {
       latitude = position.coords.latitude;
@@ -23,7 +24,7 @@ $(function() {
                     .attr("type", "hidden")
                     .attr("name", "long_data")
                     .attr("value",longitude);
-      $('.search-form').append((input1));
+      $('.search-form').append(input1);
       $('.search-form').append((input2));
 
       $this.submit();
