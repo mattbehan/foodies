@@ -81,7 +81,7 @@
       <h4 class="profile-header">Vegan friendliness: </h4><span> <%= @restaurant.vegan_friendliness || "Unknown" %></span><br/>
 
       <% if @restaurant.website %>
-        <p>Website: <%= link_to "#{@restaurant.website}", @restaurant.website %></p>
+        <p>Website: <%= link_to "#{@restaurant.website}", @restaurant.httpify_website %></p>
       <% end %>
 
       <% if @restaurant.menu_url %>
