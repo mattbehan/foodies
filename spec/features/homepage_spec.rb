@@ -9,4 +9,6 @@ context "visiting the home page" do
     visit "/"
     expect(page.has_content?("Featured Review"))
   end
+
+  
 end
