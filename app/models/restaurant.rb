@@ -126,6 +126,14 @@ class Restaurant < ActiveRecord::Base
     tag_names
   end
 
+  def httpify_website
+    self.website.prepend("http://") unless self.website.starts_with?("http://")
+  end
+
+  def httpify_menu_url
+    self.menu_url.prepend("http://") unless self.menu_url.starts_with?("http://")
+  end
+
   private
 
   def mean(numbers)
