@@ -83,7 +83,7 @@ class Restaurant < ActiveRecord::Base
     when "score"
       return restaurants.select {|restaurant| restaurant.score != "N/A" }.sort_by{|restaurant| -restaurant.score}
     when "distance"
-      return restaurants.select {|restaurant| restaurant.distance != "Unknown Location" }.sort_by{|restaurant| restaurant.distance}
+      return restaurants.select {|restaurant| restaurant.distance != "Unknown Location" }.sort_by{|restaurant| restaurant.distance.to_i}
     end
   end
 
