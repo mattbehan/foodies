@@ -10,7 +10,7 @@ http://foodies.herokuapp.com/
 
 ===Screenshots
 
-Coming later...
+http://imgur.com/Yg9PgMX
 
 ===Build
 - Ruby 2.0.0p598

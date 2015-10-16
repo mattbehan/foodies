@@ -2,7 +2,6 @@
 <div class="enter-site">
   <h2>Log in</h2>
 
-
   <%= form_for(@user, url: user_session_path) do |f| %>
   <%= devise_error_messages! %>
   <%= render partial: "welcome/errors", locals: {resource: @user} %>
