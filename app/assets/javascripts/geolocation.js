@@ -25,8 +25,6 @@ $(function() {
                     .attr("value",longitude);
       $('.search-form').append((input1));
       $('.search-form').append((input2));
-      console.log(latitude)
-      console.log(longitude)
 
       $this.submit();
     }
