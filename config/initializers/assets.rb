@@ -22,3 +22,4 @@ Rails.application.config.assets.precompile += %w( svg.js )
 Rails.application.config.assets.precompile += %w( geolocation.js )
 #
 Rails.application.config.assets.precompile += %w( social-media-buttons.css )
+
