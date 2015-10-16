@@ -268,11 +268,10 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #c75204;
   display: inline-block;
   color: #eee;
-  width: 50px;
+  width: 55px;
   text-align: center;
   vertical-align: middle;
   margin-left: 15px;
-  margin-left: 10px;
   margin-bottom: 10px;
   border-radius: 20px;
 }
