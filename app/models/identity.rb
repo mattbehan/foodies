@@ -5,13 +5,12 @@ class Identity < ActiveRecord::Base
   validates_uniqueness_of :uid
 
   def self.find_for_oauth(auth)
-  	# raise auth.info.inspect
     identity = find_by(provider: auth.provider, uid: auth.uid)
     identity = new(uid: auth.uid, provider: auth.provider) if identity.nil?
     identity.accesstoken = auth.credentials.token
     identity.name = auth.info.name
     identity.email = auth.info.email
-    identity.nickname = auth.info.nickname
+    identity.nickname = auth.info.nickname || auth.info.name
     identity.image = auth.info.image
     identity.phone = auth.info.phone
     # identity.save

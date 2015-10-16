@@ -1,18 +1,20 @@
 <%= stylesheet_link_tag "splash" %>
-<div class="overlay"></div>
-<div class="overlay-menu">	
-	<%= image_tag "foodie_color.png", id: "foodie" %>
-	<table class="value-statement">
-		<tr><td> Foodies is, quite simply, a site for lovers of food. We provide curated restaurant reviews and articles about everything food-related written b </tr></td>
-	</table>
+<%= stylesheet_link_tag "https://fonts.googleapis.com/css?family=Lato:400,700" %>
 
-	<div class="access-buttons">
-    <p><%= button_to("Enter Site", root_path, :class => "button-styling", :method => :get) %> </p>
-		<% if user_signed_in? %>
-     <p><%= button_to('Logout', destroy_user_session_path, :method => :delete, :class => "button-styling") %> </p>
-  <% else %>
-     <p><%= button_to('Register', new_user_registration_path, :class => "button-styling", :method => :get) %> </p>
-     <p><%= button_to('Login', new_user_session_path, :class => "button-styling", :method => :get) %> </p>
-  <% end %>
+<div class="overlay">
+	<div class="overlay-menu">	
+		<%= image_tag "foodie_color.png", id: "foodie" %>
+		<div class="words">
+			<h2>A new site for Chicago food lovers</h2>
+			<ul>
+				<li>Curated restaurant reviews</li>
+				<li>Articles by top chefs and critics</li>
+				<li>Dish recommendations</li>
+			</ul>
+
+		<div class="access-buttons">
+	    <%= button_to("SIGN UP!", new_user_registration_path, :method => :get) %>
+	    <%= button_to("Enter Site", welcome_index_path, :method => :get) %>
+		</div>
 	</div>
 </div>
