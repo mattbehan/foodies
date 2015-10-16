@@ -2,11 +2,6 @@ html {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  background: image-url("splash2.jpg") no-repeat center right fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
   font-family: 'Lato', sans-serif;
 }
 
@@ -15,12 +10,23 @@ html {
   z-index:1;
 }
 
+body {
+	margin: 0;
+}
+
 
 .overlay {
 	position: absolute;
 	z-index: 1;
 	height:100%;
 	width: 100%;
+	background: image-url("splash2.jpg") no-repeat center fixed;
+	 -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
 }
 
 .overlay-menu {
@@ -102,6 +108,7 @@ ul li {
 		z-index: 1;
 		height:100%;
 		width: 100%;
+		background-image: none;
 	}
 
 	.overlay-menu {
