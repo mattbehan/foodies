@@ -29,15 +29,12 @@
 				<% if owner?(@profile.user_id) %>
 					<%= link_to "Edit profile", edit_user_profile_path(@user, @user.profile), :class => "btn btn-default edit-profile" %>
 					<%= link_to "Edit account info", edit_user_registration_path, :class => "btn btn-default edit-profile" %>
-			 <% end%>
-
-
+			 		<!-- if the user is the owner, they have a profile, and they are an authorized reviewer/admin -->
 					<% if @user.reviewer? || @user.admin? %>
 						<%= link_to "Add Restaurant", new_restaurant_path, :class => "btn btn-success edit-profile" %>
 							<%= link_to "Create New Article", new_article_path, :class => "btn btn-success edit-profile" %>
 					<% end %>
-
-				<% end %>
+				 <% end%>
 			<% end %>
 
 			<% if @profile %>
