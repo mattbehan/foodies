@@ -8,7 +8,7 @@ class VisitsController < ApplicationController
 		@restaurant = Restaurant.find(params[:restaurant_id])
 		@visit = Visit.find_or_initialize_by(visited_restaurant_id: params[:restaurant_id], visitor_id: current_user.id )
 		if @visit.new_record?
-			# @visit.save
+			@visit.save
 			if request.xhr?
 				return "Visit created"
 			end
