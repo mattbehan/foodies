@@ -16,7 +16,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     session[:provider]=provider
     @identity = Identity.find_for_oauth env["omniauth.auth"]
     # this is how we are going to identify users signing in through social media sites
-    @user = @identity.user || current_user || User.find_by(email: @identity.email) || User.find_by(username: @identity.nickname)
+    @user = @identity.user || User.find_by(email: @identity.email) || User.find_by(username: @identity.nickname)
     if @user.nil?
       @user = User.new( email: @identity.email || "" )
     end
