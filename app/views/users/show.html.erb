@@ -26,7 +26,7 @@
 				<!-- Profile Editing Buttons -->
 			<% if @profile %>
 				<!-- if user is on their page but has not created a profile -->
-				<% if owner?(params[:id]) %>
+				<% if owner?(@profile.user_id) %>
 					<%= link_to "Edit profile", edit_user_profile_path(@user, @user.profile), :class => "btn btn-default edit-profile" %>
 					<%= link_to "Edit account info", edit_user_registration_path, :class => "btn btn-default edit-profile" %>
 			 <% end%>
