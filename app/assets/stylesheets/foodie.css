@@ -176,6 +176,10 @@ h1, h2, h3, h4, h5, h6 {
   margin: 2px 5px;
 }
 
+.svg-wrapper {
+  text-align: center;
+}
+
 /* Login, Registration, etc. */
 
 .enter-site {
