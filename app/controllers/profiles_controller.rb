@@ -12,7 +12,6 @@ class ProfilesController < ApplicationController
 		# redirect_to :show unless current_user.profile = nil
 		@profile = Profile.new( profile_create_params.merge(user_id: current_user.id) )
 		if @profile.save
-			flash[:alert] = "Your profile has been created"
 			redirect_to user_path(current_user)
 		else
 			render :new
