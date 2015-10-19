@@ -10,7 +10,8 @@ class RestaurantsController < ApplicationController
   def search
     lat_data = params["lat_data"]
     long_data = params["long_data"]
-    if (params[:search] == "near") || (params[:search] == "nearby")
+    near_array = ["near","nearby","nearby restaurants"]
+    if near_array.include?(params[:search])
       params[:search] = ""
       @restaurants = Kaminari.paginate_array(Restaurant.filter("distance","",lat_data,long_data)).page(params[:page]).per(5)
     elsif (params[:search] == "food") || (params[:search] == "restaurants")

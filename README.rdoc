@@ -1,6 +1,6 @@
 {<img src="https://coveralls.io/repos/chi-cicadas-2015/foodies/badge.svg?branch=master&service=github" alt="Coverage Status" />}[https://coveralls.io/github/chi-cicadas-2015/foodies?branch=master]
 
-<b>Foodies Logo Placeholder</b>
+![foodies](/app/assets/images/foodie_color.png?raw=true "foodies")
 
 <b>Foodies</b> is, quite simply, a site for lovers of food. It contains curated restaurant reviews and articles about everything food-related written by experts such as local chefs, cookbook authors, and food critics. Power users of the site--those who are truly passionate and knowledgable about their local food scene--are invited to submit reviews after making a set number of valuable contributions to the site (as voted upon by other users). Ordinary users of the site can find reliable restaurant and even specific dish recommendations based on neighborhood, proximity, cuisine, or a myriad of other factors.
 
@@ -10,18 +10,39 @@ http://foodies.herokuapp.com/
 
 ===Screenshots
 
-http://imgur.com/Yg9PgMX
+![splash](http://imgur.com/rqcojbx)
+![welcome](http://imgur.com/ljhB3qy)
+![restaurants show](http://imgur.com/59xOVcX)
+![reviews/comments](http://imgur.com/u7lXdbf)
 
 ===Build
 - Ruby 2.0.0p598
 - Rails 4.2.4
 - PostgreSQL 9.4.3
-- other stuff (Bootstrap, jQueryUI, Angular (?), etc.)
+- Internet Access
 
 ===External APIs and Libraries
-- Google Maps
-- Devise
-- plus other to be added later...
+Bootstrap Sass
+- Docs: https://github.com/twbs/bootstrap-sass#a-ruby-on-rails
+Devise
+- Docs: https://github.com/plataformatec/devise
+Google Maps APIs
+- Distance Matrix
+  - Docs: https://developers.google.com/maps/documentation/distance-matrix/intro
+- Geolocation
+  - Docs: https://developers.google.com/maps/documentation/geolocation/intro?hl=en
+- Javascript
+  - Docs: https://developers.google.com/maps/documentation/javascript
+Gravatar Image Tag
+- Docs: https://github.com/mdeering/gravatar_image_tag
+Instagram API
+- Docs: https://instagram.com/developer
+Kaminari
+- Docs: https://github.com/amatsuda/kaminari
+Omniauth
+- Docs: https://github.com/intridea/omniauth
+Twitter API
+- Docs: https://dev.twitter.com/overview/documentation
 
 ===To Get Started
 1. Clone locally using <tt>git clone</tt>
@@ -32,7 +53,7 @@ http://imgur.com/Yg9PgMX
 6. Run tests with <tt>rspec</tt> in root directory
 
 ===Database Schema
-https://raw.githubusercontent.com/chi-cicadas-2015/foodies/master/foodies-schema-final.png
+![foodies](foodies-schema-final.png?raw=true "foodies")
 
 ===The Foodies Team
 <b>Picture coming later</b>
