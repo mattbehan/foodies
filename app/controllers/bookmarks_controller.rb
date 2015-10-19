@@ -5,6 +5,7 @@ class BookmarksController < ApplicationController
 	before_filter :must_be_logged_in
 
 	def create
+		@restaurant = Restaurant.find(params[:restaurant_id])
 		@bookmark = Bookmark.find_or_initialize_by(bookmarked_restaurant_id: params[:restaurant_id], bookmarker_id: current_user.id )
 		if @bookmark.new_record?
 			@bookmark.save
@@ -17,7 +18,8 @@ class BookmarksController < ApplicationController
 	end
 
 	def destroy
-		@bookmark = Bookmark.find_by(bookmarked_restaurant_id: params[:id], bookmarker_id: current_user.id)
+		@restaurant = Restaurant.find(params[:restaurant_id])
+		@bookmark = Bookmark.find_by(bookmarked_restaurant_id: params[:restaurant_id], bookmarker_id: current_user.id)
 		Bookmark.destroy(@bookmark.id)
 		if request.xhr?
 			return "Bookmark removed"
