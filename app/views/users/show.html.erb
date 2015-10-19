@@ -25,10 +25,9 @@
 		<div class="col-xs-10 col-md-11 col-xs-offset-2 col-md-offset-1">
 				<!-- Profile Editing Buttons -->
 			<% if @profile %>
-			  <% if owner?(params[:id]) %>
-					<%= link_to "Edit profile", edit_user_profile_path(@user, @user.profile), :class => "btn btn-default edit-profile" %>
 				<!-- if user is on their page but has not created a profile -->
 				<% if owner?(params[:id]) %>
+					<%= link_to "Edit profile", edit_user_profile_path(@user, @user.profile), :class => "btn btn-default edit-profile" %>
 					<%= link_to "Edit account info", edit_user_registration_path, :class => "btn btn-default edit-profile" %>
 			 <% end%>
 
