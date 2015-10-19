@@ -10,10 +10,9 @@ class FollowingsController < ApplicationController
 		p "in create"
 		if request.xhr?
 			Following.create(follower_id: current_user.id, followed_user_id: @owner)
-			flash[:alert] = "User successfullly followed."
 		else
 			Following.create(follower_id: current_user.id, followed_user_id: @owner)
-			flash[:alert] = "User successfullly followed."
+			flash[:alert] = "User successfully followed."
 			redirect_to :back
 		end
 	end
@@ -23,7 +22,6 @@ class FollowingsController < ApplicationController
 			@following = Following.find_by(follower_id: current_user.id, followed_user_id: @owner)
 			must_be_owner(@following.follower_id)
 			Following.destroy(@following.id)
-			flash[:alert] = "User unfollowed."
 		else
 			@following = Following.find_by(follower_id: current_user.id, followed_user_id: @owner)
 			must_be_owner(@following.follower_id)

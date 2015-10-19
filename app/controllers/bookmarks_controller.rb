@@ -19,10 +19,10 @@ class BookmarksController < ApplicationController
 	def destroy
 		@bookmark = Bookmark.find_by(bookmarked_restaurant_id: params[:id], bookmarker_id: current_user.id)
 		Bookmark.destroy(@bookmark.id)
-		flash[:bookmark] = "Bookmark removed"
 		if request.xhr?
-				return "Bookmark removed"
-			end
+			return "Bookmark removed"
+		end
+		flash[:bookmark] = "Bookmark removed"
 		redirect_to :back
 	end
 

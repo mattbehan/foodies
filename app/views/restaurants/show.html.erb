@@ -101,7 +101,6 @@
               <%= link_to "Show all specialties/add a dish", root_path, remote: true, :class => "btn btn-default specialties-toggle" %>
 
               <div id="rest-of-specialties" style="display:none"><%= render partial: "specialties/all_specialties", locals: {specialties: @rest_of_specialties} %> </div>
-              <p><%= flash[:alert] %> </p>
               <!-- restaurant_specialties_path(@restaurant, @specialties) -->
               <%= render partial: "specialties/form", locals: {specialty: @new_specialty, restaurant: @restaurant} %>
           </div>
@@ -179,7 +178,6 @@
             <%= link_to "Show all specialties/add a dish", root_path, remote: true, :class => "btn btn-default specialties-toggle" %>
 
             <div class="rest-of-specialties" style="display:none"><%= render partial: "specialties/all_specialties", locals: {specialties: @rest_of_specialties} %> </div>
-            <p><%= flash[:alert] %> </p>
             <!-- restaurant_specialties_path(@restaurant, @specialties) -->
             <% if current_user %>
               <%= render partial: "specialties/form", locals: {specialty: @new_specialty, restaurant: @restaurant} %>
