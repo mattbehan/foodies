@@ -24,11 +24,13 @@
 	<div class="row">
 		<div class="col-xs-10 col-md-11 col-xs-offset-2 col-md-offset-1">
 				<!-- Profile Editing Buttons -->
+			<% if owner?(params[:id]) %>
+				<%= link_to "Edit account info", edit_user_registration_path, :class => "btn btn-default edit-profile" %>
+			<% end %>
+
 			<% if @profile %>
-				<!-- if user is on their page but has not created a profile -->
 				<% if owner?(@profile.user_id) %>
 					<%= link_to "Edit profile", edit_user_profile_path(@user, @user.profile), :class => "btn btn-default edit-profile" %>
-					<%= link_to "Edit account info", edit_user_registration_path, :class => "btn btn-default edit-profile" %>
 			 		<!-- if the user is the owner, they have a profile, and they are an authorized reviewer/admin -->
 					<% if @user.reviewer? || @user.admin? %>
 						<%= link_to "Add Restaurant", new_restaurant_path, :class => "btn btn-success edit-profile" %>

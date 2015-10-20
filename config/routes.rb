@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   post "/followings" => "followings#create"
   delete "/followings" => "followings#destroy"
 
-  delete "/restaurants/:id/bookmarks" => "bookmarks#destroy"
+  delete "/restaurants/:restaurant_id/bookmarks" => "bookmarks#destroy"
 
   # search
   get "search" => 'restaurants#search'
