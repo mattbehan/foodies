@@ -54,10 +54,9 @@ Twitter API
 6. Run tests with <tt>rspec</tt> in root directory
 
 ===Database Schema
-![foodies](foodies-schema-final.png?raw=true "foodies")
+{<img src="https://raw.githubusercontent.com/chi-cicadas-2015/foodies/master/foodies-schema-final.png" alt="Foodie Logo"/>}[https://raw.githubusercontent.com/chi-cicadas-2015/foodies/master/foodies-schema-final.png]
 
 ===The Foodies Team
-<b>Picture coming later</b>
 
 Harrison:: https://github.com/hklucher
 Mat:: https://github.com/mliew21396
