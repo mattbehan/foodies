@@ -42,7 +42,7 @@
 			<% if @profile %>
 				<%= render partial: "profiles/show", layout: false, locals: {profile: @profile, user: @user } %>
 			<% elsif current_user && (current_user.id == params[:id].to_i) %>
-				 <%= link_to'Create profile', new_user_profile_path(current_user), :class => "btn btn-default" %>
+				 <%= link_to'Create profile', new_user_profile_path(current_user), :class => "btn btn-default edit-profile" %>
 			<% end %>
 		</div>
 	</div>
