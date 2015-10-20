@@ -1,6 +1,6 @@
 {<img src="https://coveralls.io/repos/chi-cicadas-2015/foodies/badge.svg?branch=master&service=github" alt="Coverage Status" />}[https://coveralls.io/github/chi-cicadas-2015/foodies?branch=master]
 
-![foodies](/app/assets/images/foodie_color.png?raw=true "foodies")
+{<img src="https://raw.githubusercontent.com/chi-cicadas-2015/foodies/master/app/assets/images/foodie_color.png" alt="Foodie Logo"/>}[https://raw.githubusercontent.com/chi-cicadas-2015/foodies/master/app/assets/images/foodie_color.png]
 
 <b>Foodies</b> is, quite simply, a site for lovers of food. It contains curated restaurant reviews and articles about everything food-related written by experts such as local chefs, cookbook authors, and food critics. Power users of the site--those who are truly passionate and knowledgable about their local food scene--are invited to submit reviews after making a set number of valuable contributions to the site (as voted upon by other users). Ordinary users of the site can find reliable restaurant and even specific dish recommendations based on neighborhood, proximity, cuisine, or a myriad of other factors.
 
@@ -10,15 +10,16 @@ http://foodies.herokuapp.com/
 
 ===Screenshots
 
-![splash](http://imgur.com/rqcojbx)
-![welcome](http://imgur.com/ljhB3qy)
-![restaurants show](http://imgur.com/59xOVcX)
-![reviews/comments](http://imgur.com/u7lXdbf)
+http://i.imgur.com/rqcojbx.png
+http://imgur.com/ljhB3qy.png
+http://imgur.com/59xOVcX.png
+http://imgur.com/u7lXdbf.png
 
 ===Build
 - Ruby 2.0.0p598
 - Rails 4.2.4
 - PostgreSQL 9.4.3
+- Bootstrap 3.3.5
 - Internet Access
 
 ===External APIs and Libraries
