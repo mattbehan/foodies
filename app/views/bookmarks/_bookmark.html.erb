@@ -1,6 +1,6 @@
 <div id="bookmark-icon-area">
 
-	<%= form_tag "/restaurants/#{restaurant.id}/bookmarks", :class => "bookmark-button" do %>
+	<%= form_tag "/restaurants/#{restaurant.id}/bookmarks", :class => "bookmark-button", method: "post", remote: true do %>
 	  <%= submit_tag "Bookmark", :class => "btn btn-default" %>
 	<% end %>
 
